@@ -1,1 +1,5 @@
-<router-outlet></router-outlet>
+@if (loading) {
+<app-initial-loader class="bg-primaryBlue" @fade></app-initial-loader>
+} @else {
+<router-outlet class="bg-primaryBlue" @fade></router-outlet>
+}
