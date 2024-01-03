@@ -11,12 +11,25 @@ import { CommonModule } from '@angular/common';
   styleUrl: './initial-loader.component.scss',
 })
 export class InitialLoaderComponent {
+  txt = 'CONTRIBUVERSE'; /* The text */
+  speed = 150;
+  title = '';
   imgUrl =
-    'https://res.cloudinary.com/dv765kdgq/image/upload/v1703347692/contri-logo_mxrjbe.png';
+    'https://res.cloudinary.com/dv765kdgq/image/upload/v1704307134/contrilogo_ptxsoh.svg';
 
   constructor(private globals: GlobalsService) {}
 
   ngOnInit(): void {
     this.imgUrl = this.globals.getImageResolution(this.imgUrl, 500, 600);
+
+    this.typeWriter();
+  }
+
+  typeWriter() {
+    for (let i = 0; i < this.txt.length; i++) {
+      setTimeout(() => {
+        this.title += this.txt[i];
+      }, this.speed * i);
+    }
   }
 }

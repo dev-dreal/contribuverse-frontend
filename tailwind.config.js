@@ -12,7 +12,7 @@ module.exports = {
       },
       colors: {
         primaryBlue: "rgba(4, 165, 187)",
-        loaderBlue: "rgba(6, 159, 169, 1);",
+        loaderBlue: "rgb(4, 115, 123)",
       },
     },
   },
