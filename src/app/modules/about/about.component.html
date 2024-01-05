@@ -1,3 +1,23 @@
-<div class="flex justify-center items-center">
-  <p>about works!</p>
+<div @fade class="flex overflow-hidden h-screen w-screen justify-between px-8">
+  <div class="w-3/5 flex flex-col justify-between pb-5">
+    <app-about-text></app-about-text>
+    <div class="flex justify-start items-center space-x-6">
+      @for (img of images; track $index) {
+      <div
+        [style]="{
+          'background-image': 'url(' + img.bgImg + ')',
+          'background-size': 'cover',
+          'background-position': 'center',
+          'background-repeat': 'no-repeat',
+        }"
+        class="w-48 h-48 rounded-full flex justify-center items-center cursor-pointer"
+      >
+        <img src="{{ img.imgSrc }}" class="w-48 h-48" alt="" />
+      </div>
+      }
+    </div>
+  </div>
+  <div class="w-2/5">
+    <div class="arch"></div>
+  </div>
 </div>
