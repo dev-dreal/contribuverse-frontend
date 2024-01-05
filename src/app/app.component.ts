@@ -1,36 +1,10 @@
 import { Component } from '@angular/core';
-import {
-  trigger,
-  style,
-  transition,
-  query,
-  group,
-  animate,
-  state,
-} from '@angular/animations';
+import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  animations: [
-    trigger('fade', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(1000, style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        style({ opacity: 1 }),
-        animate(1000, style({ opacity: 0 })),
-      ]),
-    ]),
-  ],
+  standalone: true,
+  imports: [RouterOutlet],
 })
-export class AppComponent {
-  loading = true;
-
-  ngOnInit() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 5000);
-  }
-}
+export class AppComponent {}

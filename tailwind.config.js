@@ -4,6 +4,9 @@ const plugin = require("tailwindcss/plugin");
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
+    fontFamily: {
+      jacques: ['"Jacques Francois"', "sans-serif"],
+    },
     extend: {
       textShadow: {
         sm: "0 1px 2px var(--tw-shadow-color)",
