@@ -1,37 +1,25 @@
 import { Component } from '@angular/core';
-import {
-  trigger,
-  style,
-  transition,
-  query,
-  group,
-  animate,
-  state,
-} from '@angular/animations';
 import { AboutTextComponent } from './about-text/about-text.component';
+import {
+  fadingAnimation,
+  quarterCircleAnimation,
+} from '../../helpers/animations';
 @Component({
   selector: 'app-about',
   standalone: true,
   imports: [AboutTextComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
-  animations: [
-    trigger('fade', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(1000, style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        style({ opacity: 1 }),
-        animate(1000, style({ opacity: 0 })),
-      ]),
-    ]),
-  ],
+  animations: [fadingAnimation, quarterCircleAnimation],
 })
 export class AboutComponent {
-  constructor() {}
-
-  ngOnInit(): void {}
+  animationState: 'enterBottomLeft' | 'enterTopRight' = 'enterBottomLeft';
+  navs = [
+    { isVisible: true, enterDirection: 'enterBottomLeft' },
+    { isVisible: false, enterDirection: 'enterTopRight' },
+    { isVisible: false, enterDirection: 'enterTopRight' },
+    { isVisible: false, enterDirection: 'enterTopRight' },
+  ];
 
   images = [
     {
@@ -52,4 +40,22 @@ export class AboutComponent {
       imgSrc: 'assets/svgs/space-man-holding-earth.svg',
     },
   ];
+
+  ngOnInit(): void {}
+
+  selectNav(index: number) {
+    // Hide all navs initially
+    this.navs.forEach((nav) => (nav.isVisible = false));
+
+    // Show the selected nav
+    this.navs[index].isVisible = true;
+
+    // Set enter direction for previous nav
+    if (index > 0) {
+      this.navs[index - 1].enterDirection = 'enterTopRight';
+    } else {
+      // Reverse animation for the last nav
+      this.navs[this.navs.length - 1].enterDirection = 'enterBottomLeft';
+    }
+  }
 }
