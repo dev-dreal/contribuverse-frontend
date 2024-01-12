@@ -18,12 +18,12 @@
       }
     </div>
   </div>
-  <div class="w-2/5 relative flex justify-center items-center arch">
+  <div @fade class="w-2/5 relative flex justify-center items-center arch">
     <!-- <img src="" class="mr-0 pr-0" alt="" /> -->
 
     @for (nav of navs; track $index) { @if (nav.isVisible) {
     <img
-      [@slideInAndOut]="animationState"
+      [@slideInAndOut]="nav.animationState"
       @fade
       src="{{ images[$index].imgSrc }}"
       class="w-[400px] h-[400px] absolute"

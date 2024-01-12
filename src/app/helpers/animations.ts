@@ -21,6 +21,8 @@ export const fadingAnimation = trigger('fade', [
 export const quarterCircleAnimation = trigger('slideInAndOut', [
   state('enterBottomLeft', style({})), // Placeholder for the state
   state('enterTopRight', style({})), // Placeholder for the state
+  state('leaveBottomLeft', style({})), // Placeholder for the state
+  state('leaveTopRight', style({})), // Placeholder for the state
 
   transition('* => enterBottomLeft', [
     animate(
@@ -60,6 +62,28 @@ export const quarterCircleAnimation = trigger('slideInAndOut', [
         style({ transform: 'translateX(0) translateY(0)', offset: 0 }),
         style({ transform: 'translateX(-50%) translateY(50%)', offset: 0.5 }),
         style({ transform: 'translateX(-100%) translateY(100%)', offset: 1 }),
+      ])
+    ),
+  ]),
+  // Transition for leaving to bottom left
+  transition('* => leaveBottomLeft', [
+    animate(
+      '1s ease-out',
+      keyframes([
+        style({ transform: 'translateX(0) translateY(0)', offset: 0 }),
+        style({ transform: 'translateX(-50%) translateY(50%)', offset: 0.5 }),
+        style({ transform: 'translateX(-100%) translateY(100%)', offset: 1 }),
+      ])
+    ),
+  ]),
+  // Transition for leaving to top right
+  transition('* => leaveTopRight', [
+    animate(
+      '1s ease-out',
+      keyframes([
+        style({ transform: 'translateX(0) translateY(0)', offset: 0 }),
+        style({ transform: 'translateX(50%) translateY(-50%)', offset: 0.5 }),
+        style({ transform: 'translateX(100%) translateY(-100%)', offset: 1 }),
       ])
     ),
   ]),

@@ -1,24 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, WritableSignal, signal } from '@angular/core';
 import { AboutTextComponent } from './about-text/about-text.component';
 import {
   fadingAnimation,
   quarterCircleAnimation,
 } from '../../helpers/animations';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [AboutTextComponent],
+  imports: [CommonModule, AboutTextComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
   animations: [fadingAnimation, quarterCircleAnimation],
 })
 export class AboutComponent {
-  animationState: 'enterBottomLeft' | 'enterTopRight' = 'enterBottomLeft';
+  currentNavIndex: number = 0;
+  animationState: WritableSignal<string> = signal('enterBottomLeft');
   navs = [
-    { isVisible: true, enterDirection: 'enterBottomLeft' },
-    { isVisible: false, enterDirection: 'enterTopRight' },
-    { isVisible: false, enterDirection: 'enterTopRight' },
-    { isVisible: false, enterDirection: 'enterTopRight' },
+    { isVisible: true, animationState: 'enterBottomLeft' },
+    { isVisible: false, animationState: 'enterBottomLeft' },
+    { isVisible: false, animationState: 'enterBottomLeft' },
+    { isVisible: false, animationState: 'enterBottomLeft' },
   ];
 
   images = [
@@ -44,18 +46,49 @@ export class AboutComponent {
   ngOnInit(): void {}
 
   selectNav(index: number) {
-    // Hide all navs initially
-    this.navs.forEach((nav) => (nav.isVisible = false));
+    if (index === this.currentNavIndex) {
+      // No action needed if the selected index is the same
+      return;
+    }
 
-    // Show the selected nav
+    // Check if the selected index is adjacent to the current index
+    if (!this.isAdjacent(index, this.currentNavIndex)) {
+      // Do not allow non-adjacent transitions
+      return;
+    }
+
+    // Determine the direction of navigation
+    const isMovingForward = index > this.currentNavIndex;
+
+    if (isMovingForward) {
+      // Move the new nav to the bottom left
+      this.navs[index].animationState = 'enterBottomLeft';
+
+      // Move the current nav to the top right
+      this.navs[this.currentNavIndex].animationState = 'leaveTopRight';
+    } else {
+      // Move the new nav to the top right
+      this.navs[index].animationState = 'enterTopRight';
+
+      // Move the current nav to the bottom left
+      this.navs[this.currentNavIndex].animationState = 'leaveBottomLeft';
+    }
+
+    // Update visibility
+    this.navs[this.currentNavIndex].isVisible = false;
     this.navs[index].isVisible = true;
 
-    // Set enter direction for previous nav
-    if (index > 0) {
-      this.navs[index - 1].enterDirection = 'enterTopRight';
-    } else {
-      // Reverse animation for the last nav
-      this.navs[this.navs.length - 1].enterDirection = 'enterBottomLeft';
-    }
+    // Update the current index
+    this.currentNavIndex = index;
+  }
+
+  private isAdjacent(index1: number, index2: number): boolean {
+    // Check if the indices are adjacent, considering wrap-around
+    const maxIndex = this.navs.length - 1;
+    return (
+      Math.abs(index1 - index2) === 1 ||
+      (index1 === 0 && index2 === maxIndex) ||
+      (index1 === maxIndex && index2 === 0)
+    );
   }
 }
