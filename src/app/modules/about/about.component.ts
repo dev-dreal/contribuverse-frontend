@@ -45,33 +45,41 @@ export class AboutComponent {
 
   ngOnInit(): void {}
 
-  selectNav(selectedIndex: number) {
-    if (selectedIndex === this.currentNavIndex) {
+  selectNav(index: number) {
+    if (index === this.currentNavIndex) {
       // No action needed if the selected index is the same
       return;
     }
 
     // Check if the selected index is adjacent to the current index
-    if (!this.isAdjacent(selectedIndex, this.currentNavIndex)) {
+    if (!this.isAdjacent(index, this.currentNavIndex)) {
       // Do not allow non-adjacent transitions
       return;
     }
 
     // Determine the direction of navigation
-    const isMovingForward = selectedIndex > this.currentNavIndex;
+    const isMovingForward = index > this.currentNavIndex;
 
-    // Update the animation states
-    this.navs[selectedIndex].animationState = isMovingForward
-      ? 'enterBottomLeft'
-      : 'enterTopRight';
+    if (isMovingForward) {
+      // Move the new nav to the bottom left
+      this.navs[index].animationState = 'enterBottomLeft';
 
-    this.navs[this.currentNavIndex].animationState = isMovingForward
-      ? 'leaveTopRight'
-      : 'leaveBottomLeft';
+      // Move the current nav to the top right
+      this.navs[this.currentNavIndex].animationState = 'leaveTopRight';
+    } else {
+      // Move the new nav to the top right
+      this.navs[index].animationState = 'enterTopRight';
+
+      // Move the current nav to the bottom left
+      this.navs[this.currentNavIndex].animationState = 'leaveBottomLeft';
+    }
 
     // Update visibility
     this.navs[this.currentNavIndex].isVisible = false;
-    this.navs[selectedIndex].isVisible = true;
+    this.navs[index].isVisible = true;
+
+    // Update the current index
+    this.currentNavIndex = index;
   }
 
   private isAdjacent(index1: number, index2: number): boolean {
