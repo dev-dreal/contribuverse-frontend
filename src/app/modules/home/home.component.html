@@ -1,4 +1,4 @@
-@defer(prefetch on timer(5000)) {
+@defer(prefetch on immediate) {
 <div
   @fade
   class="main bg-primaryBlue font-jacques flex justify-between items-center"
@@ -8,6 +8,6 @@
     <app-body></app-body>
   </div>
 </div>
-} @loading (minimum 5000ms) {
+} @placeholder (minimum 5000ms) {
 <app-initial-loader @fade></app-initial-loader>
 }
