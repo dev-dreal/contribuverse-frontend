@@ -1,3 +1,4 @@
+@defer (prefetch on immediate) {
 <div
   @fade
   class="flex overflow-hidden h-screen w-screen justify-between pl-8 transition ease-in-out"
@@ -62,3 +63,6 @@
     } }
   </div>
 </div>
+} @placeholder(minimum 1000ms) {
+<app-initial-loader @fade></app-initial-loader>
+}

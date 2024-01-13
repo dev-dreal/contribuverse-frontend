@@ -5,10 +5,11 @@ import {
   quarterCircleAnimation,
 } from '../../helpers/animations';
 import { CommonModule } from '@angular/common';
+import { InitialLoaderComponent } from '../../shared/components/initial-loader/initial-loader.component';
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, AboutTextComponent],
+  imports: [CommonModule, AboutTextComponent, InitialLoaderComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
   animations: [fadingAnimation, quarterCircleAnimation],
