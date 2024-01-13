@@ -1,4 +1,12 @@
-<div @fade class="flex overflow-hidden h-screen w-screen justify-between pl-8">
+<div
+  @fade
+  class="flex overflow-hidden h-screen w-screen justify-between pl-8 transition ease-in-out"
+  [ngClass]="{
+    'bg-secondaryBlue': currentNavIndex === 1,
+    'bg-tertiaryBlue': currentNavIndex === 2,
+    'bg-darkBlue': currentNavIndex === 3,
+  }"
+>
   <div class="w-3/5 flex flex-col justify-between pb-5">
     <app-about-text></app-about-text>
     <div class="flex justify-start items-center space-x-6">
@@ -18,13 +26,24 @@
       }
     </div>
   </div>
-  <div @fade class="w-2/5 relative flex justify-center items-center arch">
-    <!-- <img src="" class="mr-0 pr-0" alt="" /> -->
-
+  <div
+    @fade
+    class="w-2/5 relative flex justify-center items-center arch"
+    [ngClass]="{
+      'bg-arc1': currentNavIndex === 0,
+      'bg-arc2': currentNavIndex === 1,
+      'bg-arc3': currentNavIndex === 2,
+      'bg-arc4': currentNavIndex === 3,
+    }"
+  >
     @for (nav of navs; track $index) { @if (nav.isVisible) {
     <img
-      [@slideInAndOut]="nav.animationState"
       @fade
+      [@slideInAndOut]="nav.animationState"
+      (@slideInAndOut.start)="animationDone(false)"
+      (@slideInAndOut.done)="animationDone(true)"
+      [class.animate__animated]="isAnimationDone"
+      [class.animate__wobble]="isAnimationDone"
       src="{{ images[$index].imgSrc }}"
       class="w-[400px] h-[400px] absolute"
       alt=""

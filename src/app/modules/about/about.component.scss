@@ -1,5 +1,9 @@
 .arch {
-  background-image: url("../../../assets/svgs/arc-1.svg");
   background-repeat: no-repeat;
   background-size: cover;
+  transition: background-image 0.5s ease-in;
+  -webkit-transition: background-image 0.5s ease-in;
+  -moz-transition: background-image 0.5s ease-in;
+  -ms-transition: background-image 0.5s ease-in;
+  -o-transition: background-image 0.5s ease-in;
 }
