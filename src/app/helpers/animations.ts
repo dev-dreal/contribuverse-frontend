@@ -10,11 +10,11 @@ import {
 export const fadingAnimation = trigger('fade', [
   transition(':enter', [
     style({ opacity: 0 }),
-    animate(1000, style({ opacity: 1 })),
+    animate(500, style({ opacity: 1 })),
   ]),
   transition(':leave', [
     style({ opacity: 1 }),
-    animate(1000, style({ opacity: 0 })),
+    animate(500, style({ opacity: 0 })),
   ]),
 ]);
 
@@ -26,7 +26,7 @@ export const quarterCircleAnimation = trigger('slideInAndOut', [
 
   transition('* => enterBottomLeft', [
     animate(
-      '1s ease-in',
+      '500ms ease-in',
       keyframes([
         style({ transform: 'translateX(-100%) translateY(100%)', offset: 0 }),
         style({ transform: 'translateX(-50%) translateY(50%)', offset: 0.5 }),
@@ -36,7 +36,7 @@ export const quarterCircleAnimation = trigger('slideInAndOut', [
   ]),
   transition('enterBottomLeft => *', [
     animate(
-      '1s ease-out',
+      '500ms ease-out',
       keyframes([
         style({ transform: 'translateX(0) translateY(0)', offset: 0 }),
         style({ transform: 'translateX(50%) translateY(-50%)', offset: 0.5 }),
@@ -47,7 +47,7 @@ export const quarterCircleAnimation = trigger('slideInAndOut', [
 
   transition('* => enterTopRight', [
     animate(
-      '1s ease-in',
+      '500ms ease-in',
       keyframes([
         style({ transform: 'translateX(100%) translateY(-100%)', offset: 0 }),
         style({ transform: 'translateX(50%) translateY(-50%)', offset: 0.5 }),
@@ -57,7 +57,7 @@ export const quarterCircleAnimation = trigger('slideInAndOut', [
   ]),
   transition('enterTopRight => *', [
     animate(
-      '1s ease-out',
+      '500ms ease-out',
       keyframes([
         style({ transform: 'translateX(0) translateY(0)', offset: 0 }),
         style({ transform: 'translateX(-50%) translateY(50%)', offset: 0.5 }),
@@ -68,7 +68,7 @@ export const quarterCircleAnimation = trigger('slideInAndOut', [
   // Transition for leaving to bottom left
   transition('* => leaveBottomLeft', [
     animate(
-      '1s ease-out',
+      '500ms ease-out',
       keyframes([
         style({ transform: 'translateX(0) translateY(0)', offset: 0 }),
         style({ transform: 'translateX(-50%) translateY(50%)', offset: 0.5 }),
@@ -79,7 +79,7 @@ export const quarterCircleAnimation = trigger('slideInAndOut', [
   // Transition for leaving to top right
   transition('* => leaveTopRight', [
     animate(
-      '1s ease-out',
+      '500ms ease-out',
       keyframes([
         style({ transform: 'translateX(0) translateY(0)', offset: 0 }),
         style({ transform: 'translateX(50%) translateY(-50%)', offset: 0.5 }),

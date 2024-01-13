@@ -2,4 +2,9 @@
   background-image: url("../../../assets/svgs/arc-1.svg");
   background-repeat: no-repeat;
   background-size: cover;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all;
+  -moz-transition: all;
+  -ms-transition: all;
+  -o-transition: all;
 }

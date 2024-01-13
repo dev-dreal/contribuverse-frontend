@@ -15,7 +15,8 @@ import { CommonModule } from '@angular/common';
 })
 export class AboutComponent {
   currentNavIndex: number = 0;
-  animationState: WritableSignal<string> = signal('enterBottomLeft');
+  isAnimationDone: boolean = false;
+
   navs = [
     { isVisible: true, animationState: 'enterBottomLeft' },
     { isVisible: false, animationState: 'enterBottomLeft' },
@@ -90,5 +91,9 @@ export class AboutComponent {
       (index1 === 0 && index2 === maxIndex) ||
       (index1 === maxIndex && index2 === 0)
     );
+  }
+
+  animationDone(isDone: boolean) {
+    this.isAnimationDone = isDone;
   }
 }

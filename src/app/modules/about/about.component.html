@@ -24,6 +24,10 @@
     @for (nav of navs; track $index) { @if (nav.isVisible) {
     <img
       [@slideInAndOut]="nav.animationState"
+      (@slideInAndOut.start)="animationDone(false)"
+      (@slideInAndOut.done)="animationDone(true)"
+      [class.animate__animated]="isAnimationDone"
+      [class.animate__wobble]="isAnimationDone"
       @fade
       src="{{ images[$index].imgSrc }}"
       class="w-[400px] h-[400px] absolute"
