@@ -1,1 +1,5 @@
+@defer(prefetch on immediate) {
 <router-outlet></router-outlet>
+} @placeholder (minimum 5000ms) {
+<app-initial-loader @fade></app-initial-loader>
+}
