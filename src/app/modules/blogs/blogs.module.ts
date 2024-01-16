@@ -6,12 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 const blogsRoutes: Routes = [
   {
     path: '',
-    children: [
-      {
-        path: '',
-        component: BlogsListComponent,
-      },
-    ],
+    component: BlogsListComponent,
   },
 ];
 

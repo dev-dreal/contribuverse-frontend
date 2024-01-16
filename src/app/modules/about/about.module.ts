@@ -5,12 +5,7 @@ import { NgModule } from '@angular/core';
 const AboutRoutes: Routes = [
   {
     path: '',
-    children: [
-      {
-        path: '',
-        component: AboutComponent,
-      },
-    ],
+    component: AboutComponent,
   },
 ];
 

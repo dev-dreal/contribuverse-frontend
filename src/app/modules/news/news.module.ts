@@ -5,12 +5,7 @@ import { NewsComponent } from './news.component';
 const newsRoutes: Routes = [
   {
     path: '',
-    children: [
-      {
-        path: '',
-        component: NewsComponent,
-      },
-    ],
+    component: NewsComponent,
   },
 ];
 
