@@ -1,0 +1,10 @@
+<a
+  routerLink="/{{ route }}"
+  [ngClass]="{
+    'text-shadow': isTextShadow === true,
+    'shadow-black': isTextShadow === true && textColor === 'black',
+    'shadow-white': isTextShadow === true && textColor === 'white'
+  }"
+  class="text-{{ textColor }}"
+  >{{ label }}</a
+>

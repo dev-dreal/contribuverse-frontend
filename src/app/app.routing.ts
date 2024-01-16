@@ -19,6 +19,16 @@ export const AppRoutes: Routes = [
         loadChildren: () =>
           import('./modules/about/about.module').then((m) => m.AboutModule),
       },
+      {
+        path: 'blogs',
+        loadChildren: () =>
+          import('./modules/blogs/blogs.module').then((m) => m.BlogsModule),
+      },
+      {
+        path: 'news',
+        loadChildren: () =>
+          import('./modules/news/news.module').then((m) => m.NewsModule),
+      },
     ],
   },
   {
