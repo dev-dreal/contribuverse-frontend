@@ -1,0 +1,31 @@
+<div
+  class="mb-4 mx-auto flex justify-center items-center transition ease-in-out delay-500"
+>
+  @if (slidePosition === 'left') {
+  <news-tab-button
+    [label]="'Next Style'"
+    [imageUrl]="rightArrow"
+    [altText]="'right arrow'"
+    (click)="slide('center')"
+  ></news-tab-button>
+  } @else if (slidePosition === 'center') {
+  <div class="flex justify-between items-center gap-8">
+    <news-tab-button
+      [imageUrl]="leftArrow"
+      [altText]="'left arrow'"
+      (click)="slide('left')"
+    ></news-tab-button>
+    <news-tab-button
+      [imageUrl]="rightArrow"
+      [altText]="'right arrow'"
+      (click)="slide('right')"
+    ></news-tab-button>
+  </div>
+  } @else if (slidePosition === 'right') {
+  <news-tab-button
+    [imageUrl]="leftArrow"
+    [altText]="'left arrow'"
+    (click)="slide('center')"
+  ></news-tab-button>
+  }
+</div>

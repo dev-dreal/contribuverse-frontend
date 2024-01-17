@@ -18,6 +18,17 @@ export const fadingAnimation = trigger('fade', [
   ]),
 ]);
 
+export const longerFadingAnimation = trigger('longerFade', [
+  transition(':enter', [
+    style({ opacity: 0 }),
+    animate('1s ease-in', style({ opacity: 1 })),
+  ]),
+  transition(':leave', [
+    style({ opacity: 1 }),
+    animate('1s ease-out', style({ opacity: 0 })),
+  ]),
+]);
+
 export const quarterCircleAnimation = trigger('slideInAndOut', [
   state('enterBottomLeft', style({})), // Placeholder for the state
   state('enterTopRight', style({})), // Placeholder for the state
@@ -87,4 +98,31 @@ export const quarterCircleAnimation = trigger('slideInAndOut', [
       ])
     ),
   ]),
+]);
+
+export const slideLeftRightAnimation = trigger('slideLeftRight', [
+  state(
+    'left',
+    style({
+      transform: 'translateX(-200%)',
+    })
+  ),
+  state(
+    'center',
+    style({
+      transform: 'translateX(-100%)',
+    })
+  ),
+  state(
+    'right',
+    style({
+      transform: 'translateX(0)',
+    })
+  ),
+  transition('left => center', [animate('1s ease-in')]),
+  transition('left => right', [animate('1s ease-in')]),
+  transition('center => left', [animate('1s ease-in')]),
+  transition('center => right', [animate('1s ease-in')]),
+  transition('right => center', [animate('1s ease-out')]),
+  transition('right => left', [animate('1s ease-out')]),
 ]);
