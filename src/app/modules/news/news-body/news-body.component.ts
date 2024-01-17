@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   fadingAnimation,
   slideLeftRightAnimation,
@@ -15,9 +15,9 @@ import { CoolTechAnimalModel } from '../../../models/coolTechAnimal.model';
   animations: [fadingAnimation, slideLeftRightAnimation],
 })
 export class NewsBodyComponent {
+  @Input() currentSlidePosition: string = 'left';
   @Output() currentSlidePositionEvent: EventEmitter<string> =
     new EventEmitter();
-  currentSlidePosition = 'left';
 
   coolTechAnimals: CoolTechAnimalModel[] = [
     {
