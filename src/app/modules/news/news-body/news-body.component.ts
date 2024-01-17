@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { fadingAnimation } from '../../../helpers/animations';
+import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  fadingAnimation,
+  slideLeftRightAnimation,
+} from '../../../helpers/animations';
 import { CoolTechAnimalModel } from '../../../models/coolTechAnimal.model';
 
 @Component({
@@ -9,10 +12,14 @@ import { CoolTechAnimalModel } from '../../../models/coolTechAnimal.model';
   imports: [CommonModule],
   templateUrl: './news-body.component.html',
   styleUrl: './news-body.component.scss',
-  animations: [fadingAnimation],
+  animations: [fadingAnimation, slideLeftRightAnimation],
 })
 export class NewsBodyComponent {
-  coolTechAnimals = [
+  @Output() currentSlidePositionEvent: EventEmitter<string> =
+    new EventEmitter();
+  currentSlidePosition = 'left';
+
+  coolTechAnimals: CoolTechAnimalModel[] = [
     {
       title: 'Cool Tech Leopard',
       imgUrl: 'assets/svgs/cool-tech-leopard.svg',
@@ -29,7 +36,13 @@ export class NewsBodyComponent {
 
   selectedAnimal = this.coolTechAnimals[0];
 
-  selectAnimal(animal: CoolTechAnimalModel) {
-    this.selectedAnimal = animal;
+  ngOnInit() {
+    this.currentSlidePositionEvent.emit(this.currentSlidePosition);
+  }
+
+  selectAnimal(index: number) {
+    this.currentSlidePosition = this.currentSlidePosition =
+      index === 0 ? 'left' : index === 1 ? 'center' : 'right';
+    this.currentSlidePositionEvent.emit(this.currentSlidePosition);
   }
 }

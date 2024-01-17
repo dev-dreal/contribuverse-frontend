@@ -4,6 +4,9 @@
 >
   <div class="w-5/6 h-auto p-4 mx-auto">
     <news-header></news-header>
-    <news-body></news-body>
+    <dynamic-nav [slidePosition]="currentSlidePosition()"></dynamic-nav>
+    <news-body
+      (currentSlidePositionEvent)="getCurrentSlideStatus($event)"
+    ></news-body>
   </div>
 </div>

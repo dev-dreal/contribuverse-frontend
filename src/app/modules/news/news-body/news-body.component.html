@@ -22,27 +22,27 @@
           Science.
         </p>
       </div>
-      <div class="flex justify-end items-center gap-14">
-        @for (coolAnimal of coolTechAnimals; track $index) {
-        <div class="flex flex-col justify-center items-center">
-          <img
-            src="{{ coolAnimal.imgUrl }}"
-            alt="{{ coolAnimal.title }}"
-            width="143px"
-            height="150px"
-            class="cursor-pointer transition ease-in-out delay-500"
-            (click)="selectAnimal(coolAnimal)"
-          />
-          @if (coolAnimal.title === selectedAnimal.title) {
-          <div
-            @fade
-            class="w-80 bg-secondaryBlue rounded-lg h-2.5 text-secondaryBlue"
-          >
-            .
+      <div>
+        <div class="flex justify-end items-center">
+          @for (coolAnimal of coolTechAnimals; track $index) {
+          <div class="flex flex-col justify-center items-center">
+            <img
+              src="{{ coolAnimal.imgUrl }}"
+              alt="{{ coolAnimal.title }}"
+              width="143px"
+              height="150px"
+              class="cursor-pointer transition ease-in-out delay-500"
+              (click)="selectAnimal($index)"
+            />
           </div>
           }
         </div>
-        }
+        <div
+          class="ml-auto w-48 bg-secondaryBlue rounded-lg h-2.5 text-secondaryBlue"
+          [@slideLeftRight]="currentSlidePosition"
+        >
+          .
+        </div>
       </div>
     </div>
   </div>

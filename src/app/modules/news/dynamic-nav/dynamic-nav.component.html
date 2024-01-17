@@ -1,0 +1,31 @@
+<div
+  class="mb-4 mx-auto flex justify-center items-center transition ease-in-out delay-500"
+>
+  @if (slidePosition === 'left') {
+  <div
+    class="bg-black text-white rounded-full py-4 px-8 flex justify-center items-center cursor-pointer gap-4 h-20"
+  >
+    <p>Next Style</p>
+    <img src="{{ rightArrow }}" alt="right arrow" />
+  </div>
+  } @else if (slidePosition === 'center') {
+  <div class="flex justify-between items-center gap-8">
+    <div
+      class="bg-black text-white rounded-full py-4 px-8 flex justify-center items-center cursor-pointer h-20"
+    >
+      <img src="{{ leftArrow }}" alt="left arrow" />
+    </div>
+    <div
+      class="bg-black text-white rounded-full py-4 px-8 flex justify-center items-center cursor-pointer h-20"
+    >
+      <img src="{{ rightArrow }}" alt="right arrow" />
+    </div>
+  </div>
+  } @else if (slidePosition === 'right') {
+  <div
+    class="bg-black text-white rounded-full py-4 px-8 flex justify-center items-center cursor-pointer gap-4 h-20"
+  >
+    <img src="{{ leftArrow }}" alt="right arrow" />
+  </div>
+  }
+</div>
