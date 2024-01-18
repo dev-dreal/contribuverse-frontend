@@ -1,19 +1,16 @@
 <div
   class="flex justify-between items-center bg-white px-8 shadow-lg shadow-white"
 >
-  <div class="w-1/2 flex flex-col justify-center items-start relative">
+  <div class="w-1/2 flex flex-col justify-start items-start">
     @for (coolAnimal of coolTechAnimals; track $index) {
     <img
-      [@circularMotion]="coolAnimal.state"
       src="{{ coolAnimal.imgUrl }}"
       alt="{{ coolAnimal.title }}"
-      class="absolute left-0 transition-transform duration-500 ease-in-out cursor-pointer"
+      class="-rotate-12 duration-500 w-48 ease-in-out cursor-pointer"
       [ngClass]="{
-        'w-1/2': activeSlideIndex === $index,
-        'w-1/4': activeSlideIndex !== $index,
-        'top-0': coolAnimal.state === 'top',
-        'top-full': coolAnimal.state === 'bottom',
-        'top-1/2': coolAnimal.state === 'center',
+        '': isTopOrBottom($index) === 'top',
+        'w-80': isTopOrBottom($index) === 'center',
+        '': isTopOrBottom($index) === 'bottom'
       }"
     />}
   </div>

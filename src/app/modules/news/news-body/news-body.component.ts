@@ -45,19 +45,19 @@ export class NewsBodyComponent {
 
   selectAnimal(index: number) {
     this.activeSlideIndex = index;
-    this.animate(index);
     this.currentSlidePositionEvent.emit(index);
   }
 
-  animate(clickedIndex: number) {
-    for (let i = 0; i < this.coolTechAnimals.length; i++) {
-      if (i < clickedIndex) {
-        this.coolTechAnimals[i].state = 'top';
-      } else if (i === clickedIndex) {
-        this.coolTechAnimals[i].state = 'center';
-      } else {
-        this.coolTechAnimals[i].state = 'bottom';
-      }
+  isTopOrBottom(index: number): string {
+    if ((index + 1) % this.coolTechAnimals.length === this.activeSlideIndex) {
+      return 'top';
+    } else if (
+      (this.activeSlideIndex + 1) % this.coolTechAnimals.length ===
+      index
+    ) {
+      return 'bottom';
     }
+
+    return 'center';
   }
 }
