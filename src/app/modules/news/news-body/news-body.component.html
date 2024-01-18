@@ -6,10 +6,10 @@
     <img
       src="{{ coolAnimal.imgUrl }}"
       alt="{{ coolAnimal.title }}"
-      class="-rotate-12 duration-500 w-1/4 ease-in-out cursor-pointer"
+      class="-rotate-12 duration-500 w-48 ease-in-out cursor-pointer"
       [ngClass]="{
         '': isTopOrBottom($index) === 'top',
-        'w-3/4': isTopOrBottom($index) === 'center',
+        'w-80': isTopOrBottom($index) === 'center',
         '': isTopOrBottom($index) === 'bottom'
       }"
     />}
