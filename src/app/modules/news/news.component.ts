@@ -13,12 +13,9 @@ import { DynamicNavComponent } from './dynamic-nav/dynamic-nav.component';
   animations: [fadingAnimation],
 })
 export class NewsComponent {
-  currentSlidePosition = signal('left');
+  currentSlidePosition = signal(0);
 
-  ngOnInit() {}
-
-  getCurrentSlideStatus(event: string) {
+  getCurrentSlideStatus(event: number) {
     this.currentSlidePosition.set(event);
-    console.log(event);
   }
 }

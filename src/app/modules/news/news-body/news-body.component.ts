@@ -15,8 +15,8 @@ import { CoolTechAnimalModel } from '../../../models/coolTechAnimal.model';
   animations: [fadingAnimation, slideLeftRightAnimation],
 })
 export class NewsBodyComponent {
-  @Input() currentSlidePosition: string = 'left';
-  @Output() currentSlidePositionEvent: EventEmitter<string> =
+  @Input() activeSlideIndex: number = 0;
+  @Output() currentSlidePositionEvent: EventEmitter<number> =
     new EventEmitter();
 
   coolTechAnimals: CoolTechAnimalModel[] = [
@@ -37,12 +37,11 @@ export class NewsBodyComponent {
   selectedAnimal = this.coolTechAnimals[0];
 
   ngOnInit() {
-    this.currentSlidePositionEvent.emit(this.currentSlidePosition);
+    this.currentSlidePositionEvent.emit(this.activeSlideIndex);
   }
 
   selectAnimal(index: number) {
-    this.currentSlidePosition = this.currentSlidePosition =
-      index === 0 ? 'left' : index === 1 ? 'center' : 'right';
-    this.currentSlidePositionEvent.emit(this.currentSlidePosition);
+    this.activeSlideIndex = index;
+    this.currentSlidePositionEvent.emit(index);
   }
 }
