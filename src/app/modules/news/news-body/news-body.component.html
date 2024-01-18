@@ -1,60 +1,64 @@
 <div
   class="flex justify-between items-center bg-white px-8 shadow-lg shadow-white"
 >
-  <div class="flex justify-between items-center text-black text-3xl space-y-8">
-    <div>SOMETHING IS HERE</div>
-    <div>
-      <div class="text-center">
-        <h2 class="text-5xl font-bold">Robotics</h2>
-        <h4 class="text-4xl">
-          Scientists invent electronic skin that that gives amputees sense of
-          touch
-        </h4>
-        <p class="text-base">
-          Scientists have invented a type of electronic skin that can “talk
-          directly to the brain”, allowing amputees to feel a human-like sense
-          of touch through prosthetic limbs. The ground-breaking artificial skin
-          is embedded with sensors for temperature, pressure and strain, which
-          are converted into electrical signals - similar to how nerve impulses
-          communicate with the brain. The wearable electronic circuit, known as
-          a monolithic e-skin, was developed by a team from Stanford University,
-          who detailed their breakthrough in a study published in the journal
-          Science.
-        </p>
-      </div>
-      <div class="flex justify-end items-center">
-        @for (coolAnimal of coolTechAnimals; track $index) {
+  <div class="w-1/2 flex flex-col justify-center items-start relative">
+    @for (coolAnimal of coolTechAnimals; track $index) {
+    <img
+      [@circularMotion]="coolAnimal.state"
+      src="{{ coolAnimal.imgUrl }}"
+      alt="{{ coolAnimal.title }}"
+      class="absolute left-0 transition-transform duration-500 ease-in-out cursor-pointer"
+      [ngClass]="{
+        'w-1/2': activeSlideIndex === $index,
+        'w-1/4': activeSlideIndex !== $index,
+        'top-0': coolAnimal.state === 'top',
+        'top-full': coolAnimal.state === 'bottom',
+        'top-1/2': coolAnimal.state === 'center',
+      }"
+    />}
+  </div>
+  <div class="w-1/2">
+    <div class="text-center">
+      <h2 class="text-5xl font-bold">Robotics</h2>
+      <h4 class="text-4xl">
+        Scientists invent electronic skin that that gives amputees sense of
+        touch
+      </h4>
+      <p class="text-base">
+        Scientists have invented a type of electronic skin that can “talk
+        directly to the brain”, allowing amputees to feel a human-like sense of
+        touch through prosthetic limbs. The ground-breaking artificial skin is
+        embedded with sensors for temperature, pressure and strain, which are
+        converted into electrical signals - similar to how nerve impulses
+        communicate with the brain. The wearable electronic circuit, known as a
+        monolithic e-skin, was developed by a team from Stanford University, who
+        detailed their breakthrough in a study published in the journal Science.
+      </p>
+    </div>
+    <div class="flex justify-end items-center">
+      @for (coolAnimal of coolTechAnimals; track $index) {
+      <div
+        class="flex flex-col justify-center items-center relative"
+        [class]="{
+          'border-b-2 border-blue-500': activeSlideIndex === $index
+        }"
+      >
+        <img
+          src="{{ coolAnimal.imgUrl }}"
+          alt="{{ coolAnimal.title }}"
+          width="143px"
+          height="150px"
+          class="cursor-pointer transition ease-in-out delay-500"
+          (click)="selectAnimal($index)"
+        />
+        @if (activeSlideIndex === $index) {
         <div
-          class="flex flex-col justify-center items-center relative"
-          [class]="{
-            'border-b-2 border-blue-500': activeSlideIndex === $index
-          }"
-        >
-          <img
-            src="{{ coolAnimal.imgUrl }}"
-            alt="{{ coolAnimal.title }}"
-            width="143px"
-            height="150px"
-            class="cursor-pointer transition ease-in-out delay-500"
-            (click)="selectAnimal($index)"
-          />
-          @if (activeSlideIndex === $index) {
-          <div
-            @fade
-            class="absolute bottom-0 left-0 h-2 w-full bg-secondaryBlue rounded-full"
-          ></div>
-          }
-        </div>
+          @fade
+          class="absolute bottom-0 left-0 h-2 w-full bg-secondaryBlue rounded-full"
+        ></div>
         }
       </div>
-      <!-- <div>
-        <div
-          class="ml-auto w-48 bg-secondaryBlue rounded-lg h-2.5 text-secondaryBlue"
-          [@slideLeftRight]="currentSlidePosition"
-        >
-          .
-        </div>
-      </div> -->
+      }
     </div>
   </div>
 </div>
