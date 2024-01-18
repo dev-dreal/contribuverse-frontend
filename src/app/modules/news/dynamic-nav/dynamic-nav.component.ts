@@ -9,13 +9,13 @@ import { NewsTabButtonComponent } from '../../../shared/components/ui/news-tab-b
   styleUrl: './dynamic-nav.component.scss',
 })
 export class DynamicNavComponent {
-  @Input() slidePosition: string = 'left';
-  @Output() slidePositionBtnEvent: EventEmitter<string> = new EventEmitter();
+  @Input() slidePosition: number = 0;
+  @Output() slidePositionBtnEvent: EventEmitter<number> = new EventEmitter();
 
   leftArrow = 'assets/svgs/left-arrow.svg';
   rightArrow = 'assets/svgs/right-arrow.svg';
 
-  slide(position: string) {
+  slide(position: number) {
     this.slidePositionBtnEvent.emit(position);
   }
 }

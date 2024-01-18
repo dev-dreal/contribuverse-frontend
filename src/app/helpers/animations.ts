@@ -100,29 +100,27 @@ export const quarterCircleAnimation = trigger('slideInAndOut', [
   ]),
 ]);
 
-export const slideLeftRightAnimation = trigger('slideLeftRight', [
+export const circularMotion = trigger('circularMotion', [
   state(
-    'left',
+    'top',
     style({
-      transform: 'translateX(-200%)',
+      transform: 'translateY(-50px) scale(0.5)', // Move up and scale down
+      opacity: 0.5,
     })
   ),
   state(
     'center',
     style({
-      transform: 'translateX(-100%)',
+      transform: 'translateY(0) scale(1)', // Center and full size
+      opacity: 1,
     })
   ),
   state(
-    'right',
+    'bottom',
     style({
-      transform: 'translateX(0)',
+      transform: 'translateY(50px) scale(0.5)', // Move down and scale down
+      opacity: 0.5,
     })
   ),
-  transition('left => center', [animate('1s ease-in')]),
-  transition('left => right', [animate('1s ease-in')]),
-  transition('center => left', [animate('1s ease-in')]),
-  transition('center => right', [animate('1s ease-in')]),
-  transition('right => center', [animate('1s ease-out')]),
-  transition('right => left', [animate('1s ease-out')]),
+  transition('* => *', animate('500ms ease-in-out')),
 ]);
