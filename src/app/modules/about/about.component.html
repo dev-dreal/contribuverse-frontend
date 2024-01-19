@@ -8,7 +8,7 @@
     'bg-darkBlue': currentNavIndex === 3,
   }"
 >
-  <div class="w-3/5 flex flex-col justify-center pb-5">
+  <div class="w-3/5 flex flex-col justify-between pb-5">
     <app-about-text></app-about-text>
     <div class="flex justify-start items-center space-x-6">
       @for (img of images; track $index) {
@@ -20,9 +20,9 @@
           'background-repeat': 'no-repeat',
         }"
         (click)="selectNav($index)"
-        class="w-48 h-48 rounded-full flex justify-center items-center cursor-pointer"
+        class="w-56 h-56 rounded-full flex justify-center items-center cursor-pointer"
       >
-        <img src="{{ img.imgSrc }}" class="w-48 h-48" alt="" />
+        <img src="{{ img.imgSrc }}" class="w-56 h-56" alt="" />
       </div>
       }
     </div>
