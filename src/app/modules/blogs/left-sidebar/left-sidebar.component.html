@@ -1,0 +1,20 @@
+<div
+  class="bg-secondaryBlue h-full rounded-[35px] flex flex-col justify-around items-center py-6 px-4"
+>
+  <sidebar-menu-item
+    [label]="'Machine Learning'"
+    [route]="''"
+    [icon]="'assets/svgs/ml.svg'"
+    class="w-11/12"
+  ></sidebar-menu-item>
+  <h2 class="text-white text-4xl font-bold">Menu</h2>
+  @for (menu of menuItems; track $index) {
+  <sidebar-menu-item
+    [label]="menu.label"
+    [route]="menu.route"
+    [icon]="menu.icon"
+    class="w-11/12"
+  ></sidebar-menu-item>
+  }
+  <img src="assets/gifs/rocket.gif" alt="rocket gif" />
+</div>

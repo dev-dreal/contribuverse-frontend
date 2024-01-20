@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { InitialLoaderComponent } from './shared/components/initial-loader/initial-loader.component';
+import { InitialLoaderComponent } from './shared/components/smart/initial-loader/initial-loader.component';
 import { fadingAnimation } from './helpers/animations';
 @Component({
   selector: 'app-root',

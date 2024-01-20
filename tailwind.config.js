@@ -20,11 +20,11 @@ module.exports = {
         lg: "20px 12px 10px var(--tw-shadow-color)",
       },
       colors: {
-        loaderBlue: "rgb(4, 115, 123)",
         primaryBlue: "rgb(4, 165, 187)",
         secondaryBlue: "rgb(5, 136, 144)",
         tertiaryBlue: "rgb(4, 117, 123)",
         darkBlue: "rgb(3, 94, 99)",
+        darkerBlue: "rgb(10, 35, 36)",
       },
     },
   },

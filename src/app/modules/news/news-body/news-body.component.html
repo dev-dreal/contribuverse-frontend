@@ -1,27 +1,24 @@
-<div
-  class="flex justify-between items-center bg-white px-8 shadow-lg shadow-white"
->
-  <div class="w-1/2 flex flex-col justify-start items-start">
+<div class="flex bg-white px-8 shadow-lg shadow-white">
+  <div class="w-1/2">
     @for (coolAnimal of coolTechAnimals; track $index) {
     <img
-      src="{{ coolAnimal.imgUrl }}"
+      src="{{ coolAnimal.svgUrl }}"
+      [width]="isTopOrBottom($index) === 'center' ? '80%' : '143px'"
       alt="{{ coolAnimal.title }}"
-      class="-rotate-12 duration-500 w-48 ease-in-out cursor-pointer"
+      class="-rotate-[18.334deg] duration-700 ease-in-out cursor-pointer"
       [ngClass]="{
-        '': isTopOrBottom($index) === 'top',
-        'w-80': isTopOrBottom($index) === 'center',
-        '': isTopOrBottom($index) === 'bottom'
+        'w-10/12': isTopOrBottom($index) === 'center',
       }"
     />}
   </div>
-  <div class="w-1/2">
-    <div class="text-center">
-      <h2 class="text-5xl font-bold">Robotics</h2>
-      <h4 class="text-4xl">
+  <div class="w-1/2 flex flex-col justify-evenly items-center">
+    <div class="">
+      <h2 class="font-bold text-5xl mb-2">Robotics</h2>
+      <h4 class="text-3xl">
         Scientists invent electronic skin that that gives amputees sense of
         touch
       </h4>
-      <p class="text-base">
+      <p class="text-2xl">
         Scientists have invented a type of electronic skin that can “talk
         directly to the brain”, allowing amputees to feel a human-like sense of
         touch through prosthetic limbs. The ground-breaking artificial skin is
@@ -41,11 +38,11 @@
         }"
       >
         <img
-          src="{{ coolAnimal.imgUrl }}"
+          src="{{ coolAnimal.svgUrl }}"
           alt="{{ coolAnimal.title }}"
           width="143px"
           height="150px"
-          class="cursor-pointer transition ease-in-out delay-500"
+          class="cursor-pointer transition ease-in-out delay-700"
           (click)="selectAnimal($index)"
         />
         @if (activeSlideIndex === $index) {

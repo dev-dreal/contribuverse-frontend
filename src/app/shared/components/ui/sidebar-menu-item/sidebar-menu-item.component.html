@@ -1,0 +1,13 @@
+<div
+  class="cursor-pointer rounded-[15px] shrink-0 h-18 flex justify-start items-center bg-darkBlue text-white font-bold text-3xl py-4 px-8 gap-3 mb-4"
+  [ngClass]="{
+    'bg-darkBlue': !isBgDarker,
+    'bg-darkerBlue': isBgDarker
+  }"
+  routerLink="/{{ route }}"
+>
+  @if (icon) {
+  <img src="{{ icon }}" alt="icon" class="w-20 h-20" />
+  }
+  {{ label }}
+</div>

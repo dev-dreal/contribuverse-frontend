@@ -1,0 +1,5 @@
+<div class="grid grid-cols-2 gap-4 place-items-center rounded-lg">
+  @for (feed of trendingFeeds; track $index) {
+  <img src="{{ feed.image }}" alt="{{ feed.title }}" />
+  }
+</div>

@@ -8,6 +8,7 @@ import { GlobalsService } from '../../../services/globals/globals.service';
   selector: 'news-body',
   standalone: true,
   imports: [CommonModule],
+  providers: [GlobalsService],
   templateUrl: './news-body.component.html',
   styleUrl: './news-body.component.scss',
   animations: [fadingAnimation, circularMotion],
@@ -20,17 +21,23 @@ export class NewsBodyComponent {
   coolTechAnimals: CoolTechAnimalModel[] = [
     {
       title: 'Cool Tech Leopard',
-      imgUrl: 'assets/svgs/cool-tech-leopard.svg',
+      imgUrl:
+        'https://res.cloudinary.com/dv765kdgq/image/upload/v1705701240/cool-leopard_kiqkep.png',
+      svgUrl: 'assets/svgs/cool-tech-leopard.svg',
       state: 'top',
     },
     {
       title: 'Cool Tech Lion',
-      imgUrl: 'assets/svgs/cool-tech-lion.svg',
+      imgUrl:
+        'https://res.cloudinary.com/dv765kdgq/image/upload/v1705701240/cool-lion_dnyxmr.png',
+      svgUrl: 'assets/svgs/cool-tech-lion.svg',
       state: 'center',
     },
     {
       title: 'Cool Tech Dog',
-      imgUrl: 'assets/svgs/cool-tech-dog.svg',
+      imgUrl:
+        'https://res.cloudinary.com/dv765kdgq/image/upload/v1705701240/cool-dog_uxpho4.png',
+      svgUrl: 'assets/svgs/cool-tech-dog.svg',
       state: 'bottom',
     },
   ];
@@ -59,5 +66,9 @@ export class NewsBodyComponent {
     }
 
     return 'center';
+  }
+
+  getImageResolution(url: string, width: number, height: number): string {
+    return this.globals.getImageResolution(url, width, height);
   }
 }

@@ -1,0 +1,17 @@
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'sidebar-menu-item',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  templateUrl: './sidebar-menu-item.component.html',
+  styleUrl: './sidebar-menu-item.component.scss',
+})
+export class SidebarMenuItemComponent {
+  @Input() icon: string = '';
+  @Input({ required: true }) label: string = '';
+  @Input({ required: true }) route: string = '';
+  @Input() isBgDarker: boolean = false;
+}
