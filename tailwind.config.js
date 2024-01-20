@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     fontFamily: {
       jacques: ['"Jacques Francois"', "sans-serif"],
+      istokWeb: ['"Istok Web"', "sans-serif"],
     },
     extend: {
       backgroundImage: {
