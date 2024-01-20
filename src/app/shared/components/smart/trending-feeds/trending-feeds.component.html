@@ -1,5 +1,13 @@
-<div class="grid grid-cols-2 gap-4 place-items-center rounded-lg">
-  @for (feed of trendingFeeds; track $index) {
-  <img src="{{ feed.image }}" alt="{{ feed.title }}" />
-  }
+<div class="flex flex-col justify-center items-center">
+  <sidebar-menu-item
+    [label]="'Trending Feeds'"
+    [route]="''"
+    [isBgDarker]="true"
+  ></sidebar-menu-item>
+
+  <div class="grid grid-cols-2 gap-4 place-items-center rounded-lg">
+    @for (feed of trendingFeeds; track $index) {
+    <img src="{{ feed.image }}" alt="{{ feed.title }}" />
+    }
+  </div>
 </div>

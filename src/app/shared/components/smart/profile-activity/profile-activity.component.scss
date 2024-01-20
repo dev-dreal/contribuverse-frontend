@@ -1,0 +1,7 @@
+.container {
+  position: relative;
+}
+
+.container img:nth-child(even) {
+  z-index: -1;
+}
