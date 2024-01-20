@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { SidebarMenuItemComponent } from '../../../shared/components/ui/sidebar-menu-item/sidebar-menu-item.component';
 
 @Component({
@@ -9,6 +9,12 @@ import { SidebarMenuItemComponent } from '../../../shared/components/ui/sidebar-
   styleUrl: './left-sidebar.component.scss',
 })
 export class LeftSidebarComponent {
+  currentBlog = signal({
+    label: 'Machine Learning',
+    icon: 'assets/svgs/ml.svg',
+    route: '',
+  });
+
   menuItems = [
     { icon: 'assets/svgs/logo.svg', label: 'Home', route: '/home' },
     { icon: 'assets/svgs/blogs.svg', label: 'Blogs', route: '/blogs' },
