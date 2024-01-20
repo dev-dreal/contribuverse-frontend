@@ -1,1 +1,11 @@
-<p>blogs-list works!</p>
+<div class="flex flex-col justify-start items-center">
+  <h2 class="font-bold text-5xl text-white">Blogs</h2>
+  <div class="flex justify-around items-center gap-12">
+    <!-- Add blog Card -->
+    <blog-card class="w-1/5 h-80 py-2" [blog]="addBlogMetaData"></blog-card>
+
+    @for (blog of blogs | slice:0:4; track $index) {
+    <blog-card class="w-1/5 h-80 py-2" [blog]="blog"></blog-card>
+    }
+  </div>
+</div>

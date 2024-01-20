@@ -6,7 +6,7 @@
   ></sidebar-menu-item>
   <div class="flex justify-center items-center mb-3">
     @for (profile of profiles | slice:0:5 ; track $index) {
-    <img src="{{ profile.image }}" alt="{{ profile.name }}" width="50px" />
+    <img src="{{ profile.image }}" alt="{{ profile.name }}" class="w-1/5" />
     }
   </div>
 
