@@ -7,9 +7,7 @@
       alt="{{ coolAnimal.title }}"
       class="-rotate-[18.334deg] duration-700 ease-in-out cursor-pointer"
       [ngClass]="{
-        '': isTopOrBottom($index) === 'top',
         'w-10/12': isTopOrBottom($index) === 'center',
-        '': isTopOrBottom($index) === 'bottom'
       }"
     />}
   </div>

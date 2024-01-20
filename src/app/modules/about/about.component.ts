@@ -5,7 +5,7 @@ import {
   quarterCircleAnimation,
 } from '../../helpers/animations';
 import { CommonModule } from '@angular/common';
-import { InitialLoaderComponent } from '../../shared/components/initial-loader/initial-loader.component';
+import { InitialLoaderComponent } from '../../shared/components/smart/initial-loader/initial-loader.component';
 @Component({
   selector: 'app-about',
   standalone: true,

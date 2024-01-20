@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GlobalsService } from '../../../services/globals/globals.service';
+import { GlobalsService } from '../../../../services/globals/globals.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
