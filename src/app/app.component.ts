@@ -10,4 +10,12 @@ import { fadingAnimation } from './helpers/animations';
   imports: [InitialLoaderComponent, RouterOutlet],
   animations: [fadingAnimation],
 })
-export class AppComponent {}
+export class AppComponent {
+  isLoading: boolean = true;
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 3000);
+  }
+}

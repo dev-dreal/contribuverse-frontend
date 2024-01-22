@@ -1,6 +1,5 @@
-@defer(prefetch on immediate) {
-    <router-outlet></router-outlet>
-} @placeholder (minimum 5000ms) {
-    <app-initial-loader @fade></app-initial-loader>
+@if (isLoading) {
+<app-initial-loader @fade></app-initial-loader>
+} @else {
+<router-outlet></router-outlet>
 }
-
