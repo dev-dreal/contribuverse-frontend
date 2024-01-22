@@ -1,4 +1,5 @@
-@defer (prefetch on immediate) {
+@defer (on immediate; prefetch on idle) {
+<!-- deferred template fragment -->
 <div
   @fade
   class="flex overflow-hidden h-screen w-screen justify-between pl-8 transition ease-in-out"
@@ -52,6 +53,6 @@
     } }
   </div>
 </div>
-} @placeholder(minimum 1000ms) {
+} @placeholder(minimum 3000ms) {
 <app-initial-loader @fade></app-initial-loader>
 }
