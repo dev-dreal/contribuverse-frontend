@@ -17,6 +17,7 @@ import { InitialLoaderComponent } from '../../shared/components/smart/initial-lo
 export class AboutComponent {
   currentNavIndex: number = 0;
   isAnimationDone: boolean = false;
+  isLoading: boolean = true;
 
   navs = [
     { isVisible: true, animationState: 'enterBottomLeft' },
@@ -45,7 +46,11 @@ export class AboutComponent {
     },
   ];
 
-  ngOnInit(): void {}
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2000);
+  }
 
   selectNav(index: number) {
     if (index === this.currentNavIndex) {

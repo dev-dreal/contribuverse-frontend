@@ -1,5 +1,12 @@
-@if (isLoading) {
+<!-- @if (isLoading) {
 <app-initial-loader @fade></app-initial-loader>
 } @else {
 <router-outlet></router-outlet>
+} -->
+
+@defer (on immediate; prefetch on idle) {
+<!-- deferred template fragment -->
+<router-outlet></router-outlet>
+} @placeholder(minimum 3000ms) {
+<app-initial-loader @fade></app-initial-loader>
 }
