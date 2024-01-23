@@ -25,3 +25,7 @@ body {
   line-height: 1.6;
   color: #333;
 }
+
+.wrapper {
+  @apply text-white transform hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer hover:bg-secondaryBlue shadow-black shadow-lg;
+}

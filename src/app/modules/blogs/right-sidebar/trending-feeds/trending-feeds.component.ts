@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SidebarMenuItemComponent } from '../../ui/sidebar-menu-item/sidebar-menu-item.component';
+import { SidebarMenuItemComponent } from '../../../../shared/components/ui/sidebar-menu-item/sidebar-menu-item.component';
 
 @Component({
   selector: 'trending-feeds',

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { BlogCardComponent } from '../../../../shared/components/ui/blog-card/blog-card.component';
+import { BlogCardComponent } from './blog-card/blog-card.component';
 import { BlogModel } from '../../../../models/blog.model';
 import { CommonModule } from '@angular/common';
+import { BlogsService } from '../../../../services/blogs/blogs.service';
 
 @Component({
   selector: 'blogs-list',
@@ -11,41 +12,18 @@ import { CommonModule } from '@angular/common';
   styleUrl: './blogs-list.component.scss',
 })
 export class BlogsListComponent {
-  addBlogMetaData: BlogModel = {
+  addBlogMetaData = {
     title: 'Add a new blog',
-    description: 'Add a new blog to the list of blogs.',
-    icon: 'assets/gifs/add-blog.gif',
+    shortDescription: 'Add a new blog to the list of blogs.',
+    image: 'assets/gifs/add-blog.gif',
     route: 'add',
   };
 
-  blogs: BlogModel[] = [
-    {
-      title: 'Machine Learning',
-      description:
-        'Machine learning is the study of computer algorithms that improve automatically through experience.',
-      icon: 'assets/svgs/ml.svg',
-      route: '',
-    },
-    {
-      title: 'Android Development',
-      description:
-        'Android software development is the process by which applications are created for devices running the Android operating system.',
-      icon: 'assets/svgs/android-logo.svg',
-      route: '',
-    },
-    {
-      title: 'Flutter',
-      description:
-        'Flutter is an open-source UI software development kit created by Google.',
-      icon: 'assets/svgs/flutter-logo.svg',
-      route: '',
-    },
-    {
-      title: 'React',
-      description:
-        'React is an open-source front-end JavaScript library for building user interfaces or UI components.',
-      icon: 'assets/svgs/react-logo.svg',
-      route: '',
-    },
-  ];
+  blogs: BlogModel[] = [];
+
+  constructor(private blogsService: BlogsService) {}
+
+  ngOnInit(): void {
+    this.blogs = this.blogsService.getBlogs();
+  }
 }
