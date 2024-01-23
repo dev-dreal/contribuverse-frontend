@@ -1,0 +1,32 @@
+<div
+  class="flex w-full h-full bg-secondaryBlue text-white rounded-[35px] p-10"
+  routerLink="{{ blog.route }}"
+>
+  <div class="h-full w-1/2 p-3 space-y-6">
+    <div
+      class="h-3/5 bg-darkBlue rounded-[35px] flex justify-center items-center p-3 wrapper"
+    >
+      <img
+        src="{{ blog.image }}"
+        alt="{{ blog.title }}"
+        title="{{ blog.title }}"
+        class="w-3/4 h-3/4 object-contain"
+      />
+    </div>
+    <div class="h-2/5 bg-darkBlue rounded-[35px] p-8 text-2xl wrapper">
+      {{ blog.shortDescription }}
+    </div>
+  </div>
+  <div class="h-full w-1/2 p-3 space-y-6">
+    <div
+      class="h-2/5 bg-darkBlue rounded-[35px] font-bold flex justify-center items-center wrapper"
+    >
+      {{ blog.title }}
+    </div>
+    <div
+      class="h-3/5 bg-darkBlue rounded-[35px] p-8 text-2xl text-center wrapper"
+    >
+      {{ blog.longDescription }}
+    </div>
+  </div>
+</div>

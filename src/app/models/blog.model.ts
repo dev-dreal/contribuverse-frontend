@@ -1,6 +1,8 @@
 export interface BlogModel {
   title: string;
-  description: string;
-  icon: string;
+  shortDescription: string;
+  longDescription?: string;
+  content?: string;
+  image: string;
   route: string;
 }

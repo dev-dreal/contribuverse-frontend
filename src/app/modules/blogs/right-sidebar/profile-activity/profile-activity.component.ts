@@ -1,6 +1,6 @@
 import { Component, WritableSignal, signal } from '@angular/core';
-import { SidebarMenuItemComponent } from '../../ui/sidebar-menu-item/sidebar-menu-item.component';
-import { ShrinkNumberPipe } from '../../../pipes/shrink-number.pipe';
+import { SidebarMenuItemComponent } from '../../../../shared/components/ui/sidebar-menu-item/sidebar-menu-item.component';
+import { ShrinkNumberPipe } from '../../../../shared/pipes/shrink-number.pipe';
 import { CommonModule } from '@angular/common';
 
 @Component({

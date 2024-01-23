@@ -1,1 +1,5 @@
-<p>latest-blogs works!</p>
+<div class="flex gap-4">
+  @for (blog of blogs | slice:0:2; track $index) {
+  <latest-blog [blog]="blog" class="w-1/2"></latest-blog>
+  }
+</div>
