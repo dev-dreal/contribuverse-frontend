@@ -4,7 +4,7 @@
     'bg-darkBlue': !isBgDarker,
     'bg-darkerBlue': isBgDarker
   }"
-  routerLink="/{{ route }}"
+  [routerLink]="isLink ? '/' + [route] : null"
 >
   @if (icon) {
   <img src="{{ icon }}" alt="icon" class="w-20 h-20" />

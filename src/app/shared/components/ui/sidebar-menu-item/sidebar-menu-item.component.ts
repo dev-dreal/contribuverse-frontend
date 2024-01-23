@@ -14,4 +14,5 @@ export class SidebarMenuItemComponent {
   @Input({ required: true }) label: string = '';
   @Input({ required: true }) route: string = '';
   @Input() isBgDarker: boolean = false;
+  @Input() isLink: boolean = true;
 }
