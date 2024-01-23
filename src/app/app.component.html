@@ -1,11 +1,5 @@
-<!-- @if (isLoading) {
-<app-initial-loader @fade></app-initial-loader>
-} @else {
+@defer (on immediate; prefetch on idle) {
 <router-outlet></router-outlet>
-} -->
-
-<!-- @defer (on immediate; prefetch on idle) {
 } @placeholder(minimum 3000ms) {
-    <app-initial-loader @fade></app-initial-loader>
-} -->
-<router-outlet></router-outlet>
+<app-initial-loader @fade></app-initial-loader>
+}
