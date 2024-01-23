@@ -1,13 +1,21 @@
-<div class="flex flex-col justify-center items-center">
+<div class="flex flex-col justify-around items-center">
   <sidebar-menu-item
     [label]="'Trending Feeds'"
     [route]="''"
+    [isLink]="false"
     [isBgDarker]="true"
   ></sidebar-menu-item>
 
-  <div class="grid grid-cols-2 gap-4 place-items-center rounded-lg">
+  <div
+    class="grid grid-cols-2 gap-4 py-5 px-8 bg-tertiaryBlue place-items-center rounded-[35px] w-full"
+  >
     @for (feed of trendingFeeds; track $index) {
-    <img src="{{ feed.image }}" alt="{{ feed.title }}" />
+    <img
+      src="{{ feed.image }}"
+      alt="{{ feed.title }}"
+      title="{{ feed.title }}"
+      class="w-5/6 h-5/6 object-contain bg-darkBlue wrapper rounded-lg"
+    />
     }
   </div>
 </div>
