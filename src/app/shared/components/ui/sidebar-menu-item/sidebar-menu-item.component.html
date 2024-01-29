@@ -1,5 +1,5 @@
 <div
-  class="cursor-pointer rounded-[15px] shrink-0 h-18 flex justify-start items-center font-bold text-3xl py-4 px-8 gap-3 mb-6 bg-darkBlue wrapper"
+  class="cursor-pointer rounded-[15px] shrink-0 h-18 flex justify-center items-center font-bold text-3xl py-4 px-8 gap-3 mb-6 bg-darkBlue wrapper"
   [ngClass]="{
     'bg-darkBlue': !isBgDarker,
     'bg-darkerBlue': isBgDarker
@@ -7,7 +7,10 @@
   [routerLink]="isLink ? '/' + [route] : null"
 >
   @if (icon) {
-  <img src="{{ icon }}" alt="icon" class="w-20 h-20" />
+  <img src="{{ icon }}" alt="icon" class="w-20 h-20" title="{{ label }}" />
+  } @if (removeLabelOnResponsive) {
+  <span class="text-white hidden md:inline-block">{{ label }}</span>
+  } @else {
+  <span class="text-white">{{ label }}</span>
   }
-  {{ label }}
 </div>

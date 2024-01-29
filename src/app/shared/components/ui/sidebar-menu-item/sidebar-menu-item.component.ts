@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -15,4 +15,9 @@ export class SidebarMenuItemComponent {
   @Input({ required: true }) route: string = '';
   @Input() isBgDarker: boolean = false;
   @Input() isLink: boolean = true;
+  @Input() removeLabelOnResponsive: boolean = false;
+
+  get isMobile(): boolean {
+    return window.innerWidth <= 768;
+  }
 }
