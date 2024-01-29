@@ -1,5 +1,5 @@
-<div class="flex bg-white px-8 shadow-lg shadow-white">
-  <div class="w-1/2">
+<div class="flex bg-white px-8 py-3 shadow-lg shadow-white">
+  <div class="w-1/2 flex flex-col justify-center items-start">
     @for (coolAnimal of coolTechAnimals; track $index) {
     <img
       src="{{ coolAnimal.svgUrl }}"
@@ -7,7 +7,7 @@
       alt="{{ coolAnimal.title }}"
       class="-rotate-[18.334deg] duration-700 ease-in-out cursor-pointer"
       [ngClass]="{
-        'w-10/12': isTopOrBottom($index) === 'center',
+        'w-3/4': isTopOrBottom($index) === 'center',
       }"
     />}
   </div>
