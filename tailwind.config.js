@@ -7,6 +7,7 @@ module.exports = {
     fontFamily: {
       jacques: ['"Jacques Francois"', "sans-serif"],
       istokWeb: ['"Istok Web"', "sans-serif"],
+      irishGrover: ['"Irish Grover"', "sans-serif"],
     },
     extend: {
       backgroundImage: {
@@ -26,6 +27,7 @@ module.exports = {
         tertiaryBlue: "rgb(4, 117, 123)",
         darkBlue: "rgb(3, 94, 99)",
         darkerBlue: "rgb(10, 35, 36)",
+        gold: "rgb(179, 152, 0)",
       },
     },
   },
