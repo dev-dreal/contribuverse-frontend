@@ -18,6 +18,7 @@ export class AboutComponent {
   currentNavIndex: number = 0;
   isAnimationDone: boolean = false;
   isLoading: boolean = true;
+  currentMobileImageIndex: number = 0;
 
   navs = [
     { isVisible: true, animationState: 'enterBottomLeft' },
@@ -46,10 +47,26 @@ export class AboutComponent {
     },
   ];
 
+  mobileImages = [
+    {
+      title: 'Floating Laptop',
+      imgSrc: 'assets/gifs/floating-laptop.gif',
+    },
+    {
+      title: "Web Developer's Setup",
+      imgSrc: 'assets/gifs/web-dev-setup.gif',
+    },
+  ];
+
   ngAfterViewInit() {
     setTimeout(() => {
       this.isLoading = false;
     }, 2000);
+
+    setInterval(() => {
+      this.currentMobileImageIndex =
+        (this.currentMobileImageIndex + 1) % this.mobileImages.length;
+    }, 4000);
   }
 
   selectNav(index: number) {
