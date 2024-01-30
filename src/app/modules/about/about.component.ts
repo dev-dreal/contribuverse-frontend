@@ -67,6 +67,10 @@ export class AboutComponent {
       title: "Web Developer's Setup",
       imgSrc: 'assets/gifs/web-dev-setup.gif',
     },
+    {
+      title: 'Dev at Work',
+      imgSrc: 'assets/gifs/dev-at-work.gif',
+    },
   ];
 
   constructor(private globals: GlobalsService) {}
