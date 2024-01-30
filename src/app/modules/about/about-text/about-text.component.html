@@ -1,20 +1,26 @@
 <div
-  class="flex flex-col justify-between items-start text-white p-3 font-jacques"
+  class="flex flex-col justify-center items-center text-white p-3 font-jacques lg:items-start lg:justify-between"
 >
-  <img src="assets/gifs/welcome.gif" alt="" />
-  <h1 class="text-[64px] flex items-start">
-    C
+  <img
+    src="assets/gifs/welcome.gif"
+    alt=""
+    class="hidden mb-auto lg:inline-block"
+  />
+  <h1 class="flex items-center align-middle font-bold text-white">
+    <span class="text-4xl lg:text-[64px]">C</span>
     <img
       src="assets/svgs/logo.svg"
       routerLink="/home"
       width="120"
       height="120"
       alt="logo"
-      class="cursor-pointer"
+      class="cursor-pointer logo-home"
     />
-    NTRIBUVERSE
+    <span class="text-4xl lg:text-[64px]"> NTRIBUVERSE </span>
   </h1>
-  <div class="text-4xl flex flex-col justify-between">
+  <div
+    class="text-2xl flex flex-col px-2 justify-between sm:text-3xl md:text-4xl"
+  >
     <p>
       At Contribuverse, we believe that technology is not just a field; it's a
       global conversation. By curating and creating content focused on articles,
