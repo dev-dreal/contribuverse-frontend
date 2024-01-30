@@ -14,21 +14,14 @@
   <ul
     class="justify-around items-center font-bold gap-6 text-3xl lg:text-4xl hidden md:flex"
   >
+    @for (link of navLinks; track $index) {
     <li>
-      <nav-link [route]="'home'" [label]="'HOME'"></nav-link>
+      <nav-link [route]="link.route" [label]="link.label"></nav-link>
     </li>
-    <li>
-      <nav-link [route]="'about'" [label]="'ABOUT'"></nav-link>
-    </li>
-    <li>
-      <nav-link [route]="'news'" [label]="'NEWS'"></nav-link>
-    </li>
-    <li>
-      <nav-link [route]="'blogs'" [label]="'BLOGS'"></nav-link>
-    </li>
+    }
   </ul>
   <!-- Mobile Accessible Hamburger Menu -->
-  <span class="cursor-pointer inline md:hidden">
+  <span @fade class="cursor-pointer inline md:hidden" (click)="openMenu()">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -43,4 +36,11 @@
       />
     </svg>
   </span>
+  @if (isHamburgerMenuOpen) {
+  <menu-mobile
+    @fade
+    class="absolute top-5 right-5 rounded-[20px] w-1/2 h-[400px] bg-primaryBlue"
+    (isCloseMenu)="closeMenu()"
+  ></menu-mobile>
+  }
 </nav>
