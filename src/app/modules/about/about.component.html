@@ -1,4 +1,4 @@
-@defer (on immediate; prefetch on idle) {
+@defer (on viewport) {
 <!-- deferred template fragment -->
 <div
   @fade
@@ -77,6 +77,9 @@
     } }
   </div>
 </div>
-} @placeholder(minimum 3000ms) {
+} @placeholder() {
+<!-- placeholder template fragment -->
+<h1>Placeholder</h1>
+} @loading(minimum 3s) {
 <app-initial-loader @fade></app-initial-loader>
 }

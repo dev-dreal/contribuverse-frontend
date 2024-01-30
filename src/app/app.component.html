@@ -1,5 +1,7 @@
-@defer (on immediate; prefetch on idle) {
+@defer (on viewport) {
 <router-outlet></router-outlet>
-} @placeholder(minimum 3000ms) {
+} @placeholder {
+<h1>Placeholder</h1>
+} @loading(minimum 3s) {
 <app-initial-loader @fade></app-initial-loader>
 }
