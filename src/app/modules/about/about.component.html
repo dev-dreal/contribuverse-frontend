@@ -81,5 +81,10 @@
 <!-- placeholder template fragment -->
 <h1>Placeholder</h1>
 } @loading(minimum 3s) {
-<app-initial-loader @fade></app-initial-loader>
+<ngx-ui-loader
+  @fade
+  [fgsColor]="'#30b3b5'"
+  [hasProgressBar]="false"
+  [fgsType]="SPINNER.squareJellyBox"
+></ngx-ui-loader>
 }

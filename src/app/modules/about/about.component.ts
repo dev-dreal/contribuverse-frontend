@@ -6,15 +6,26 @@ import {
 } from '../../helpers/animations';
 import { CommonModule } from '@angular/common';
 import { InitialLoaderComponent } from '../../shared/components/smart/initial-loader/initial-loader.component';
+import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
+import { GlobalsService } from '../../services/globals/globals.service';
+
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, AboutTextComponent, InitialLoaderComponent],
+  imports: [
+    CommonModule,
+    AboutTextComponent,
+    InitialLoaderComponent,
+    NgxUiLoaderModule,
+  ],
+  providers: [GlobalsService],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
   animations: [fadingAnimation, quarterCircleAnimation],
 })
 export class AboutComponent {
+  SPINNER = SPINNER;
+
   currentNavIndex: number = 0;
   isAnimationDone: boolean = false;
   isLoading: boolean = true;
@@ -57,6 +68,16 @@ export class AboutComponent {
       imgSrc: 'assets/gifs/web-dev-setup.gif',
     },
   ];
+
+  constructor(private globals: GlobalsService) {}
+
+  ngOnInit() {
+    this.globals.loader.start();
+
+    setTimeout(() => {
+      this.globals.loader.stopAll();
+    }, 3000);
+  }
 
   ngAfterViewInit() {
     setTimeout(() => {
