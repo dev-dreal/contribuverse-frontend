@@ -1,4 +1,4 @@
-@defer (on immediate; prefetch on idle) {
+@defer (on viewport) {
 <!-- deferred template fragment -->
 <div
   @fade
@@ -10,9 +10,13 @@
   }"
 >
   <div
-    class="w-full flex flex-col items-center justify-start pb-5 lg:justify-between lg:items-start lg:w-3/5"
+    class="w-full flex flex-col items-center justify-start pb-5 relative lg:items-start lg:justify-between lg:w-3/5"
   >
-    <span class="cursor-pointer ml-auto mr-4 mt-4 inline md:hidden">
+    <!-- Hamburger Menu Icon -->
+    <span
+      class="cursor-pointer ml-auto mr-5 mt-5 inline md:hidden"
+      (click)="openMenu()"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -27,8 +31,22 @@
         />
       </svg>
     </span>
-    <img src="assets/" alt="" />
+    <!-- End of Hamburger Menu Icon -->
+
+    <!-- Hamburger Menu -->
+    @if (isMenuOpen()) {
+    <menu-mobile
+      @fade
+      class="absolute top-5 right-5 rounded-[20px] w-1/2 h-4/5 bg-darkBlue"
+      (isCloseMenu)="closeMenu()"
+    ></menu-mobile>
+    }
+    <!-- End of Hamburger Menu -->
+
+    <!-- ABOUT CONTENT -->
     <app-about-text></app-about-text>
+    <!-- End of ABOUT CONTENT -->
+
     <div class="justify-start items-center space-x-6 hidden lg:flex">
       @for (img of images; track $index) {
       <div
@@ -45,12 +63,14 @@
       </div>
       }
     </div>
+    <!-- Animated GIFs on Mobile View -->
     <img
       @fade
       src="{{ mobileImages[currentMobileImageIndex].imgSrc }}"
       alt="{{ mobileImages[currentMobileImageIndex].title }}"
-      class="w-11/12 max-w-[520px] mb-2 lg:hidden"
+      class="w-11/12 max-w-[520px] mt-auto lg:hidden"
     />
+    <!-- End of Animated GIFs on Mobile View -->
   </div>
   <div
     @fade
@@ -77,6 +97,14 @@
     } }
   </div>
 </div>
-} @placeholder(minimum 3000ms) {
-<app-initial-loader @fade></app-initial-loader>
+} @placeholder() {
+<!-- placeholder template fragment -->
+<h1 class="text-center">Please Wait...</h1>
+} @loading(minimum 3s) {
+<ngx-ui-loader
+  @fade
+  [fgsColor]="'#30b3b5'"
+  [hasProgressBar]="false"
+  [fgsType]="SPINNER.squareJellyBox"
+></ngx-ui-loader>
 }

@@ -1,5 +1,17 @@
-@defer (on immediate; prefetch on idle) {
+@defer (on viewport) {
 <router-outlet></router-outlet>
-} @placeholder(minimum 3000ms) {
-<app-initial-loader @fade></app-initial-loader>
+} @placeholder {
+<h1 class="text-center">Please Wait...</h1>
+} @loading(minimum 3s) {
+<app-initial-loader
+  class="w-screen h-screen hidden md:block"
+  @fade
+></app-initial-loader>
+<ngx-ui-loader
+  @fade
+  [fgsColor]="'#30b3b5'"
+  [hasProgressBar]="false"
+  [fgsType]="SPINNER.squareJellyBox"
+  class="md:hidden"
+></ngx-ui-loader>
 }
