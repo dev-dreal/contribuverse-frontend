@@ -1,4 +1,4 @@
-import { Component, WritableSignal, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { AboutTextComponent } from './about-text/about-text.component';
 import {
   fadingAnimation,
@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { InitialLoaderComponent } from '../../shared/components/smart/initial-loader/initial-loader.component';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from '../../services/globals/globals.service';
+import { MenuMobileComponent } from '../../shared/components/ui/menu-mobile/menu-mobile.component';
 
 @Component({
   selector: 'app-about',
@@ -17,6 +18,7 @@ import { GlobalsService } from '../../services/globals/globals.service';
     AboutTextComponent,
     InitialLoaderComponent,
     NgxUiLoaderModule,
+    MenuMobileComponent,
   ],
   providers: [GlobalsService],
   templateUrl: './about.component.html',
@@ -30,6 +32,8 @@ export class AboutComponent {
   isAnimationDone: boolean = false;
   isLoading: boolean = true;
   currentMobileImageIndex: number = 0;
+
+  isMenuOpen = signal(false);
 
   navs = [
     { isVisible: true, animationState: 'enterBottomLeft' },
@@ -143,5 +147,13 @@ export class AboutComponent {
 
   animationDone(isDone: boolean) {
     this.isAnimationDone = isDone;
+  }
+
+  openMenu() {
+    this.isMenuOpen.set(true);
+  }
+
+  closeMenu() {
+    this.isMenuOpen.set(false);
   }
 }
