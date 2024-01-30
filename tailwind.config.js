@@ -9,6 +9,12 @@ module.exports = {
       istokWeb: ['"Istok Web"', "sans-serif"],
       irishGrover: ['"Irish Grover"', "sans-serif"],
     },
+    screens: {
+      sm: "480px",
+      md: "768px",
+      lg: "976px",
+      xl: "1440px",
+    },
     extend: {
       backgroundImage: {
         arc1: "url('./assets/svgs/arc-1.svg')",
