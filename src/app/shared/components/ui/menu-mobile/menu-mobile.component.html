@@ -30,7 +30,7 @@
     >
       @for (link of navLinks; track $index) { @if (link.hasSubmenu) {
       <li class="flex flex-col">
-        <span id="nav-link" class="flex">
+        <span id="nav-link" class="flex gap-3">
           <span (click)="toggleSubmenu($index)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -39,8 +39,10 @@
               viewBox="0 0 24 24"
             >
               <path
-                fill="currentColor"
-                d="M10.46 18a2.23 2.23 0 0 1-.91-.2a1.76 1.76 0 0 1-1.05-1.59V7.79A1.76 1.76 0 0 1 9.55 6.2a2.1 2.1 0 0 1 2.21.26l5.1 4.21a1.7 1.7 0 0 1 0 2.66l-5.1 4.21a2.06 2.06 0 0 1-1.3.46"
+                fill="none"
+                stroke="white"
+                stroke-width="1.5"
+                d="M20.409 9.353a2.998 2.998 0 0 1 0 5.294L7.597 21.614C5.534 22.737 3 21.277 3 18.968V5.033c0-2.31 2.534-3.769 4.597-2.648z"
               />
             </svg>
           </span>
