@@ -14,7 +14,7 @@
   >
     <!-- Hamburger Menu Icon -->
     <span
-      class="cursor-pointer ml-auto mr-5 mt-5 inline md:hidden"
+      class="cursor-pointer ml-auto mr-5 mt-5 inline lg:hidden"
       (click)="openMenu()"
     >
       <svg
@@ -37,7 +37,7 @@
     @if (isMenuOpen()) {
     <menu-mobile
       @fade
-      class="absolute top-5 right-5 rounded-[20px] w-1/2 h-4/5 bg-darkBlue"
+      class="absolute top-5 right-5 rounded-[20px] w-1/2 h-4/5 bg-darkBlue lg:hidden"
       (isCloseMenu)="closeMenu()"
     ></menu-mobile>
     }
