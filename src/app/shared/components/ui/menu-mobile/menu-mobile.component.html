@@ -28,7 +28,48 @@
     <ul
       class="mr-auto flex flex-col justify-around items-start font-bold gap-6 text-3xl pl-4 lg:text-4xl md:hidden"
     >
-      @for (link of navLinks; track $index) {
+      @for (link of navLinks; track $index) { @if (link.hasSubmenu) {
+      <li class="flex flex-col">
+        <span id="nav-link" class="flex gap-3">
+          <span (click)="toggleSubmenu($index)">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="none"
+                stroke="white"
+                stroke-width="1.5"
+                d="M20.409 9.353a2.998 2.998 0 0 1 0 5.294L7.597 21.614C5.534 22.737 3 21.277 3 18.968V5.033c0-2.31 2.534-3.769 4.597-2.648z"
+              />
+            </svg>
+          </span>
+          <nav-link
+            [route]="link.route"
+            [label]="link.label"
+            [isTextShadow]="false"
+            [textColor]="'white'"
+          ></nav-link>
+        </span>
+        @if (isSubmenuOpen($index)) {
+        <ul @fade class="flex flex-col items-start gap-4 p-4">
+          @for (submenu of link.submenu; track $index) {
+          <li>
+            <nav-link
+              [route]="submenu.route"
+              [label]="submenu.label"
+              [isTextShadow]="false"
+              [textColor]="'white'"
+              (click)="closeMenu()"
+            ></nav-link>
+          </li>
+          }
+        </ul>
+        }
+      </li>
+      } @else {
       <li>
         <nav-link
           [route]="link.route"
@@ -38,7 +79,7 @@
           (click)="closeMenu()"
         ></nav-link>
       </li>
-      }
+      } }
     </ul>
   </div>
   <img
