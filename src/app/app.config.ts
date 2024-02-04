@@ -8,6 +8,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { AppRoutes } from './app.routing';
 import { CommonModule } from '@angular/common';
+import { Apollo, APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import {
+  ApolloClientOptions,
+  ApolloLink,
+  InMemoryCache,
+} from '@apollo/client/core';
+
+const myUrl = 'https://countries.trevorblades.com/graphql';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,5 +24,14 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(AppRoutes),
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: (httpLink: HttpLink): ApolloClientOptions<unknown> => ({
+        link: ApolloLink.from([httpLink.create({ uri: myUrl })]),
+        cache: new InMemoryCache(),
+      }),
+      deps: [HttpLink],
+    },
+    Apollo,
   ],
 };
