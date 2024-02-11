@@ -19,8 +19,9 @@ export class NewsBodyComponent {
   @Input() activeSlideIndex: number = 0;
   @Output() currentSlidePositionEvent: EventEmitter<number> =
     new EventEmitter();
-  @Input() isHamburgerMenuOpen: boolean = false;
   @Output() isMenuOpen: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  isHamburgerMenuOpen = false;
 
   coolTechAnimals: CoolTechAnimalModel[] = [
     {
@@ -55,11 +56,11 @@ export class NewsBodyComponent {
   }
 
   openMenu() {
-    this.isMenuOpen.emit(true);
+    this.isHamburgerMenuOpen = true;
   }
 
   closeMenu() {
-    this.isMenuOpen.emit(false);
+    this.isHamburgerMenuOpen = false;
   }
 
   selectAnimal(index: number) {
