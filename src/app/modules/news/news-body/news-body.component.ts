@@ -3,11 +3,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { circularMotion, fadingAnimation } from '../../../helpers/animations';
 import { CoolTechAnimalModel } from '../../../models/coolTechAnimal.model';
 import { GlobalsService } from '../../../services/globals/globals.service';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'news-body',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterOutlet],
   providers: [GlobalsService],
   templateUrl: './news-body.component.html',
   styleUrl: './news-body.component.scss',

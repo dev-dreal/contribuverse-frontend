@@ -12,23 +12,8 @@
     />}
   </div>
   <div class="w-1/2 flex flex-col justify-evenly items-center">
-    <div class="">
-      <h2 class="font-bold text-5xl mb-2">Robotics</h2>
-      <h4 class="text-4xl font-bold">
-        Scientists invent electronic skin that that gives amputees sense of
-        touch
-      </h4>
-      <p class="text-2xl">
-        Scientists have invented a type of electronic skin that can “talk
-        directly to the brain”, allowing amputees to feel a human-like sense of
-        touch through prosthetic limbs. The ground-breaking artificial skin is
-        embedded with sensors for temperature, pressure and strain, which are
-        converted into electrical signals - similar to how nerve impulses
-        communicate with the brain. The wearable electronic circuit, known as a
-        monolithic e-skin, was developed by a team from Stanford University, who
-        detailed their breakthrough in a study published in the journal Science.
-      </p>
-    </div>
+    <router-outlet></router-outlet>
+
     <div class="flex justify-end items-center">
       @for (coolAnimal of coolTechAnimals; track $index) {
       <div
