@@ -1,0 +1,6 @@
+{
+  "/graphql-api": {
+    "target": "https://contribuverse-backend-vert.vercel.app/api/graphql",
+    "secure": false
+  }
+}

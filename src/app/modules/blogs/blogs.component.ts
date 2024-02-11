@@ -5,7 +5,7 @@ import { LeftSidebarComponent } from './left-sidebar/left-sidebar.component';
 import { MainContentComponent } from './main-content/main-content.component';
 import { RightSidebarComponent } from './right-sidebar/right-sidebar.component';
 import { Apollo } from 'apollo-angular';
-import { GET_COUNTRIES } from '../../graphql/graphql.operations';
+import { GET_BLOGS } from '../../graphql/queries';
 
 @Component({
   selector: 'app-blogs',
@@ -33,7 +33,7 @@ export class BlogsComponent {
   loadCountries() {
     this.apollo
       .watchQuery({
-        query: GET_COUNTRIES,
+        query: GET_BLOGS,
       })
       .valueChanges.subscribe(({ data, error }: any) => {
         console.log(data);
