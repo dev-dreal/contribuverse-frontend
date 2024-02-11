@@ -9,4 +9,11 @@ import { RouterLink } from '@angular/router';
   templateUrl: './news-header.component.html',
   styleUrl: './news-header.component.scss',
 })
-export class NewsHeaderComponent {}
+export class NewsHeaderComponent {
+  navLinks = [
+    { label: 'Robotics', route: 'news/robotics' },
+    { label: 'Metaverse', route: 'news/metaverse' },
+    { label: 'Gaming', route: 'news/gaming' },
+    { label: 'Movies', route: 'news/movies' },
+  ];
+}

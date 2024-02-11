@@ -4,11 +4,12 @@ import { circularMotion, fadingAnimation } from '../../../helpers/animations';
 import { CoolTechAnimalModel } from '../../../models/coolTechAnimal.model';
 import { GlobalsService } from '../../../services/globals/globals.service';
 import { RouterOutlet } from '@angular/router';
+import { MenuMobileComponent } from '../../../shared/components/ui/menu-mobile/menu-mobile.component';
 
 @Component({
   selector: 'news-body',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, MenuMobileComponent],
   providers: [GlobalsService],
   templateUrl: './news-body.component.html',
   styleUrl: './news-body.component.scss',
@@ -18,6 +19,8 @@ export class NewsBodyComponent {
   @Input() activeSlideIndex: number = 0;
   @Output() currentSlidePositionEvent: EventEmitter<number> =
     new EventEmitter();
+  @Input() isHamburgerMenuOpen: boolean = false;
+  @Output() isMenuOpen: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   coolTechAnimals: CoolTechAnimalModel[] = [
     {
@@ -49,6 +52,14 @@ export class NewsBodyComponent {
 
   ngOnInit() {
     this.currentSlidePositionEvent.emit(this.activeSlideIndex);
+  }
+
+  openMenu() {
+    this.isMenuOpen.emit(true);
+  }
+
+  closeMenu() {
+    this.isMenuOpen.emit(false);
   }
 
   selectAnimal(index: number) {

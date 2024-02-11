@@ -1,16 +1,18 @@
 <div
   @fade
-  class="h-screen flex justify-center items-start bg-tertiaryBlue font-jacques"
+  class="h-screen flex justify-center items-center bg-tertiaryBlue font-jacques md:items-start"
 >
   <div class="w-5/6">
-    <news-header></news-header>
+    <news-header class="hidden md:block"></news-header>
     <dynamic-nav
+      class="hidden md:block"
       [slidePosition]="currentSlidePosition()"
       (slidePositionBtnEvent)="getCurrentSlideStatus($event)"
     ></dynamic-nav>
     <news-body
       [activeSlideIndex]="currentSlidePosition()"
       (currentSlidePositionEvent)="getCurrentSlideStatus($event)"
+      class=""
     ></news-body>
   </div>
 </div>

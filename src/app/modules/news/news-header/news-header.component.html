@@ -9,38 +9,16 @@
       alt="logo"
     />
     <ul class="flex justify-center items-center font-bold gap-14 text-4xl">
+      @for (nav of navLinks; track $index) {
       <li>
         <nav-link
-          [route]="'news/robotics'"
-          [label]="'Robotics'"
+          [route]="nav.route"
+          [label]="nav.label"
           [textColor]="'white'"
           [isTextShadow]="false"
         ></nav-link>
       </li>
-      <li>
-        <nav-link
-          [route]="'news/metaverse'"
-          [label]="'Metaverse'"
-          [textColor]="'white'"
-          [isTextShadow]="false"
-        ></nav-link>
-      </li>
-      <li>
-        <nav-link
-          [route]="'news/gaming'"
-          [label]="'Gaming'"
-          [textColor]="'white'"
-          [isTextShadow]="false"
-        ></nav-link>
-      </li>
-      <li>
-        <nav-link
-          [route]="'news/movies'"
-          [label]="'Movies'"
-          [textColor]="'white'"
-          [isTextShadow]="false"
-        ></nav-link>
-      </li>
+      }
     </ul>
   </nav>
 </header>
