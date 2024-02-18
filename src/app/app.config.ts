@@ -16,7 +16,7 @@ import {
   InMemoryCache,
 } from '@apollo/client/core';
 
-const myUrl = 'https://countries.trevorblades.com/graphql';
+const myUrl = 'https://contribuverse-backend-vert.vercel.app/api/graphql';
 
 export const appConfig: ApplicationConfig = {
   providers: [
