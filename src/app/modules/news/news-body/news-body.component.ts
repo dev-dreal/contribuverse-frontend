@@ -3,7 +3,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { circularMotion, fadingAnimation } from '../../../helpers/animations';
 import { CoolTechAnimalModel } from '../../../models/coolTechAnimal.model';
 import { GlobalsService } from '../../../services/globals/globals.service';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import {
+  RouterOutlet,
+  RouterLink,
+  Router,
+  NavigationStart,
+  NavigationEnd,
+} from '@angular/router';
 import { MenuMobileComponent } from '../../../shared/components/ui/menu-mobile/menu-mobile.component';
 
 @Component({
@@ -49,7 +55,20 @@ export class NewsBodyComponent {
 
   selectedAnimal = this.coolTechAnimals[0];
 
-  constructor(private globals: GlobalsService) {}
+  constructor(private globals: GlobalsService, private router: Router) {
+    router.events.forEach((event) => {
+      if (event instanceof NavigationStart) {
+        console.log(event.url);
+      } else if (event instanceof NavigationEnd) {
+        console.log(event.url);
+      }
+
+      // NavigationEnd
+      // NavigationCancel
+      // NavigationError
+      // RoutesRecognized
+    });
+  }
 
   ngOnInit() {
     this.currentSlidePositionEvent.emit(this.activeSlideIndex);
