@@ -11,7 +11,7 @@ export class BlogsService {
     return [
       {
         title: 'Machine Learning',
-        shortDescription: 'Future Trends in Machine Learning. What’s Next?',
+        shortDescription: 'Future Trends in Machine Learning.',
         longDescription:
           'Machine learning is the study of computer algorithms that improve automatically through experience.',
         image: 'assets/svgs/ml.svg',
