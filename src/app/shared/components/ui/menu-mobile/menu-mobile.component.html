@@ -47,7 +47,9 @@
             </svg>
           </span>
           <nav-link
-            [route]="link.route"
+            class="cursor-pointer"
+            (click)="toggleSubmenu($index)"
+            [route]="null"
             [label]="link.label"
             [isTextShadow]="false"
             [textColor]="'white'"

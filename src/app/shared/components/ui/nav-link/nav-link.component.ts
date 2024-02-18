@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './nav-link.component.scss',
 })
 export class NavLinkComponent {
-  @Input({ required: true }) route: string = '';
+  @Input({ required: true }) route: string | null = '';
   @Input({ required: true }) label: string = '';
   @Input() textColor: 'white' | 'black' = 'black';
   @Input() isTextShadow: boolean = true;

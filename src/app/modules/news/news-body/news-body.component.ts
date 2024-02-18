@@ -3,13 +3,19 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { circularMotion, fadingAnimation } from '../../../helpers/animations';
 import { CoolTechAnimalModel } from '../../../models/coolTechAnimal.model';
 import { GlobalsService } from '../../../services/globals/globals.service';
-import { RouterOutlet } from '@angular/router';
+import {
+  RouterOutlet,
+  RouterLink,
+  Router,
+  NavigationStart,
+  NavigationEnd,
+} from '@angular/router';
 import { MenuMobileComponent } from '../../../shared/components/ui/menu-mobile/menu-mobile.component';
 
 @Component({
   selector: 'news-body',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MenuMobileComponent],
+  imports: [CommonModule, RouterOutlet, MenuMobileComponent, RouterLink],
   providers: [GlobalsService],
   templateUrl: './news-body.component.html',
   styleUrl: './news-body.component.scss',
@@ -19,8 +25,9 @@ export class NewsBodyComponent {
   @Input() activeSlideIndex: number = 0;
   @Output() currentSlidePositionEvent: EventEmitter<number> =
     new EventEmitter();
-  @Input() isHamburgerMenuOpen: boolean = false;
   @Output() isMenuOpen: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  isHamburgerMenuOpen = false;
 
   coolTechAnimals: CoolTechAnimalModel[] = [
     {
@@ -48,18 +55,31 @@ export class NewsBodyComponent {
 
   selectedAnimal = this.coolTechAnimals[0];
 
-  constructor(private globals: GlobalsService) {}
+  constructor(private globals: GlobalsService, private router: Router) {
+    router.events.forEach((event) => {
+      if (event instanceof NavigationStart) {
+        console.log(event.url);
+      } else if (event instanceof NavigationEnd) {
+        console.log(event.url);
+      }
+
+      // NavigationEnd
+      // NavigationCancel
+      // NavigationError
+      // RoutesRecognized
+    });
+  }
 
   ngOnInit() {
     this.currentSlidePositionEvent.emit(this.activeSlideIndex);
   }
 
   openMenu() {
-    this.isMenuOpen.emit(true);
+    this.isHamburgerMenuOpen = true;
   }
 
   closeMenu() {
-    this.isMenuOpen.emit(false);
+    this.isHamburgerMenuOpen = false;
   }
 
   selectAnimal(index: number) {

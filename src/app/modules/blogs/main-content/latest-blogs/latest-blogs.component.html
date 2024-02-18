@@ -7,7 +7,11 @@
       class="w-full hidden md:block w-1/2"
     ></latest-blog>
     } @else {
-    <latest-blog [blog]="blog" class="w-full md:w-1/2"></latest-blog>
+    <latest-blog
+      [blog]="blog"
+      [longDescriptionCutOff]="10"
+      class="w-full md:w-1/2"
+    ></latest-blog>
     } }
   </div>
 </div>

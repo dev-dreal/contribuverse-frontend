@@ -1,5 +1,5 @@
 <a
-  routerLink="/{{ route }}"
+  [routerLink]="route || null"
   [ngClass]="{
     'text-shadow': isTextShadow === true,
     'shadow-black': isTextShadow === true && textColor === 'black',

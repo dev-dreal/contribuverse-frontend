@@ -11,4 +11,5 @@ import { RouterLink } from '@angular/router';
 })
 export class LatestBlogComponent {
   @Input({ required: true }) blog!: BlogModel;
+  @Input() longDescriptionCutOff: number = 20;
 }
