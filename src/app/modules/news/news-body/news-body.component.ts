@@ -3,13 +3,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { circularMotion, fadingAnimation } from '../../../helpers/animations';
 import { CoolTechAnimalModel } from '../../../models/coolTechAnimal.model';
 import { GlobalsService } from '../../../services/globals/globals.service';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { MenuMobileComponent } from '../../../shared/components/ui/menu-mobile/menu-mobile.component';
 
 @Component({
   selector: 'news-body',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MenuMobileComponent],
+  imports: [CommonModule, RouterOutlet, MenuMobileComponent, RouterLink],
   providers: [GlobalsService],
   templateUrl: './news-body.component.html',
   styleUrl: './news-body.component.scss',
