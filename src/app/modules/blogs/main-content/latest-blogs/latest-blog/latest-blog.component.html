@@ -1,5 +1,5 @@
 <div
-  class="flex justify-around items-center w-full h-full bg-secondaryBlue text-white rounded-[35px] p-8"
+  class="flex items-center w-full h-full bg-secondaryBlue text-white rounded-[35px] space-x-6 p-6 pb-8"
   routerLink="{{ blog.title.toLowerCase().split(' ').join('-') }}"
 >
   <!-- First Column -->
@@ -15,7 +15,7 @@
       />
     </div>
     <div class="h-2/5 bg-darkBlue rounded-[35px] p-10 text-2xl wrapper">
-      {{ blog.content.split(" ").slice(0, 6).join(" ") + "..." }}
+      {{ blog.title }}
     </div>
   </div>
   <!-- End of First Column -->
