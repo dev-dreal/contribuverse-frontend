@@ -1,11 +1,11 @@
-<div class="w-full flex flex-col justify-start items-start">
+<div class="flex flex-col justify-start items-start mb-5">
   <h2 class="text-5xl text-white pl-4">Blogs</h2>
   <div class="flex justify-around items-center gap-10 w-full">
     <!-- Add blog Card -->
-    <blog-card class="w-1/5 h-56 py-2" [blog]="addBlogMetaData"></blog-card>
+    <blog-card class="w-1/5 h-60 py-2" [blog]="addBlogMetaData"></blog-card>
 
     @for (blog of blogs | slice:0:4; track $index) {
-    <blog-card class="w-1/5 h-56 py-2" [blog]="blog"></blog-card>
+    <blog-card class="w-1/5 h-60 py-2" [blog]="blog"></blog-card>
     }
   </div>
 </div>
