@@ -29,33 +29,3 @@ export const GET_BLOGS = gql`
     }
   }
 `;
-
-export const GET_BLOG = gql`
-  query Blog($id: ID!) {
-    blog(id: $id) {
-      id
-      title
-      content
-      imageUrl
-      category
-      userId
-      createdAt
-      updatedAt
-      likes {
-        id
-        like
-        blogId
-      }
-      tags {
-        id
-        tag
-        blogId
-      }
-      comments {
-        id
-        comment
-        blogId
-      }
-    }
-  }
-`;
