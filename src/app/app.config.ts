@@ -17,7 +17,7 @@ import {
 } from '@apollo/client/core';
 
 // const myUrl = 'https://countries.trevorblades.com/graphql';
-const myUrl = 'https://contribuverse-backend-vert.vercel.app/api/graphql';
+const myUrl = '/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [

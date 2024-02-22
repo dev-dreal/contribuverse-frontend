@@ -1,7 +1,7 @@
 <img
-  src="{{ blog.image }}"
+  src="{{ blog.imageUrl }}"
   alt="{{ blog.title }}"
   title="{{ blog.title }}"
-  routerLink="{{ blog.route }}"
+  routerLink="{{ blog.title.toLowerCase().split(' ').join('-') }}"
   class="shrink-0 rounded-[15px] bg-darkBlue w-full h-full object-contain wrapper"
 />

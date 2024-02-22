@@ -1,8 +1,36 @@
 export interface BlogModel {
+  id: string;
   title: string;
-  shortDescription: string;
+  content: string;
+  userId: string;
+  imageUrl: string;
+  category: string;
+  comments: Comment[];
+  likes: Like[];
+  tags: Tag[];
+  createdAt: string;
+  updatedAt: string;
+  shortDescription?: string;
   longDescription?: string;
-  content?: string;
-  image: string;
-  route: string;
+}
+
+export interface Comment {
+  id: string;
+  content: string;
+  createdAt: string;
+  userId: string;
+  blogId: string;
+}
+
+export interface Like {
+  id: string;
+  count: number;
+  userId: string;
+  blogId: string;
+}
+
+export interface Tag {
+  id: string;
+  name: string;
+  blogId: string;
 }

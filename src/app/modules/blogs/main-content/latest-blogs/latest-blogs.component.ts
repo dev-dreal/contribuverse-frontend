@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { BlogModel } from '../../../../models/blog.model';
 import { CommonModule } from '@angular/common';
@@ -13,6 +13,7 @@ import { LatestBlogComponent } from './latest-blog/latest-blog.component';
   styleUrl: './latest-blogs.component.scss',
 })
 export class LatestBlogsComponent {
+  @Input() blogs1: any[] = [];
   blogs: BlogModel[] = [];
   constructor(private blogsService: BlogsService) {}
 

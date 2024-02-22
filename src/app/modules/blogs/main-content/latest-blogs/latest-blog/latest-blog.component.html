@@ -1,6 +1,6 @@
 <div
   class="flex justify-around items-center w-full h-full bg-secondaryBlue text-white rounded-[35px] p-8"
-  routerLink="{{ blog.route }}"
+  routerLink="{{ blog.title.toLowerCase().split(' ').join('-') }}"
 >
   <!-- First Column -->
   <div class="h-full p-3 space-y-6">
@@ -8,14 +8,14 @@
       class="h-3/5 bg-darkBlue rounded-[35px] flex justify-center items-center p-3 wrapper"
     >
       <img
-        src="{{ blog.image }}"
+        src="{{ blog.imageUrl }}"
         alt="{{ blog.title }}"
         title="{{ blog.title }}"
         class="w-3/4 h-3/4 object-contain"
       />
     </div>
     <div class="h-2/5 bg-darkBlue rounded-[35px] p-10 text-2xl wrapper">
-      {{ blog.shortDescription.split(" ").slice(0, 10).join(" ") + "..." }}
+      {{ blog.content.split(" ").slice(0, 6).join(" ") + "..." }}
     </div>
   </div>
   <!-- End of First Column -->
@@ -30,10 +30,8 @@
       class="h-3/5 bg-darkBlue rounded-[35px] p-10 text-2xl text-center wrapper"
     >
       {{
-        blog.longDescription
-          ?.split(" ")
-          ?.slice(0, longDescriptionCutOff)
-          ?.join(" ") + "..."
+        blog.content.split(" ").slice(0, longDescriptionCutOff).join(" ") +
+          "..."
       }}
     </div>
   </div>

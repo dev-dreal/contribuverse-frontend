@@ -6,6 +6,7 @@ import { MainContentComponent } from './main-content/main-content.component';
 import { RightSidebarComponent } from './right-sidebar/right-sidebar.component';
 import { Apollo } from 'apollo-angular';
 import { GET_BLOGS } from '../../graphql/queries';
+import { BlogModel } from '../../models/blog.model';
 
 @Component({
   selector: 'app-blogs',
@@ -21,6 +22,7 @@ import { GET_BLOGS } from '../../graphql/queries';
   animations: [fadingAnimation],
 })
 export class BlogsComponent {
+  blogs: any[] = [];
   countries: any[] = [];
   loading: boolean = true;
 
@@ -37,8 +39,11 @@ export class BlogsComponent {
       })
       .valueChanges.subscribe(({ data, error }: any) => {
         console.log(data);
+        this.blogs = data.blogs;
         this.loading = false;
-        this.countries = data.countries;
+        if (error) {
+          console.error(error);
+        }
       });
   }
 }

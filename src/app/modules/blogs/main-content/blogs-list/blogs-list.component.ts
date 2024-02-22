@@ -12,11 +12,19 @@ import { BlogsService } from '../../../../services/blogs/blogs.service';
   styleUrl: './blogs-list.component.scss',
 })
 export class BlogsListComponent {
-  addBlogMetaData = {
+  addBlogMetaData: BlogModel = {
+    id: '1',
     title: 'Add a new blog',
     shortDescription: 'Add a new blog to the list of blogs.',
-    image: 'assets/gifs/add-blog.gif',
-    route: 'add',
+    imageUrl: 'assets/gifs/add-blog.gif',
+    category: 'Add Blog',
+    tags: [],
+    comments: [],
+    likes: [],
+    content: 'Add a new blog to the list of blogs.',
+    userId: '1',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   };
 
   blogs: BlogModel[] = [];

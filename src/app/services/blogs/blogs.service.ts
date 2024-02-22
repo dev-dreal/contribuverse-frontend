@@ -10,35 +10,63 @@ export class BlogsService {
   getBlogs(): BlogModel[] {
     return [
       {
+        id: '1',
         title: 'Machine Learning',
-        shortDescription: 'Future Trends in Machine Learning.',
-        longDescription:
-          'Machine learning is the study of computer algorithms that improve automatically through experience.',
-        image: 'assets/svgs/ml.svg',
-        route: '',
+        imageUrl: 'assets/svgs/ml.svg',
+        userId: '1',
+        category: 'Machine Learning',
+        comments: [],
+        likes: [],
+        tags: [],
+        content: 'Future Trends in Machine Learning.',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       },
       {
+        id: '2',
         title: 'Android Development',
-        shortDescription:
+        imageUrl: 'assets/svgs/android-logo.svg',
+        userId: '1',
+        category: 'Android Development',
+        comments: [],
+        likes: [],
+        tags: [],
+        content:
           'Composables are typically represented as functions in Kotlin.',
-        longDescription:
-          'Android software development is the process by which applications are created for devices running the Android operating system.',
-        image: 'assets/svgs/android-logo.svg',
-        route: '',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       },
       {
+        id: '3',
         title: 'Flutter',
         shortDescription:
           'Flutter is an open-source UI software development kit created by Google.',
-        image: 'assets/svgs/flutter-logo.svg',
-        route: '',
+        imageUrl: 'assets/svgs/flutter-logo.svg',
+        userId: '1',
+        category: 'Flutter',
+        comments: [],
+        likes: [],
+        tags: [],
+        content:
+          'Flutter is an open-source UI software development kit created by Google.',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       },
       {
+        id: '4',
         title: 'React',
         shortDescription:
           'React is an open-source front-end JavaScript library for building user interfaces or UI components.',
-        image: 'assets/svgs/react-logo.svg',
-        route: '',
+        imageUrl: 'assets/svgs/react-logo.svg',
+        userId: '1',
+        category: 'React',
+        comments: [],
+        likes: [],
+        tags: [],
+        content:
+          'React is an open-source front-end JavaScript library for building user interfaces or UI components.',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       },
     ];
   }
