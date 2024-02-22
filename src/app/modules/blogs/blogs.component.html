@@ -1,5 +1,7 @@
 <div @fade class="h-screen w-full bg-tertiaryBlue flex text-center">
   <left-sidebar class="w-1/5"></left-sidebar>
-  <main-content [blogs]="blogs" class="w-3/5"></main-content>
+  <div class="w-3/5">
+    <router-outlet></router-outlet>
+  </div>
   <right-sidebar class="w-1/5"></right-sidebar>
 </div>

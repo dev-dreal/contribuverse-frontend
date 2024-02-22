@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BlogCardComponent } from './blog-card/blog-card.component';
 import { BlogModel } from '../../../../models/blog.model';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,7 @@ import { BlogsService } from '../../../../services/blogs/blogs.service';
   styleUrl: './blogs-list.component.scss',
 })
 export class BlogsListComponent {
+  @Input({ required: true }) blogs: BlogModel[] = [];
   addBlogMetaData: BlogModel = {
     id: '1',
     title: 'Add a new blog',
@@ -26,12 +27,9 @@ export class BlogsListComponent {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
-
-  blogs: BlogModel[] = [];
-
   constructor(private blogsService: BlogsService) {}
 
-  ngOnInit(): void {
-    this.blogs = this.blogsService.getBlogs();
-  }
+  // ngOnInit(): void {
+  //   this.blogs = this.blogsService.getBlogs();
+  // }
 }
