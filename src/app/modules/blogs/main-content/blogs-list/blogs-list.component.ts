@@ -14,7 +14,7 @@ import { BlogsService } from '../../../../services/blogs/blogs.service';
 export class BlogsListComponent {
   @Input({ required: true }) blogs: BlogModel[] = [];
   addBlogMetaData: BlogModel = {
-    id: '1',
+    id: 'add',
     title: 'Add a new blog',
     shortDescription: 'Add a new blog to the list of blogs.',
     imageUrl: 'assets/gifs/add-blog.gif',
