@@ -1,5 +1,5 @@
 <div class="px-6 py-6 flex flex-col justify-between">
-  <blogs-list [blogs]="blogs"></blogs-list>
+  <blogs-list [blogs]="filteredBlogs()"></blogs-list>
   <search-bar></search-bar>
-  <latest-blogs class="h-3/4" [blogs]="blogs"></latest-blogs>
+  <latest-blogs class="h-3/4" [blogs]="filteredBlogs()"></latest-blogs>
 </div>
