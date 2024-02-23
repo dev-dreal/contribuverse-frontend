@@ -3,16 +3,18 @@ import { BlogCardComponent } from './blog-card/blog-card.component';
 import { BlogModel } from '../../../../models/blog.model';
 import { CommonModule } from '@angular/common';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'blogs-list',
   standalone: true,
-  imports: [CommonModule, BlogCardComponent],
+  imports: [NgxSkeletonLoaderModule, CommonModule, BlogCardComponent],
   templateUrl: './blogs-list.component.html',
   styleUrl: './blogs-list.component.scss',
 })
 export class BlogsListComponent {
   @Input({ required: true }) blogs: BlogModel[] = [];
+  blogItems = [1, 2, 3, 4];
   addBlogMetaData: BlogModel = {
     id: 'add',
     title: 'Add a new blog',
