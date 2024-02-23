@@ -13,7 +13,7 @@ import { LatestBlogComponent } from './latest-blog/latest-blog.component';
   styleUrl: './latest-blogs.component.scss',
 })
 export class LatestBlogsComponent {
-  @Input() blogs: any[] = [];
+  @Input() blogs: BlogModel[] = [];
   constructor(private blogsService: BlogsService) {}
 
   ngOnInit(): void {
