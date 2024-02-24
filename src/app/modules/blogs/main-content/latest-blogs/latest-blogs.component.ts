@@ -1,4 +1,4 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, Input, WritableSignal, signal } from '@angular/core';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { BlogModel } from '../../../../models/blog.model';
 import { CommonModule } from '@angular/common';
@@ -13,10 +13,20 @@ import { LatestBlogComponent } from './latest-blog/latest-blog.component';
   styleUrl: './latest-blogs.component.scss',
 })
 export class LatestBlogsComponent {
-  @Input() blogs: BlogModel[] = [];
+  blogs: WritableSignal<BlogModel[]> = signal([]);
   constructor(private blogsService: BlogsService) {}
 
   ngOnInit(): void {
-    // this.blogs = this.blogsService.getBlogs();
+    this.blogsService.getBlogs().subscribe({
+      next: (blogs) => {
+        this.blogs.set(blogs);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+      complete: () => {
+        console.log('Completed');
+      },
+    });
   }
 }

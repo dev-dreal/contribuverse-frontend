@@ -4,9 +4,7 @@
     <!-- Add blog Card -->
     <blog-card class="w-1/5 h-60 py-2" [blog]="addBlogMetaData"></blog-card>
 
-    @defer () { @for (blog of blogs | slice:0:4; track $index) {
-    <blog-card class="w-1/5 h-60 py-2" [blog]="blog"></blog-card>
-    } } @placeholder(minimum 3500ms) { @for (item of blogItems; track $index) {
+    @if (isBlogsLoading()) { @for (item of blogItems; track $index) {
     <div class="w-1/5 h-60 py-2">
       <ngx-skeleton-loader
         animation="pulse"
@@ -19,6 +17,8 @@
         }"
       />
     </div>
+    } } @else { @for (blog of blogs() | slice:0:4; track $index) {
+    <blog-card class="w-1/5 h-60 py-2" [blog]="blog"></blog-card>
     } }
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, WritableSignal, signal } from '@angular/core';
 import { BlogCardComponent } from './blog-card/blog-card.component';
 import { BlogModel } from '../../../../models/blog.model';
 import { CommonModule } from '@angular/common';
@@ -13,8 +13,10 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
   styleUrl: './blogs-list.component.scss',
 })
 export class BlogsListComponent {
-  @Input({ required: true }) blogs: BlogModel[] = [];
+  blogs: WritableSignal<BlogModel[]> = signal([]);
+  isBlogsLoading = signal(true);
   blogItems = [1, 2, 3, 4];
+
   addBlogMetaData: BlogModel = {
     id: 'add',
     title: 'Add a new blog',
@@ -31,7 +33,20 @@ export class BlogsListComponent {
   };
   constructor(private blogsService: BlogsService) {}
 
-  // ngOnInit(): void {
-  //   this.blogs = this.blogsService.getBlogs();
-  // }
+  ngOnInit(): void {
+    this.loadBlogs();
+  }
+
+  loadBlogs() {
+    this.blogsService.getBlogs().subscribe({
+      next: (blogs) => {
+        this.blogs.set(blogs);
+        this.isBlogsLoading.set(false);
+        console.log('Completed');
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
 }
