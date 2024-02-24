@@ -1,6 +1,6 @@
-<div class="flex flex-col items-start justify-around py-8">
+<div class="flex flex-col items-start justify-around py-8 h-full">
   <h2 class="text-4xl text-white mb-2 pl-4">Latest Blogs</h2>
-  <div class="flex flex-col gap-4 md:flex-row">
+  <div class="h-full flex flex-col gap-4 md:flex-row">
     @for (blog of blogs() | slice:0:2; track $index) { @if ($index !== 0) {
     <latest-blog
       [blog]="blog"
