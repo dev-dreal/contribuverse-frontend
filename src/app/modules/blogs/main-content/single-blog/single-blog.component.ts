@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import { GET_BLOG } from '../../../../graphql/queries';
 import { BlogModel } from '../../../../models/blog.model';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { fadingAnimation } from '../../../../helpers/animations';
+import { BlogsService } from '../../../../services/blogs/blogs.service';
 
 @Component({
   selector: 'single-blog',
@@ -17,7 +16,10 @@ import { fadingAnimation } from '../../../../helpers/animations';
 export class SingleBlogComponent {
   blog: BlogModel = {} as BlogModel;
   id: string = '';
-  constructor(private apollo: Apollo, private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private blogsService: BlogsService,
+  ) {
     this.id = this.route.snapshot.paramMap.get('id') || '';
   }
 
@@ -26,19 +28,13 @@ export class SingleBlogComponent {
   }
 
   loadBlog() {
-    this.apollo
-      .watchQuery({
-        query: GET_BLOG,
-        variables: {
-          id: this.id,
-        },
-      })
-      .valueChanges.subscribe(({ data, error }: any) => {
-        console.log(data);
-        this.blog = data.blog;
-        if (error) {
-          console.error(error);
-        }
-      });
+    this.blogsService.getSingleBlog(this.id).subscribe({
+      next: (blog) => {
+        this.blog = blog;
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 }

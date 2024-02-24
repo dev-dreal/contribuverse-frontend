@@ -14,15 +14,15 @@ const blogsRoutes: Routes = [
         path: '',
         component: MainContentComponent,
       },
-      {
-        path: 'add',
-        component: AddBlogComponent,
-      },
-      {
-        path: ':id',
-        component: SingleBlogComponent,
-      },
     ],
+  },
+  {
+    path: 'add-blog',
+    component: AddBlogComponent,
+  },
+  {
+    path: ':id',
+    component: SingleBlogComponent,
   },
 ];
 

@@ -20,7 +20,7 @@ export class BlogsListComponent {
   blogItems = [1, 2, 3, 4];
 
   addBlogMetaData: BlogModel = {
-    id: 'add',
+    id: 'add-blog',
     title: 'Add a new blog',
     shortDescription: 'Add a new blog to the list of blogs.',
     imageUrl: 'assets/gifs/add-blog.gif',
@@ -44,7 +44,6 @@ export class BlogsListComponent {
       next: (blogs) => {
         this.blogs.set(blogs);
         this.isBlogsLoading.set(false);
-        console.log('Completed');
       },
       error: (error) => {
         console.error(error);
