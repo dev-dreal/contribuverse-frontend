@@ -1,8 +1,0 @@
-{
-  "/api": {
-    "target": "https://contribuverse-backend-vert.vercel.app/api/graphql",
-    "secure": true,
-    "changeOrigin": true,
-    "pathRewrite": { "^/api": "" }
-  }
-}
