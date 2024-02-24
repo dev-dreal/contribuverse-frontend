@@ -6,13 +6,13 @@
     [isBgDarker]="true"
   ></sidebar-menu-item>
   <div class="flex justify-center items-center mb-3">
-    @for (profile of profiles | slice:0:5 ; track $index) {
-    <img src="{{ profile.image }}" alt="{{ profile.name }}" class="w-1/5" />
+    @for (profile of profiles | slice: 0 : 5; track $index) {
+      <img src="{{ profile.image }}" alt="{{ profile.name }}" class="w-1/5" />
     }
   </div>
 
   <p class="text-white text-4xl font-istokWeb">
-    <span class="text-5xl">{{ followers() | shrinkNumber : 2 }}</span> followers
+    <span class="text-5xl">{{ followers() | shrinkNumber: 2 }}</span> followers
     active
   </p>
 </div>

@@ -15,9 +15,9 @@
     class="justify-around items-center font-bold gap-6 text-3xl lg:text-4xl hidden md:flex"
   >
     @for (link of navLinks; track $index) {
-    <li>
-      <nav-link [route]="link.route" [label]="link.label"></nav-link>
-    </li>
+      <li>
+        <nav-link [route]="link.route" [label]="link.label"></nav-link>
+      </li>
     }
   </ul>
   <!-- Mobile Accessible Hamburger Menu -->
@@ -37,10 +37,10 @@
     </svg>
   </span>
   @if (isHamburgerMenuOpen) {
-  <menu-mobile
-    @fade
-    class="absolute top-5 right-5 rounded-[20px] w-1/2 h-[400px] bg-primaryBlue"
-    (isCloseMenu)="closeMenu()"
-  ></menu-mobile>
+    <menu-mobile
+      @fade
+      class="absolute top-5 right-5 rounded-[20px] w-1/2 h-[400px] bg-primaryBlue"
+      (isCloseMenu)="closeMenu()"
+    ></menu-mobile>
   }
 </nav>

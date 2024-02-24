@@ -1,110 +1,112 @@
 @defer (on viewport) {
-<!-- deferred template fragment -->
-<div
-  @fade
-  class="flex overflow-hidden h-screen w-screen justify-between pl-8 transition ease-in-out"
-  [ngClass]="{
-    'bg-secondaryBlue': currentNavIndex === 1,
-    'bg-tertiaryBlue': currentNavIndex === 2,
-    'bg-darkBlue': currentNavIndex === 3,
-  }"
->
-  <div
-    class="w-full flex flex-col items-center justify-start pb-5 relative lg:items-start lg:justify-between lg:w-3/5"
-  >
-    <!-- Hamburger Menu Icon -->
-    <span
-      class="cursor-pointer ml-auto mr-5 mt-5 inline lg:hidden"
-      (click)="openMenu()"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
-      >
-        <rect width="32" height="32" fill="#069FA9" fill-opacity="0.5" />
-        <path
-          d="M5.33333 24H26.6667C27.4 24 28 23.4 28 22.6667C28 21.9333 27.4 21.3333 26.6667 21.3333H5.33333C4.6 21.3333 4 21.9333 4 22.6667C4 23.4 4.6 24 5.33333 24ZM5.33333 17.3333H26.6667C27.4 17.3333 28 16.7333 28 16C28 15.2667 27.4 14.6667 26.6667 14.6667H5.33333C4.6 14.6667 4 15.2667 4 16C4 16.7333 4.6 17.3333 5.33333 17.3333ZM4 9.33333C4 10.0667 4.6 10.6667 5.33333 10.6667H26.6667C27.4 10.6667 28 10.0667 28 9.33333C28 8.6 27.4 8 26.6667 8H5.33333C4.6 8 4 8.6 4 9.33333Z"
-          fill="#F8F8F8"
-        />
-      </svg>
-    </span>
-    <!-- End of Hamburger Menu Icon -->
-
-    <!-- Hamburger Menu -->
-    @if (isMenuOpen()) {
-    <menu-mobile
-      @fade
-      class="absolute top-5 right-5 rounded-[20px] w-1/2 h-4/5 bg-darkBlue lg:hidden"
-      (isCloseMenu)="closeMenu()"
-    ></menu-mobile>
-    }
-    <!-- End of Hamburger Menu -->
-
-    <!-- ABOUT CONTENT -->
-    <app-about-text></app-about-text>
-    <!-- End of ABOUT CONTENT -->
-
-    <div class="justify-start items-center space-x-6 hidden lg:flex">
-      @for (img of images; track $index) {
-      <div
-        [style]="{
-          'background-image': 'url(' + img.bgImg + ')',
-          'background-size': 'cover',
-          'background-position': 'center',
-          'background-repeat': 'no-repeat',
-        }"
-        (click)="selectNav($index)"
-        class="w-56 h-56 rounded-full flex justify-center items-center cursor-pointer"
-      >
-        <img src="{{ img.imgSrc }}" class="w-56 h-56" alt="" />
-      </div>
-      }
-    </div>
-    <!-- Animated GIFs on Mobile View -->
-    <img
-      @fade
-      src="{{ mobileImages[currentMobileImageIndex].imgSrc }}"
-      alt="{{ mobileImages[currentMobileImageIndex].title }}"
-      class="w-11/12 max-w-[520px] mt-auto lg:hidden"
-    />
-    <!-- End of Animated GIFs on Mobile View -->
-  </div>
+  <!-- deferred template fragment -->
   <div
     @fade
-    class="w-2/5 relative justify-center items-center arch hidden lg:flex"
+    class="flex overflow-hidden h-screen w-screen justify-between pl-8 transition ease-in-out"
     [ngClass]="{
-      'bg-arc1': currentNavIndex === 0,
-      'bg-arc2': currentNavIndex === 1,
-      'bg-arc3': currentNavIndex === 2,
-      'bg-arc4': currentNavIndex === 3,
+      'bg-secondaryBlue': currentNavIndex === 1,
+      'bg-tertiaryBlue': currentNavIndex === 2,
+      'bg-darkBlue': currentNavIndex === 3
     }"
   >
-    @for (nav of navs; track $index) { @if (nav.isVisible) {
-    <img
+    <div
+      class="w-full flex flex-col items-center justify-start pb-5 relative lg:items-start lg:justify-between lg:w-3/5"
+    >
+      <!-- Hamburger Menu Icon -->
+      <span
+        class="cursor-pointer ml-auto mr-5 mt-5 inline lg:hidden"
+        (click)="openMenu()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+        >
+          <rect width="32" height="32" fill="#069FA9" fill-opacity="0.5" />
+          <path
+            d="M5.33333 24H26.6667C27.4 24 28 23.4 28 22.6667C28 21.9333 27.4 21.3333 26.6667 21.3333H5.33333C4.6 21.3333 4 21.9333 4 22.6667C4 23.4 4.6 24 5.33333 24ZM5.33333 17.3333H26.6667C27.4 17.3333 28 16.7333 28 16C28 15.2667 27.4 14.6667 26.6667 14.6667H5.33333C4.6 14.6667 4 15.2667 4 16C4 16.7333 4.6 17.3333 5.33333 17.3333ZM4 9.33333C4 10.0667 4.6 10.6667 5.33333 10.6667H26.6667C27.4 10.6667 28 10.0667 28 9.33333C28 8.6 27.4 8 26.6667 8H5.33333C4.6 8 4 8.6 4 9.33333Z"
+            fill="#F8F8F8"
+          />
+        </svg>
+      </span>
+      <!-- End of Hamburger Menu Icon -->
+
+      <!-- Hamburger Menu -->
+      @if (isMenuOpen()) {
+        <menu-mobile
+          @fade
+          class="absolute top-5 right-5 rounded-[20px] w-1/2 h-4/5 bg-darkBlue lg:hidden"
+          (isCloseMenu)="closeMenu()"
+        ></menu-mobile>
+      }
+      <!-- End of Hamburger Menu -->
+
+      <!-- ABOUT CONTENT -->
+      <app-about-text></app-about-text>
+      <!-- End of ABOUT CONTENT -->
+
+      <div class="justify-start items-center space-x-6 hidden lg:flex">
+        @for (img of images; track $index) {
+          <div
+            [style]="{
+              'background-image': 'url(' + img.bgImg + ')',
+              'background-size': 'cover',
+              'background-position': 'center',
+              'background-repeat': 'no-repeat'
+            }"
+            (click)="selectNav($index)"
+            class="w-56 h-56 rounded-full flex justify-center items-center cursor-pointer"
+          >
+            <img src="{{ img.imgSrc }}" class="w-56 h-56" alt="" />
+          </div>
+        }
+      </div>
+      <!-- Animated GIFs on Mobile View -->
+      <img
+        @fade
+        src="{{ mobileImages[currentMobileImageIndex].imgSrc }}"
+        alt="{{ mobileImages[currentMobileImageIndex].title }}"
+        class="w-11/12 max-w-[520px] mt-auto lg:hidden"
+      />
+      <!-- End of Animated GIFs on Mobile View -->
+    </div>
+    <div
       @fade
-      [@slideInAndOut]="nav.animationState"
-      (@slideInAndOut.start)="animationDone(false)"
-      (@slideInAndOut.done)="animationDone(true)"
-      [class.animate__animated]="isAnimationDone"
-      [class.animate__wobble]="isAnimationDone"
-      src="{{ images[$index].imgSrc }}"
-      class="w-[400px] h-[400px] absolute"
-      alt=""
-    />
-    } }
+      class="w-2/5 relative justify-center items-center arch hidden lg:flex"
+      [ngClass]="{
+        'bg-arc1': currentNavIndex === 0,
+        'bg-arc2': currentNavIndex === 1,
+        'bg-arc3': currentNavIndex === 2,
+        'bg-arc4': currentNavIndex === 3
+      }"
+    >
+      @for (nav of navs; track $index) {
+        @if (nav.isVisible) {
+          <img
+            @fade
+            [@slideInAndOut]="nav.animationState"
+            (@slideInAndOut.start)="animationDone(false)"
+            (@slideInAndOut.done)="animationDone(true)"
+            [class.animate__animated]="isAnimationDone"
+            [class.animate__wobble]="isAnimationDone"
+            src="{{ images[$index].imgSrc }}"
+            class="w-[400px] h-[400px] absolute"
+            alt=""
+          />
+        }
+      }
+    </div>
   </div>
-</div>
-} @placeholder() {
-<!-- placeholder template fragment -->
-<h1 class="text-center">Please Wait...</h1>
-} @loading(minimum 3s) {
-<ngx-ui-loader
-  @fade
-  [fgsColor]="'#30b3b5'"
-  [hasProgressBar]="false"
-  [fgsType]="SPINNER.squareJellyBox"
-></ngx-ui-loader>
+} @placeholder {
+  <!-- placeholder template fragment -->
+  <h1 class="text-center">Please Wait...</h1>
+} @loading (minimum 3s) {
+  <ngx-ui-loader
+    @fade
+    [fgsColor]="'#30b3b5'"
+    [hasProgressBar]="false"
+    [fgsType]="SPINNER.squareJellyBox"
+  ></ngx-ui-loader>
 }
