@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { LatestBlogComponent } from './latest-blog/latest-blog.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { fadingAnimation } from '../../../../helpers/animations';
 
 @Component({
   selector: 'latest-blogs',
@@ -18,6 +19,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
   providers: [BlogsService],
   templateUrl: './latest-blogs.component.html',
   styleUrl: './latest-blogs.component.scss',
+  animations: [fadingAnimation],
 })
 export class LatestBlogsComponent {
   isBlogsLoading = signal(true);

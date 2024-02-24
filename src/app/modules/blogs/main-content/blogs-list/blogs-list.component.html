@@ -21,7 +21,7 @@
       }
     } @else {
       @for (blog of blogs() | slice: 0 : 4; track $index) {
-        <blog-card class="w-1/5 h-60 py-2" [blog]="blog"></blog-card>
+        <blog-card @fade class="w-1/5 h-60 py-2" [blog]="blog"></blog-card>
       }
     }
   </div>

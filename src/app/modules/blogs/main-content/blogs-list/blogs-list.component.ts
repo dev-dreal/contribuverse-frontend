@@ -4,6 +4,7 @@ import { BlogModel } from '../../../../models/blog.model';
 import { CommonModule } from '@angular/common';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { fadingAnimation } from '../../../../helpers/animations';
 
 @Component({
   selector: 'blogs-list',
@@ -11,6 +12,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
   imports: [NgxSkeletonLoaderModule, CommonModule, BlogCardComponent],
   templateUrl: './blogs-list.component.html',
   styleUrl: './blogs-list.component.scss',
+  animations: [fadingAnimation],
 })
 export class BlogsListComponent {
   blogs: WritableSignal<BlogModel[]> = signal([]);
