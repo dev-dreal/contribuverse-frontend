@@ -19,6 +19,6 @@ export class LeftSidebarComponent {
     { icon: 'assets/svgs/logo.svg', label: 'Home', route: '/home' },
     { icon: 'assets/svgs/blogs.svg', label: 'Blogs', route: '/blogs' },
     { icon: 'assets/svgs/news.svg', label: 'News', route: '/news' },
-    { icon: 'assets/svgs/jobs.svg', label: 'Jobs', route: '/jobs' },
+    { icon: 'assets/svgs/about.svg', label: 'About', route: '/about' },
   ];
 }
