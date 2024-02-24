@@ -15,7 +15,7 @@
       />
     </div>
     <div
-      class="h-2/5 bg-darkBlue rounded-[35px] p-10 text-2xl uppercase wrapper"
+      class="flex items-start justify-center h-2/5 bg-darkBlue rounded-[35px] p-10 text-3xl wrapper"
     >
       {{ blog.title }}
     </div>
@@ -24,12 +24,12 @@
   <!-- Second Column -->
   <div class="h-full p-3 space-y-6">
     <div
-      class="h-2/5 bg-darkBlue rounded-[35px] font-bold flex justify-center items-center wrapper"
+      class="h-2/5 bg-darkBlue rounded-[35px] font-bold flex justify-center items-center uppercase wrapper"
     >
       {{ blog.title }}
     </div>
     <div
-      class="h-3/5 bg-darkBlue rounded-[35px] p-10 text-2xl text-center wrapper"
+      class="flex justify-center items-center h-3/5 bg-darkBlue rounded-[35px] p-10 text-2xl text-center wrapper"
     >
       {{
         blog.content.split(" ").slice(0, longDescriptionCutOff).join(" ") +
