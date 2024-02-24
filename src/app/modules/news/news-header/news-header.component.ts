@@ -11,9 +11,9 @@ import { RouterLink } from '@angular/router';
 })
 export class NewsHeaderComponent {
   navLinks = [
-    { label: 'Robotics', route: 'news/robotics' },
-    { label: 'Metaverse', route: 'news/metaverse' },
-    { label: 'Gaming', route: 'news/gaming' },
-    { label: 'Movies', route: 'news/movies' },
+    { label: 'Robotics', route: 'robotics' },
+    { label: 'Metaverse', route: 'metaverse' },
+    { label: 'Gaming', route: 'gaming' },
+    { label: 'Movies', route: 'movies' },
   ];
 }
