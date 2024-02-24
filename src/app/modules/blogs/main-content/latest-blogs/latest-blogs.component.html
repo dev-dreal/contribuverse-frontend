@@ -1,24 +1,39 @@
 <div class="flex flex-col items-start justify-around py-8 h-full">
   <h2 class="text-4xl text-white mb-2 pl-4">Latest Blogs</h2>
   <div class="h-full flex flex-col gap-4 md:flex-row">
-    @for (
-      blog of blogs()
-        | paginate
-          : { itemsPerPage: tableSize, currentPage: page, totalItems: count }
-        | slice: 0 : 2;
-      track $index
-    ) {
-      @if ($index !== 0) {
-        <latest-blog
-          [blog]="blog"
-          class="w-full hidden md:block w-1/2"
-        ></latest-blog>
-      } @else {
-        <latest-blog
-          [blog]="blog"
-          [longDescriptionCutOff]="5"
-          class="w-full md:w-1/2"
-        ></latest-blog>
+    @if (isBlogsLoading()) {
+      @for (item of blogItems; track $index) {
+        <ngx-skeleton-loader
+          animation="pulse"
+          appearance="circle"
+          [theme]="{
+            'border-radius': '15px',
+            'background-color': '#035e63',
+            height: '100%',
+            width: '435px'
+          }"
+        />
+      }
+    } @else {
+      @for (
+        blog of blogs()
+          | paginate
+            : { itemsPerPage: tableSize, currentPage: page, totalItems: count }
+          | slice: 0 : 2;
+        track $index
+      ) {
+        @if ($index !== 0) {
+          <latest-blog
+            [blog]="blog"
+            class="w-full hidden md:block w-1/2"
+          ></latest-blog>
+        } @else {
+          <latest-blog
+            [blog]="blog"
+            [longDescriptionCutOff]="5"
+            class="w-full md:w-1/2"
+          ></latest-blog>
+        }
       }
     }
   </div>

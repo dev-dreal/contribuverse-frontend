@@ -4,16 +4,24 @@ import { BlogModel } from '../../../../models/blog.model';
 import { CommonModule } from '@angular/common';
 import { LatestBlogComponent } from './latest-blog/latest-blog.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'latest-blogs',
   standalone: true,
-  imports: [CommonModule, LatestBlogComponent, NgxPaginationModule],
+  imports: [
+    CommonModule,
+    LatestBlogComponent,
+    NgxPaginationModule,
+    NgxSkeletonLoaderModule,
+  ],
   providers: [BlogsService],
   templateUrl: './latest-blogs.component.html',
   styleUrl: './latest-blogs.component.scss',
 })
 export class LatestBlogsComponent {
+  isBlogsLoading = signal(true);
+  blogItems = [1, 2];
   blogs: WritableSignal<BlogModel[]> = signal([]);
   page: number = 1;
   count: number = 0;
@@ -27,8 +35,14 @@ export class LatestBlogsComponent {
   }
 
   loadBlogs() {
-    this.blogsService.getBlogs().subscribe((blogs) => {
-      this.blogs.set(blogs);
+    this.blogsService.getBlogs().subscribe({
+      next: (blogs: BlogModel[]) => {
+        this.blogs.set(blogs);
+        this.isBlogsLoading.set(false);
+      },
+      error: (error) => {
+        console.error(error);
+      },
     });
   }
 
