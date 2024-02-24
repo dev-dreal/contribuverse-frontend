@@ -17,7 +17,7 @@
     <div
       class="flex items-start justify-center h-2/5 bg-darkBlue rounded-[35px] p-10 text-3xl wrapper"
     >
-      {{ blog.title }}
+      {{ blog.title.split(" ")[0].slice(0, 7) + "..." }}
     </div>
   </div>
   <!-- End of First Column -->
