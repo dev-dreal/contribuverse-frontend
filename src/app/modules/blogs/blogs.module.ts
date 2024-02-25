@@ -8,21 +8,20 @@ import { AddBlogComponent } from './main-content/add-blog/add-blog.component';
 const blogsRoutes: Routes = [
   {
     path: '',
-    component: BlogsComponent,
     children: [
       {
         path: '',
-        component: MainContentComponent,
+        component: BlogsComponent,
+      },
+      {
+        path: 'add-blog',
+        component: AddBlogComponent,
+      },
+      {
+        path: ':id',
+        component: SingleBlogComponent,
       },
     ],
-  },
-  {
-    path: 'add-blog',
-    component: AddBlogComponent,
-  },
-  {
-    path: ':id',
-    component: SingleBlogComponent,
   },
 ];
 

@@ -4,6 +4,7 @@ import { fadingAnimation } from '../../helpers/animations';
 import { LeftSidebarComponent } from './left-sidebar/left-sidebar.component';
 import { RightSidebarComponent } from './right-sidebar/right-sidebar.component';
 import { RouterOutlet } from '@angular/router';
+import { MainContentComponent } from './main-content/main-content.component';
 
 @Component({
   selector: 'app-blogs',
@@ -12,6 +13,7 @@ import { RouterOutlet } from '@angular/router';
     CommonModule,
     RouterOutlet,
     LeftSidebarComponent,
+    MainContentComponent,
     RightSidebarComponent,
   ],
   templateUrl: './blogs.component.html',
