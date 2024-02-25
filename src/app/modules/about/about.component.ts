@@ -92,6 +92,8 @@ export class AboutComponent {
       this.isLoading = false;
     }, 2000);
 
+    /* The `setInterval` function in the code snippet is used to repeatedly update the
+    `currentMobileImageIndex` property of the `AboutComponent` class. */
     setInterval(() => {
       this.currentMobileImageIndex =
         (this.currentMobileImageIndex + 1) % this.mobileImages.length;
