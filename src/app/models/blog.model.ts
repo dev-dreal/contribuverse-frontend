@@ -1,3 +1,11 @@
+export interface AddBlogModel {
+  category: string;
+  title: string;
+  content: string;
+  imageUrl: string;
+  userId: string;
+}
+
 export interface BlogModel {
   id: string;
   title: string;

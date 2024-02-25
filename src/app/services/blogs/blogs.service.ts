@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BlogModel } from '../../models/blog.model';
+import { AddBlogModel, BlogModel } from '../../models/blog.model';
 import { GET_BLOGS, GET_BLOG } from '../../graphql/queries';
 import { Apollo } from 'apollo-angular';
 import { Observable, map } from 'rxjs';
+import { CREATE_BLOG } from '../../graphql/mutations';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,20 @@ export class BlogsService {
       .valueChanges.pipe(map((result) => result.data.blog));
   }
 
+  addBlog(blog: AddBlogModel): Observable<BlogModel> {
+    return this.apollo
+      .mutate({
+        mutation: CREATE_BLOG,
+        variables: {
+          category: blog.category,
+          title: blog.title,
+          content: blog.content,
+          imageUrl: blog.imageUrl,
+          userId: blog.userId,
+        },
+      })
+      .pipe(map((result: any) => result.data.createBlog));
+  }
   // getBlogs(): BlogModel[] {
   //   return [
   //     {
