@@ -7,10 +7,11 @@
   [routerLink]="isLink ? '/' + [route] : null"
 >
   @if (icon) {
-  <img src="{{ icon }}" alt="icon" class="w-20 h-20" title="{{ label }}" />
-  } @if (removeLabelOnResponsive) {
-  <span class="text-white hidden md:inline-block">{{ label }}</span>
+    <img src="{{ icon }}" alt="icon" class="w-20 h-20" title="{{ label }}" />
+  }
+  @if (removeLabelOnResponsive) {
+    <span class="text-white hidden md:inline-block">{{ label }}</span>
   } @else {
-  <span class="text-white">{{ label }}</span>
+    <span class="text-white">{{ label }}</span>
   }
 </div>

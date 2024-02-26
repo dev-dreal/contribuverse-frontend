@@ -1,11 +1,11 @@
 <nav
-  class="w-full flex justify-between items-center text-black p-16 transition-all relative"
+  class="w-full flex justify-between items-center text-white p-16 transition-all relative"
 >
   <div class="logo">
     <a routerLink="/home" routerLinkActive="active">
       <!-- <img src="assets/images/logo.png" alt="logo"> -->
       <h1
-        class="text-3xl lg:text-4xl font-bold text-shadow shadow-black hidden md:block"
+        class="text-3xl lg:text-4xl font-bold text-shadow shadow-white hidden md:block"
       >
         CONTRIBUVERSE
       </h1>
@@ -16,7 +16,11 @@
   >
     @for (link of navLinks; track $index) {
       <li>
-        <nav-link [route]="link.route" [label]="link.label"></nav-link>
+        <nav-link
+          [route]="link.route"
+          [label]="link.label"
+          [textColor]="'white'"
+        ></nav-link>
       </li>
     }
   </ul>
