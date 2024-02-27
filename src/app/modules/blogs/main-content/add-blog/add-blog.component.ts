@@ -1,34 +1,95 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { RichTextEditorComponent } from '../../../../shared/components/smart/rich-text-editor/rich-text-editor.component';
+import { AddBlogModel } from '../../../../models/blog.model';
+import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
+import { GlobalsService } from '../../../../services/globals/globals.service';
 
 @Component({
   selector: 'add-blog',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RichTextEditorComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RichTextEditorComponent,
+    NgxUiLoaderModule,
+  ],
   templateUrl: './add-blog.component.html',
   styleUrl: './add-blog.component.scss',
 })
 export class AddBlogComponent {
-  addBlogForm = new FormGroup({
-    title: new FormControl(''),
-    shortDescription: new FormControl(''),
-    content: new FormControl(''),
-    category: new FormControl(''),
-    imageUrl: new FormControl(''),
-    userId: new FormControl(''),
+  SPINNER = SPINNER;
+  blogCategories: string[] = [];
+  addBlogForm = this.fb.group({
+    category: ['', [Validators.required]],
+    title: ['', [Validators.required]],
+    content: ['', [Validators.required]],
+    imageUrl: ['', [Validators.required]],
+    userId: ['', [Validators.required]],
   });
 
-  constructor(private blogsService: BlogsService) {}
+  // addBlogForm = new FormGroup({
+  //   category: new FormControl(''),
+  //   title: new FormControl(''),
+  //   content: new FormControl(''),
+  //   imageUrl: new FormControl(''),
+  //   userId: new FormControl(''),
+  // });
+  isDropdownOpen = false;
+  selectedOption: string | undefined;
 
-  ngOnInit() {}
+  constructor(
+    private blogsService: BlogsService,
+    private globals: GlobalsService,
+    private fb: FormBuilder,
+  ) {}
+
+  ngOnInit() {
+    this.blogCategories = this.loadBlogCategories();
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  selectCategory(option: string) {
+    this.selectedOption = option;
+    this.isDropdownOpen = false;
+  }
+
+  loadBlogCategories() {
+    return this.blogsService.getBlogCategories();
+  }
 
   createBlog() {
+    this.globals.loader.start();
     console.log(this.addBlogForm.value);
-    // this.blogsService.addBlog(this.addBlogForm.value).subscribe((res) => {
-    //   console.log(res);
-    // });
+
+    const newBlog: AddBlogModel = {
+      category: this.addBlogForm.value.category!,
+      title: this.addBlogForm.value.title!,
+      content: this.addBlogForm.value.content!,
+      imageUrl: this.addBlogForm.value.imageUrl!,
+      userId: this.addBlogForm.value.userId!,
+    };
+
+    this.blogsService.addBlog(newBlog).subscribe({
+      next: (response) => {
+        this.globals.loader.stopAll();
+        console.log(response);
+      },
+      error: (error) => {
+        this.globals.loader.stopAll();
+        console.log(error);
+      },
+    });
   }
 }

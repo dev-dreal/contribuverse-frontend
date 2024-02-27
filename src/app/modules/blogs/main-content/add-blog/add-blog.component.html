@@ -15,19 +15,22 @@
       formControlName="title"
     />
 
-    <input
-      type="text"
-      class="w-3/4 h-12 p-3 rounded-lg border-2 border-gray-300"
-      placeholder="Category"
-      formControlName="category"
-    />
-
-    <input
-      type="text"
-      class="w-3/4 h-12 p-3 rounded-lg border-2 border-gray-300"
-      placeholder="Short Description"
-      formControlName="shortDescription"
-    />
+    <div
+      class="relative flex justify-between items-center w-3/4 h-12 p-5 rounded-lg border-2 border-gray-300"
+    >
+      <label for="category" class="block text-gray-700 font-bold"
+        >Category</label
+      >
+      <select
+        class="block appearance-none w-1/4 bg-gray-300 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-300"
+        formControlName="category"
+      >
+        <option value="" disabled>Select an option</option>
+        @for (category of blogCategories; track $index) {
+          <option value="{{ category }}">{{ category }}</option>
+        }
+      </select>
+    </div>
 
     <input
       type="text"
@@ -36,12 +39,6 @@
       formControlName="imageUrl"
     />
 
-    <!-- <input
-      type="text"
-      class="w-3/4 h-12 p-3 rounded-lg border-2 border-gray-300"
-      placeholder="Content"
-      formControlName="content"
-    /> -->
     <rich-text-editor
       class="w-3/4 p-3 rounded-lg border-2 border-gray-300"
       [control]="addBlogForm.controls.content"
@@ -55,3 +52,5 @@
     </button>
   </form>
 </div>
+
+<ngx-ui-loader [fgsType]="SPINNER.cubeGrid"></ngx-ui-loader>
