@@ -4,6 +4,7 @@ import { InitialLoaderComponent } from './shared/components/smart/initial-loader
 import { fadingAnimation } from './helpers/animations';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from './services/globals/globals.service';
+import { Auth0Service } from './services/auth/auth0.service';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +19,18 @@ export class AppComponent {
   isLoading: boolean = true;
   SPINNER = SPINNER;
 
-  constructor(private globals: GlobalsService) {}
+  constructor(
+    private globals: GlobalsService,
+    private auth: Auth0Service,
+  ) {}
 
   ngOnInit() {
+    this.auth.user$.subscribe((user) => {
+      if (user) {
+        console.log('User:', user);
+      }
+    });
+
     this.globals.loader.start();
 
     setTimeout(() => {
