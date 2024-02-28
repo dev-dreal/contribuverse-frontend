@@ -10,16 +10,18 @@ import { RouterLink } from '@angular/router';
 import { SupabaseService } from '../../../services/auth/supabase.service';
 import { GlobalsService } from '../../../services/globals/globals.service';
 import { fadingAnimation } from '../../../helpers/animations';
+import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, NgxUiLoaderModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   animations: [fadingAnimation],
 })
 export class LoginComponent {
+  SPINNER = SPINNER;
   loginForm = {} as FormGroup;
 
   constructor(
@@ -36,6 +38,7 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    this.globals.loader.start();
     this.supabase
       .signInWithPassword(
         this.loginForm.value.email,
@@ -45,6 +48,7 @@ export class LoginComponent {
         console.log(res);
         if (res.data.user?.role === 'authenticated') {
           console.log(window.location.origin);
+          this.globals.loader.stopAll();
           this.globals.router.navigate(['/blogs']);
           console.log('authenticated');
         }
@@ -67,7 +71,9 @@ export class LoginComponent {
   }
 
   logOut() {
+    this.globals.loader.start();
     this.supabase.signOut().then(() => {
+      this.globals.loader.stopAll();
       this.globals.router.navigate(['/']);
     });
   }
