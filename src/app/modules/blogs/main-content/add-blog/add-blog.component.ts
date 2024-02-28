@@ -1,12 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { RichTextEditorComponent } from '../../../../shared/components/smart/rich-text-editor/rich-text-editor.component';
 import { AddBlogModel } from '../../../../models/blog.model';
@@ -35,14 +29,6 @@ export class AddBlogComponent {
     imageUrl: ['', [Validators.required]],
     userId: ['', [Validators.required]],
   });
-
-  // addBlogForm = new FormGroup({
-  //   category: new FormControl(''),
-  //   title: new FormControl(''),
-  //   content: new FormControl(''),
-  //   imageUrl: new FormControl(''),
-  //   userId: new FormControl(''),
-  // });
   isDropdownOpen = false;
   selectedOption: string | undefined;
 

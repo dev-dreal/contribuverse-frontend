@@ -10,11 +10,11 @@
     }"
   >
     <div
-      class="w-full flex flex-col items-center justify-start pb-5 relative lg:items-start lg:justify-between lg:w-3/5"
+      class="w-full flex flex-col items-center justify-start pb-5 relative md:items-start md:justify-between md:w-3/5"
     >
       <!-- Hamburger Menu Icon -->
       <span
-        class="cursor-pointer ml-auto mr-5 mt-5 inline lg:hidden"
+        class="cursor-pointer ml-auto mr-5 mt-5 inline md:hidden"
         (click)="openMenu()"
       >
         <svg
@@ -37,7 +37,7 @@
       @if (isMenuOpen()) {
         <menu-mobile
           @fade
-          class="absolute top-5 right-5 rounded-[20px] w-1/2 h-4/5 bg-darkBlue lg:hidden"
+          class="absolute top-5 right-5 rounded-[20px] w-1/2 h-4/5 bg-darkBlue block md:hidden"
           (isCloseMenu)="closeMenu()"
         ></menu-mobile>
       }
@@ -47,7 +47,7 @@
       <app-about-text></app-about-text>
       <!-- End of ABOUT CONTENT -->
 
-      <div class="justify-start items-center space-x-6 hidden lg:flex">
+      <div class="justify-start items-center space-x-6 hidden md:flex">
         @for (img of images; track $index) {
           <div
             [style]="{
@@ -74,13 +74,13 @@
         @fade
         src="{{ mobileImages[currentMobileImageIndex].imgSrc }}"
         alt="{{ mobileImages[currentMobileImageIndex].title }}"
-        class="w-11/12 max-w-[520px] mt-auto lg:hidden"
+        class="w-11/12 max-w-[520px] mt-auto md:hidden"
       />
       <!-- End of Animated GIFs on Mobile View -->
     </div>
     <div
       @fade
-      class="w-2/5 relative justify-center items-center arch hidden lg:flex"
+      class="w-2/5 relative justify-center items-center arch hidden md:flex"
       [ngClass]="{
         'bg-arc1': currentNavIndex === 0,
         'bg-arc2': currentNavIndex === 1,

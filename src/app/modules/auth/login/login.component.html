@@ -1,0 +1,84 @@
+<div @fade class="bg-primaryBlue h-screen flex items-center justify-center">
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+    class="bg-gray-100 p-8 rounded shadow-md w-10/12 md:w-2/5"
+  >
+    <h2 class="text-4xl font-semibold mb-4">Login</h2>
+
+    <!-- Email Input -->
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-medium text-gray-600"
+        >Email</label
+      >
+      <input
+        type="email"
+        id="email"
+        name="email"
+        formControlName="email"
+        class="mt-1 p-2 w-full border rounded-md"
+      />
+
+      @if (handleError("email", "required")) {
+        <div class="text-red-500 text-sm mt-2">Email is required</div>
+      } @else if (handleError("email", "email")) {
+        <div class="text-red-500 text-sm mt-2">Enter valid email</div>
+      }
+    </div>
+
+    <!-- Password Input -->
+    <div class="mb-6">
+      <label for="password" class="block text-sm font-medium text-gray-600"
+        >Password</label
+      >
+      <input
+        type="password"
+        id="password"
+        name="password"
+        formControlName="password"
+        class="mt-1 p-2 w-full border rounded-md"
+      />
+
+      @if (handleError("password", "required")) {
+        <div class="text-red-500 text-sm mt-2">Password is required</div>
+      } @else if (handleError("password", "minlength")) {
+        <div class="text-red-500 text-sm mt-2">
+          Password must be at least 6 characters
+        </div>
+      }
+    </div>
+
+    <!-- Forgot Password Link -->
+    <div class="mb-6 text-right">
+      <a href="#" class="text-blue-500 hover:underline">Forgot Password?</a>
+    </div>
+
+    <!-- Login Button -->
+    <button
+      [disabled]="loginForm.invalid"
+      class="bg-blue-500 text-white p-2 rounded-md w-full mb-2"
+    >
+      Login
+    </button>
+    <button
+      (click)="signInWithGitHub()"
+      class="bg-red-500 text-white p-2 rounded-md w-full mb-2"
+    >
+      Sign In with GitHub
+    </button>
+    <button
+      (click)="logOut()"
+      class="bg-red-500 text-white p-2 rounded-md w-full"
+    >
+      Logout
+    </button>
+
+    <!-- Register Link -->
+    <div class="mt-4 text-center">
+      <p class="text-sm text-gray-600">Don't have an account?</p>
+      <a routerLink="/auth/register" class="text-blue-500 hover:underline"
+        >Register here</a
+      >
+    </div>
+  </form>
+</div>
