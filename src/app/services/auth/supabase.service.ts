@@ -25,8 +25,8 @@ export class SupabaseService {
 
   constructor() {
     this.supabase = createClient(
-      environment.supabaseUrl,
-      environment.supabaseKey,
+      environment.supabase.url,
+      environment.supabase.key,
     );
   }
 
@@ -51,7 +51,23 @@ export class SupabaseService {
     return this.supabase.auth.onAuthStateChange(callback);
   }
 
-  signIn(email: string) {
+  register(email: string, password: string) {
+    return this.supabase.auth.signUp({ email, password });
+  }
+
+  async signInWithGithub() {
+    const { data, error } = await this.supabase.auth.signInWithOAuth({
+      provider: 'github',
+    });
+
+    console.log(data, error);
+  }
+
+  signInWithPassword(email: string, password: string) {
+    return this.supabase.auth.signInWithPassword({ email, password });
+  }
+
+  signInWithOtp(email: string) {
     return this.supabase.auth.signInWithOtp({ email });
   }
 

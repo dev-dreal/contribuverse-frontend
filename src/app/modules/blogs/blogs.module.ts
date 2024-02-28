@@ -16,6 +16,7 @@ const blogsRoutes: Routes = [
       },
       {
         path: 'add-blog',
+        canActivate: [authGuard],
         component: AddBlogComponent,
       },
       {

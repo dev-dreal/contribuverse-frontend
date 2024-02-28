@@ -1,5 +1,9 @@
-<div class="bg-primaryBlue h-screen flex items-center justify-center">
-  <div class="bg-gray-100 p-8 rounded shadow-md w-10/12 md:w-2/5">
+<div @fade class="bg-primaryBlue h-screen flex items-center justify-center">
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+    class="bg-gray-100 p-8 rounded shadow-md w-10/12 md:w-2/5"
+  >
     <h2 class="text-4xl font-semibold mb-4">Login</h2>
 
     <!-- Email Input -->
@@ -11,8 +15,15 @@
         type="email"
         id="email"
         name="email"
+        formControlName="email"
         class="mt-1 p-2 w-full border rounded-md"
       />
+
+      @if (handleError("email", "required")) {
+        <div class="text-red-500 text-sm mt-2">Email is required</div>
+      } @else if (handleError("email", "email")) {
+        <div class="text-red-500 text-sm mt-2">Enter valid email</div>
+      }
     </div>
 
     <!-- Password Input -->
@@ -24,8 +35,17 @@
         type="password"
         id="password"
         name="password"
+        formControlName="password"
         class="mt-1 p-2 w-full border rounded-md"
       />
+
+      @if (handleError("password", "required")) {
+        <div class="text-red-500 text-sm mt-2">Password is required</div>
+      } @else if (handleError("password", "minlength")) {
+        <div class="text-red-500 text-sm mt-2">
+          Password must be at least 6 characters
+        </div>
+      }
     </div>
 
     <!-- Forgot Password Link -->
@@ -34,7 +54,24 @@
     </div>
 
     <!-- Login Button -->
-    <button class="bg-blue-500 text-white p-2 rounded-md w-full">Login</button>
+    <button
+      [disabled]="loginForm.invalid"
+      class="bg-blue-500 text-white p-2 rounded-md w-full mb-2"
+    >
+      Login
+    </button>
+    <button
+      (click)="signInWithGitHub()"
+      class="bg-red-500 text-white p-2 rounded-md w-full mb-2"
+    >
+      Sign In with GitHub
+    </button>
+    <button
+      (click)="logOut()"
+      class="bg-red-500 text-white p-2 rounded-md w-full"
+    >
+      Logout
+    </button>
 
     <!-- Register Link -->
     <div class="mt-4 text-center">
@@ -43,5 +80,5 @@
         >Register here</a
       >
     </div>
-  </div>
+  </form>
 </div>

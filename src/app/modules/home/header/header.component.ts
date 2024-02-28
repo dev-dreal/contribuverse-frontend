@@ -16,11 +16,9 @@ export class HeaderComponent {
   @Output() isMenuOpen: EventEmitter<boolean> = new EventEmitter<boolean>();
   navLinks = [
     { label: 'HOME', route: '/home' },
-    // { label: 'ABOUT', route: '/about' },
-    // { label: 'NEWS', route: '/news' },
+    { label: 'ABOUT', route: '/about' },
+    { label: 'NEWS', route: '/news' },
     { label: 'BLOGS', route: '/blogs' },
-    { label: 'LOGIN', route: '/auth/login' },
-    { label: 'REGISTER', route: '/auth/register' },
   ];
 
   openMenu() {

@@ -1,5 +1,9 @@
 <div class="bg-primaryBlue h-screen flex items-center justify-center">
-  <div class="bg-gray-100 p-8 rounded shadow-md w-10/12 md:w-2/5">
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+    class="bg-gray-100 p-8 rounded shadow-md w-10/12 md:w-2/5"
+  >
     <h2 class="text-4xl font-semibold mb-4">Register</h2>
 
     <!-- Email Input -->
@@ -11,8 +15,15 @@
         type="email"
         id="email"
         name="email"
+        formControlName="email"
         class="mt-1 p-2 w-full border rounded-md"
       />
+
+      @if (handleError("email", "required")) {
+        <div class="text-red-500 text-sm mt-2">Email is required</div>
+      } @else if (handleError("email", "email")) {
+        <div class="text-red-500 text-sm mt-2">Enter valid email</div>
+      }
     </div>
 
     <!-- Username Input -->
@@ -24,8 +35,13 @@
         type="text"
         id="username"
         name="username"
+        formControlName="username"
         class="mt-1 p-2 w-full border rounded-md"
       />
+
+      @if (handleError("username", "required")) {
+        <div class="text-red-500 text-sm mt-2">Username is required</div>
+      }
     </div>
 
     <!-- Password Input -->
@@ -37,8 +53,17 @@
         type="password"
         id="password"
         name="password"
+        formControlName="password"
         class="mt-1 p-2 w-full border rounded-md"
       />
+
+      @if (handleError("password", "required")) {
+        <div class="text-red-500 text-sm mt-2">Password is required</div>
+      } @else if (handleError("password", "minlength")) {
+        <div class="text-red-500 text-sm mt-2">
+          Password must be at least 6 characters
+        </div>
+      }
     </div>
 
     <!-- Confirm Password Input -->
@@ -52,12 +77,20 @@
         type="password"
         id="confirm-password"
         name="confirm-password"
+        formControlName="confirmPassword"
         class="mt-1 p-2 w-full border rounded-md"
       />
+
+      @if (handleError("confirmPassword", "required")) {
+        <div class="text-red-500 text-sm mt-2">Please confirm password</div>
+      }
     </div>
 
     <!-- Register Button -->
-    <button class="bg-blue-500 text-white p-2 rounded-md w-full">
+    <button
+      [disabled]="registerForm.invalid"
+      class="bg-blue-500 text-white p-2 rounded-md w-full"
+    >
       Register
     </button>
 
@@ -68,5 +101,5 @@
         >Login here</a
       >
     </div>
-  </div>
+  </form>
 </div>
