@@ -4,10 +4,7 @@ import { InitialLoaderComponent } from './shared/components/smart/initial-loader
 import { fadingAnimation } from './helpers/animations';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from './services/globals/globals.service';
-import { SupabaseService } from './services/auth/supabase.service';
-import { AuthComponent } from './modules/auth/auth.component';
 import { AccountComponent } from './modules/user/account/account.component';
-// import { Auth0Service } from './services/auth/auth0.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +15,6 @@ import { AccountComponent } from './modules/user/account/account.component';
     InitialLoaderComponent,
     RouterOutlet,
     NgxUiLoaderModule,
-    AuthComponent,
     AccountComponent,
   ],
   providers: [GlobalsService],
@@ -27,16 +23,10 @@ import { AccountComponent } from './modules/user/account/account.component';
 export class AppComponent {
   isLoading: boolean = true;
   SPINNER = SPINNER;
-  session = this.supabase.session;
 
-  constructor(
-    private globals: GlobalsService,
-    private readonly supabase: SupabaseService,
-  ) {}
+  constructor(private globals: GlobalsService) {}
 
   ngOnInit() {
-    this.supabase.authChanges((_, session) => (this.session = session));
-
     this.globals.loader.start();
 
     setTimeout(() => {
