@@ -15,14 +15,14 @@ export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(
       BrowserModule,
-      AuthModule.forRoot({
-        domain: env.environment.auth.domain,
-        clientId: env.environment.auth.clientId,
-        authorizationParams: {
-          redirect_uri: window.location.origin,
-        },
-        errorPath: '/error',
-      }),
+      // AuthModule.forRoot({
+      //   domain: env.environment.auth.domain,
+      //   clientId: env.environment.auth.clientId,
+      //   authorizationParams: {
+      //     redirect_uri: window.location.origin,
+      //   },
+      //   errorPath: '/error',
+      // }),
     ),
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
