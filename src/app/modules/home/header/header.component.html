@@ -43,7 +43,7 @@
   @if (isHamburgerMenuOpen) {
     <menu-mobile
       @fade
-      class="absolute top-5 right-5 rounded-[20px] w-1/2 h-[400px] bg-primaryBlue"
+      class="absolute top-5 right-5 rounded-[20px] w-1/2 h-[400px] bg-primaryBlue md:hidden"
       (isCloseMenu)="closeMenu()"
     ></menu-mobile>
   }
