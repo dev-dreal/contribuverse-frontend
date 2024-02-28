@@ -1,4 +1,4 @@
-@defer (on viewport) {
+<!-- @defer (on viewport) {
 <router-outlet></router-outlet>
 } @placeholder {
 <h1 class="text-center">Please Wait...</h1>
@@ -14,4 +14,12 @@
   [fgsType]="SPINNER.squareJellyBox"
   class="md:hidden"
 ></ngx-ui-loader>
-}
+} -->
+
+<div class="w-10/12 mx-auto" style="padding: 50px 0 100px 0">
+  @if (session) {
+    <app-account [session]="session"></app-account>
+  } @else {
+    <app-auth></app-auth>
+  }
+</div>
