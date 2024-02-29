@@ -46,12 +46,12 @@ export class LoginComponent {
       )
       .then((res) => {
         console.log(res);
-        if (res.data.user?.role === 'authenticated') {
-          console.log(window.location.origin);
-          this.globals.loader.stopAll();
-          this.globals.router.navigate(['/blogs']);
-          console.log('authenticated');
-        }
+        // if (res..role === 'authenticated') {
+        //   console.log(window.location.origin);
+        //   this.globals.loader.stopAll();
+        //   this.globals.router.navigate(['/blogs']);
+        //   console.log('authenticated');
+        // }
       })
       .catch((err) => {
         console.log(err);
@@ -60,14 +60,9 @@ export class LoginComponent {
   }
 
   signInWithGitHub() {
-    this.supabase
-      .signInWithGithub()
-      .then((res) => {
-        this.globals.router.navigate(['/blogs']);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.supabase.signInWithGithub().then((res) => {
+      console.log(res);
+    });
   }
 
   logOut() {
