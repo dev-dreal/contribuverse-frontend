@@ -48,11 +48,11 @@ export class BlogsService {
     return this.apollo.mutate({
       mutation: CREATE_BLOG,
       variables: {
-        category: blog.category,
-        title: blog.title,
-        content: blog.content,
-        imageUrl: blog.imageUrl,
         userId: blog.userId,
+        category: blog.category,
+        imageUrl: blog.imageUrl,
+        content: blog.content,
+        title: blog.title,
       },
     });
   }
