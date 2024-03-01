@@ -15,6 +15,10 @@
       formControlName="title"
     />
 
+    @if (handleError("title", "required")) {
+      <div class="text-red-500 text-sm mt-2">Title is required</div>
+    }
+
     <div
       class="relative flex justify-between items-center w-3/4 h-12 p-5 rounded-lg border-2 border-gray-300"
     >
@@ -30,6 +34,10 @@
           <option value="{{ category }}">{{ category }}</option>
         }
       </select>
+
+      @if (handleError("category", "required")) {
+        <div class="text-red-500 text-sm mt-2">Category is required</div>
+      }
     </div>
 
     <input
@@ -39,10 +47,18 @@
       formControlName="imageUrl"
     />
 
+    @if (handleError("imageUrl", "required")) {
+      <div class="text-red-500 text-sm mt-2">Cover Image is required</div>
+    }
+
     <rich-text-editor
       class="w-3/4 p-3 rounded-lg border-2 border-gray-300"
       [control]="blogContentControl"
     ></rich-text-editor>
+
+    @if (handleError("content", "required")) {
+      <div class="text-red-500 text-sm mt-2">Content is required</div>
+    }
 
     <button
       [disabled]="addBlogForm.invalid"

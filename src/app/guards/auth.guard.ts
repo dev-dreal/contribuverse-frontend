@@ -11,7 +11,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   const isLoggedIn = localStorage.getItem(
     `sb-${environment.supabase.tag}-auth-token`,
   );
-  console.log('isLoggedIn', isLoggedIn);
 
   return supabase.$profile.pipe(
     // We only want to get the first emitted value from the $profile
