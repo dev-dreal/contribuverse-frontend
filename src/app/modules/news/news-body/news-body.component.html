@@ -42,6 +42,7 @@
   </div>
 
   <div class="flex-col justify-center items-start hidden md:flex md:w-1/2">
+    <!-- Cool Tech Animals Display -->
     @for (coolAnimal of coolTechAnimals; track $index) {
       <img
         src="{{ coolAnimal.svgUrl }}"
@@ -57,6 +58,7 @@
   <div
     class="flex flex-col justify-end items-center h-full w-full md:justify-evenly md:h-auto md:w-1/2"
   >
+    <!-- Router to the news text -->
     <div>
       <router-outlet></router-outlet>
     </div>
@@ -66,7 +68,7 @@
         <div
           class="flex flex-col justify-center items-center relative"
           [class]="{
-            'border-b-2 border-blue-500': activeSlideIndex === $index
+            'border-b-2 border-blue-500': activeSlideIndex() === $index
           }"
         >
           <img
@@ -77,7 +79,7 @@
             class="cursor-pointer transition ease-in-out delay-700"
             (click)="selectAnimal($index)"
           />
-          @if (activeSlideIndex === $index) {
+          @if (activeSlideIndex() === $index) {
             <div
               @fade
               class="absolute bottom-0 left-0 h-2 w-full bg-secondaryBlue rounded-full"

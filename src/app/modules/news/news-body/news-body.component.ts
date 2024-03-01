@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  WritableSignal,
+  effect,
+  signal,
+} from '@angular/core';
 import { circularMotion, fadingAnimation } from '../../../helpers/animations';
 import { CoolTechAnimalModel } from '../../../models/coolTechAnimal.model';
 import { GlobalsService } from '../../../services/globals/globals.service';
@@ -16,7 +24,7 @@ import { MenuMobileComponent } from '../../../shared/components/ui/menu-mobile/m
   animations: [fadingAnimation, circularMotion],
 })
 export class NewsBodyComponent {
-  @Input() activeSlideIndex: number = 0;
+  @Input() activeSlideIndex: WritableSignal<number> = signal(0);
   @Output() currentSlidePositionEvent: EventEmitter<number> =
     new EventEmitter();
   @Output() isMenuOpen: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -26,6 +34,7 @@ export class NewsBodyComponent {
   coolTechAnimals: CoolTechAnimalModel[] = [
     {
       title: 'Cool Tech Leopard',
+      route: 'news/robotics',
       imgUrl:
         'https://res.cloudinary.com/dv765kdgq/image/upload/v1705701240/cool-leopard_kiqkep.png',
       svgUrl: 'assets/svgs/cool-tech-leopard.svg',
@@ -33,6 +42,7 @@ export class NewsBodyComponent {
     },
     {
       title: 'Cool Tech Lion',
+      route: 'news/metaverse',
       imgUrl:
         'https://res.cloudinary.com/dv765kdgq/image/upload/v1705701240/cool-lion_dnyxmr.png',
       svgUrl: 'assets/svgs/cool-tech-lion.svg',
@@ -40,6 +50,7 @@ export class NewsBodyComponent {
     },
     {
       title: 'Cool Tech Dog',
+      route: 'news/gaming',
       imgUrl:
         'https://res.cloudinary.com/dv765kdgq/image/upload/v1705701240/cool-dog_uxpho4.png',
       svgUrl: 'assets/svgs/cool-tech-dog.svg',
@@ -49,10 +60,18 @@ export class NewsBodyComponent {
 
   selectedAnimal = this.coolTechAnimals[0];
 
-  constructor(private globals: GlobalsService) {}
+  constructor(private globals: GlobalsService) {
+    /* The `effect(() => { ... });` block in the `NewsBodyComponent` class is creating a side effect
+    that will be triggered whenever the value of `activeSlideIndex` changes. */
+    // When the active slide index changes, update the selected animal and navigate to the selected animal's route.
+    effect(() => {
+      this.selectedAnimal = this.coolTechAnimals[this.activeSlideIndex()];
+      this.globals.router.navigate([this.selectedAnimal.route]);
+    });
+  }
 
   ngOnInit() {
-    this.currentSlidePositionEvent.emit(this.activeSlideIndex);
+    this.currentSlidePositionEvent.emit(this.activeSlideIndex());
   }
 
   openMenu() {
@@ -64,15 +83,15 @@ export class NewsBodyComponent {
   }
 
   selectAnimal(index: number) {
-    this.activeSlideIndex = index;
+    this.activeSlideIndex.set(index);
     this.currentSlidePositionEvent.emit(index);
   }
 
   isTopOrBottom(index: number): string {
-    if ((index + 1) % this.coolTechAnimals.length === this.activeSlideIndex) {
+    if ((index + 1) % this.coolTechAnimals.length === this.activeSlideIndex()) {
       return 'top';
     } else if (
-      (this.activeSlideIndex + 1) % this.coolTechAnimals.length ===
+      (this.activeSlideIndex() + 1) % this.coolTechAnimals.length ===
       index
     ) {
       return 'bottom';
