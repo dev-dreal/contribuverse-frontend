@@ -19,7 +19,6 @@
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
     "@apollo/client": "^3.0.0",
-    "@auth0/auth0-angular": "^2.2.3",
     "@supabase/supabase-js": "^2.39.7",
     "apollo-angular": "^6.0.0",
     "graphql": "^16.0.0",
@@ -49,5 +48,8 @@
     "prettier": "^3.2.5",
     "tailwindcss": "^3.3.6",
     "typescript": "~5.2.2"
+  },
+  "resolutions": {
+    "@supabase/supabase-js/@supabase/gotrue-js": "2.61.0"
   }
 }
