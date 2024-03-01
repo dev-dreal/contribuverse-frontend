@@ -37,7 +37,7 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {
+  onLogin() {
     this.globals.loader.start();
     this.supabase
       .signInWithPassword(
@@ -45,12 +45,13 @@ export class LoginComponent {
         this.loginForm.value.password,
       )
       .then((res) => {
+        // Redirect to a specific page after successful login
         const redirectUrl =
           this.globals.route.snapshot.queryParams['redirect_url'];
         if (redirectUrl) {
           this.globals.router.navigateByUrl(redirectUrl);
         } else {
-          // Redirect to a default route or specific page
+          // Redirect to a default route or specific page if no redirect URL is provided
           this.globals.router.navigate(['/blogs']);
         }
         this.globals.loader.stopAll();
