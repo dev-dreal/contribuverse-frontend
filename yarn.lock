@@ -1750,17 +1750,10 @@
   dependencies:
     "@supabase/node-fetch" "^2.6.14"
 
-"@supabase/gotrue-js@2.61.0":
+"@supabase/gotrue-js@2.61.0", "@supabase/gotrue-js@2.62.2":
   version "2.61.0"
   resolved "https://registry.yarnpkg.com/@supabase/gotrue-js/-/gotrue-js-2.61.0.tgz#fa5846dd581a69304ce4adc992635c16a796b67a"
   integrity sha512-kaSoSUXm5LV6z5as9vRughSfEHs9Ru66ZISrSDf7u+U2Viv56+sR2QhfaPLhhSsJh0y3GlpzNDUfapKgHwYv9A==
-  dependencies:
-    "@supabase/node-fetch" "^2.6.14"
-
-"@supabase/gotrue-js@2.62.2":
-  version "2.62.2"
-  resolved "https://registry.yarnpkg.com/@supabase/gotrue-js/-/gotrue-js-2.62.2.tgz#9f15a451559d71475c953aa0027e1248b0210196"
-  integrity sha512-AP6e6W9rQXFTEJ7sTTNYQrNf0LCcnt1hUW+RIgUK+Uh3jbWvcIST7wAlYyNZiMlS9+PYyymWQ+Ykz/rOYSO0+A==
   dependencies:
     "@supabase/node-fetch" "^2.6.14"
 
