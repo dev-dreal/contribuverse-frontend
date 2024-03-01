@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { RichTextEditorComponent } from '../../../../shared/components/smart/rich-text-editor/rich-text-editor.component';
-import { AddBlogModel } from '../../../../models/blog.model';
+import { AddBlogModel, CATEGORY } from '../../../../models/blog.model';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from '../../../../services/globals/globals.service';
 import { SupabaseService } from '../../../../services/auth/supabase.service';
@@ -30,7 +30,7 @@ export class AddBlogComponent {
   SPINNER = SPINNER;
   blogCategories: string[] = [];
   addBlogForm: FormGroup = this.fb.group({
-    category: ['', [Validators.required]],
+    category: [null, [Validators.required]],
     title: ['', [Validators.required]],
     content: ['', [Validators.required]],
     imageUrl: ['', [Validators.required]],
@@ -60,15 +60,6 @@ export class AddBlogComponent {
 
   get blogContentControl() {
     return this.addBlogForm.controls['content'] as FormControl;
-  }
-
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
-
-  selectCategory(option: string) {
-    this.selectedOption = option;
-    this.isDropdownOpen = false;
   }
 
   loadBlogCategories() {
