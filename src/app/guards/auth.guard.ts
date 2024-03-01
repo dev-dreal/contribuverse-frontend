@@ -18,7 +18,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     first(),
     map((profile) => {
       // Allow access if the user's profile is set
-      if (profile) return true;
+      if (profile || isLoggedIn) return true;
       // If the user is not signed in and does not have a profile, do not allow access
       else {
         // Redirect to the /login route, while capturing the current url so we can redirect after login

@@ -6,6 +6,7 @@ import { RichTextEditorComponent } from '../../../../shared/components/smart/ric
 import { AddBlogModel } from '../../../../models/blog.model';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from '../../../../services/globals/globals.service';
+import { SupabaseService } from '../../../../services/auth/supabase.service';
 
 @Component({
   selector: 'add-blog',
@@ -36,10 +37,19 @@ export class AddBlogComponent {
     private blogsService: BlogsService,
     private globals: GlobalsService,
     private fb: FormBuilder,
+    private supabase: SupabaseService,
   ) {}
 
   ngOnInit() {
     this.blogCategories = this.loadBlogCategories();
+
+    this.supabase.$user?.subscribe({
+      next: (user) => {
+        this.addBlogForm.patchValue({
+          userId: user?.id,
+        });
+      },
+    });
   }
 
   toggleDropdown() {

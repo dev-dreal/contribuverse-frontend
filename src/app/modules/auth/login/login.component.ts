@@ -37,27 +37,7 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {
-    this.globals.loader.start();
-    this.supabase
-      .signInWithPassword(
-        this.loginForm.value.email,
-        this.loginForm.value.password,
-      )
-      .then((res) => {
-        console.log(res);
-        // if (res..role === 'authenticated') {
-        //   console.log(window.location.origin);
-        //   this.globals.loader.stopAll();
-        //   this.globals.router.navigate(['/blogs']);
-        //   console.log('authenticated');
-        // }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log(this.loginForm.value);
-  }
+  onSubmit() {}
 
   signInWithGitHub() {
     this.supabase.signInWithGithub().then((res) => {

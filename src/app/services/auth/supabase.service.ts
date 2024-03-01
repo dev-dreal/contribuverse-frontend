@@ -67,33 +67,28 @@ export class SupabaseService {
           this.user_id = user_id;
 
           // One-time API call to Supabase to get the user's profile
-          this.supabase
-            .from('profiles')
-            .select('*')
-            .match({ user_id })
-            .single()
-            .then((res) => {
-              // Update our profile BehaviorSubject with the current value
-              this._$profile.next(res.data ?? null);
+          this.profile(user).then((res) => {
+            // Update our profile BehaviorSubject with the current value
+            this._$profile.next(res.data ?? null);
 
-              // Listen to any changes to our user's profile using Supabase Realtime
-              this.profile_subscription = this.supabase
-                .channel('public:profiles')
-                .on(
-                  'postgres_changes',
-                  {
-                    event: '*',
-                    schema: 'public',
-                    table: 'profiles',
-                    filter: 'user_id=eq.' + user.id,
-                  },
-                  (payload: any) => {
-                    // Update our profile BehaviorSubject with the newest value
-                    this._$profile.next(payload.new);
-                  },
-                )
-                .subscribe();
-            });
+            // Listen to any changes to our user's profile using Supabase Realtime
+            this.profile_subscription = this.supabase
+              .channel('public:profiles')
+              .on(
+                'postgres_changes',
+                {
+                  event: '*',
+                  schema: 'public',
+                  table: 'profiles',
+                  filter: 'user_id=eq.' + user.id,
+                },
+                (payload: any) => {
+                  // Update our profile BehaviorSubject with the newest value
+                  this._$profile.next(payload.new);
+                },
+              )
+              .subscribe();
+          });
         }
       } else {
         // If there is no user, update the profile BehaviorSubject, delete the user_id, and unsubscribe from Supabase Realtime
