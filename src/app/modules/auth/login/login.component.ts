@@ -37,7 +37,7 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {
+  onLogin() {
     this.globals.loader.start();
     this.supabase
       .signInWithPassword(
@@ -45,37 +45,43 @@ export class LoginComponent {
         this.loginForm.value.password,
       )
       .then((res) => {
-        console.log(res);
-        if (res.data.user?.role === 'authenticated') {
-          console.log(window.location.origin);
-          this.globals.loader.stopAll();
+        // Redirect to a specific page after successful login
+        const redirectUrl =
+          this.globals.route.snapshot.queryParams['redirect_url'];
+        if (redirectUrl) {
+          this.globals.router.navigateByUrl(redirectUrl);
+        } else {
+          // Redirect to a default route or specific page if no redirect URL is provided
           this.globals.router.navigate(['/blogs']);
-          console.log('authenticated');
         }
+        this.globals.loader.stopAll();
+        console.log('authenticated');
       })
       .catch((err) => {
         console.log(err);
+        this.globals.loader.stopAll();
       });
     console.log(this.loginForm.value);
   }
 
   signInWithGitHub() {
-    this.supabase
-      .signInWithGithub()
-      .then((res) => {
-        this.globals.router.navigate(['/blogs']);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.supabase.signInWithGithub().then((res) => {
+      console.log(res);
+    });
   }
 
   logOut() {
     this.globals.loader.start();
-    this.supabase.signOut().then(() => {
-      this.globals.loader.stopAll();
-      this.globals.router.navigate(['/']);
-    });
+    this.supabase
+      .signOut()
+      .then(() => {
+        this.globals.loader.stopAll();
+        this.globals.router.navigate(['/']);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.globals.loader.stopAll();
+      });
   }
 
   handleError(controlName: string, errorName: string) {

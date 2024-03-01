@@ -1,11 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { RichTextEditorComponent } from '../../../../shared/components/smart/rich-text-editor/rich-text-editor.component';
 import { AddBlogModel } from '../../../../models/blog.model';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from '../../../../services/globals/globals.service';
+import { SupabaseService } from '../../../../services/auth/supabase.service';
 
 @Component({
   selector: 'add-blog',
@@ -22,7 +29,7 @@ import { GlobalsService } from '../../../../services/globals/globals.service';
 export class AddBlogComponent {
   SPINNER = SPINNER;
   blogCategories: string[] = [];
-  addBlogForm = this.fb.group({
+  addBlogForm: FormGroup = this.fb.group({
     category: ['', [Validators.required]],
     title: ['', [Validators.required]],
     content: ['', [Validators.required]],
@@ -36,10 +43,23 @@ export class AddBlogComponent {
     private blogsService: BlogsService,
     private globals: GlobalsService,
     private fb: FormBuilder,
+    private supabase: SupabaseService,
   ) {}
 
   ngOnInit() {
     this.blogCategories = this.loadBlogCategories();
+
+    this.supabase.$user?.subscribe({
+      next: (user) => {
+        this.addBlogForm.patchValue({
+          userId: user?.id,
+        });
+      },
+    });
+  }
+
+  get blogContentControl() {
+    return this.addBlogForm.controls['content'] as FormControl;
   }
 
   toggleDropdown() {
@@ -77,5 +97,10 @@ export class AddBlogComponent {
         console.log(error);
       },
     });
+  }
+
+  handleError(controlName: string, errorName: string) {
+    const control = this.addBlogForm.controls[controlName];
+    return (control.touched || control.dirty) && control.hasError(errorName);
   }
 }

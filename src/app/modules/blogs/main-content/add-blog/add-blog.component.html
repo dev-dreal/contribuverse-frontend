@@ -41,11 +41,12 @@
 
     <rich-text-editor
       class="w-3/4 p-3 rounded-lg border-2 border-gray-300"
-      [control]="addBlogForm.controls.content"
-      formControlName="content"
+      [control]="blogContentControl"
     ></rich-text-editor>
 
     <button
+      [disabled]="addBlogForm.invalid"
+      type="submit"
       class="w-3/4 h-12 p-3 rounded-lg bg-primaryBlue text-white flex justify-center items-center"
     >
       Add Blog

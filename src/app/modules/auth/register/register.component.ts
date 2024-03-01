@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { SupabaseService } from '../../../services/auth/supabase.service';
+import { GlobalsService } from '../../../services/globals/globals.service';
 
 @Component({
   selector: 'app-register',
@@ -22,6 +23,7 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private supabase: SupabaseService,
+    private globals: GlobalsService,
   ) {}
 
   ngOnInit() {
@@ -37,6 +39,9 @@ export class RegisterComponent {
     this.supabase
       .register(this.registerForm.value.email, this.registerForm.value.password)
       .then((res) => {
+        if (res.data.user?.aud === 'authenticated') {
+          this.globals.router.navigate(['/auth/login']);
+        }
         console.log(res);
       })
       .catch((err) => {

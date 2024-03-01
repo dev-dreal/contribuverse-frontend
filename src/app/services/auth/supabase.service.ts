@@ -1,13 +1,16 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   AuthChangeEvent,
   AuthSession,
   createClient,
+  RealtimeChannel,
   Session,
   SupabaseClient,
   User,
 } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
+import { BehaviorSubject, first, Observable, skipWhile } from 'rxjs';
+import { Router } from '@angular/router';
 
 export interface Profile {
   id?: string;
@@ -21,21 +24,98 @@ export interface Profile {
 })
 export class SupabaseService {
   private supabase: SupabaseClient;
-  _session: AuthSession | null = null;
+  // Supabase user state
+  private _$user = new BehaviorSubject<User | null | undefined>(undefined);
+  $user = this._$user.pipe(
+    skipWhile((_) => typeof _ === 'undefined'),
+  ) as Observable<User | null>;
+  private user_id?: string;
 
-  constructor() {
+  // Profile state
+  private _$profile = new BehaviorSubject<Profile | null | undefined>(
+    undefined,
+  );
+  $profile = this._$profile.pipe(
+    skipWhile((_) => typeof _ === 'undefined'),
+  ) as Observable<Profile | null>;
+  private profile_subscription?: RealtimeChannel;
+
+  constructor(private router: Router) {
     this.supabase = createClient(
       environment.supabase.url,
       environment.supabase.key,
     );
+
+    // Initialize Supabase user
+    // Get initial user from the current session, if exists
+    this.supabase.auth.getUser().then(({ data, error }) => {
+      this._$user.next(data && data.user && !error ? data.user : null);
+
+      // After the initial value is set, listen for auth state changes
+      this.supabase.auth.onAuthStateChange((event, session) => {
+        this._$user.next(session?.user ?? null);
+      });
+    });
+
+    // Initialize the user's profile
+    // The state of the user's profile is dependent on their being a user. If no user is set, there shouldn't be a profile.
+    this.$user.subscribe((user) => {
+      if (user) {
+        // We only make changes if the user is different
+        if (user.id !== this.user_id) {
+          const user_id = user.id;
+          this.user_id = user_id;
+
+          // One-time API call to Supabase to get the user's profile
+          this.profile(user).then((res) => {
+            // Update our profile BehaviorSubject with the current value
+            this._$profile.next(res.data ?? null);
+
+            // Listen to any changes to our user's profile using Supabase Realtime
+            this.profile_subscription = this.supabase
+              .channel('public:profiles')
+              .on(
+                'postgres_changes',
+                {
+                  event: '*',
+                  schema: 'public',
+                  table: 'profiles',
+                  filter: 'user_id=eq.' + user.id,
+                },
+                (payload: any) => {
+                  // Update our profile BehaviorSubject with the newest value
+                  this._$profile.next(payload.new);
+                },
+              )
+              .subscribe();
+          });
+        }
+      } else {
+        // If there is no user, update the profile BehaviorSubject, delete the user_id, and unsubscribe from Supabase Realtime
+        this._$profile.next(null);
+        delete this.user_id;
+        if (this.profile_subscription) {
+          this.supabase.removeChannel(this.profile_subscription).then((res) => {
+            console.log(
+              'Removed profile channel subscription with status: ',
+              res,
+            );
+          });
+        }
+      }
+    });
   }
 
-  get session() {
-    this.supabase.auth.getSession().then(({ data }) => {
-      this._session = data.session;
-    });
-    return this._session;
-  }
+  // get session() {
+  //   this.supabase.auth.getSession().then(({ data }) => {
+  //     this._session = data.session;
+  //   });
+  //   return this._session;
+  // }
+
+  // get currentUser() {
+  //   return this.user.asObservable();
+  // }
 
   profile(user: User) {
     return this.supabase
@@ -45,11 +125,11 @@ export class SupabaseService {
       .single();
   }
 
-  authChanges(
-    callback: (event: AuthChangeEvent, session: Session | null) => void,
-  ) {
-    return this.supabase.auth.onAuthStateChange(callback);
-  }
+  // authChanges(
+  //   callback: (event: AuthChangeEvent, session: Session | null) => void,
+  // ) {
+  //   return this.supabase.auth.onAuthStateChange(callback);
+  // }
 
   register(email: string, password: string) {
     return this.supabase.auth.signUp({ email, password });
@@ -64,7 +144,21 @@ export class SupabaseService {
   }
 
   signInWithPassword(email: string, password: string) {
-    return this.supabase.auth.signInWithPassword({ email, password });
+    return new Promise<void>((resolve, reject) => {
+      // Set _$profile back to undefined. This will mean that $profile will wait to emit a value
+      this._$profile.next(undefined);
+      this.supabase.auth
+        .signInWithPassword({ email, password })
+        .then(({ data, error }) => {
+          if (error || !data) reject('Invalid email/password combination');
+
+          // Wait for $profile to be set again.
+          // We don't want to proceed until our API request for the user's profile has completed
+          this.$profile.pipe(first()).subscribe(() => {
+            resolve();
+          });
+        });
+    });
   }
 
   signInWithOtp(email: string) {
