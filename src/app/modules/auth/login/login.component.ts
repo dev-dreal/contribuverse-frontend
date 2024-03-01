@@ -37,7 +37,31 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.globals.loader.start();
+    this.supabase
+      .signInWithPassword(
+        this.loginForm.value.email,
+        this.loginForm.value.password,
+      )
+      .then((res) => {
+        const redirectUrl =
+          this.globals.route.snapshot.queryParams['redirect_url'];
+        if (redirectUrl) {
+          this.globals.router.navigateByUrl(redirectUrl);
+        } else {
+          // Redirect to a default route or specific page
+          this.globals.router.navigate(['/blogs']);
+        }
+        this.globals.loader.stopAll();
+        console.log('authenticated');
+      })
+      .catch((err) => {
+        console.log(err);
+        this.globals.loader.stopAll();
+      });
+    console.log(this.loginForm.value);
+  }
 
   signInWithGitHub() {
     this.supabase.signInWithGithub().then((res) => {
@@ -47,10 +71,16 @@ export class LoginComponent {
 
   logOut() {
     this.globals.loader.start();
-    this.supabase.signOut().then(() => {
-      this.globals.loader.stopAll();
-      this.globals.router.navigate(['/']);
-    });
+    this.supabase
+      .signOut()
+      .then(() => {
+        this.globals.loader.stopAll();
+        this.globals.router.navigate(['/']);
+      })
+      .catch((err) => {
+        console.log(err);
+        this.globals.loader.stopAll();
+      });
   }
 
   handleError(controlName: string, errorName: string) {
