@@ -44,18 +44,16 @@ export class BlogsService {
       .valueChanges.pipe(map((result) => result.data.blog));
   }
 
-  addBlog(blog: AddBlogModel): Observable<BlogModel> {
-    return this.apollo
-      .mutate({
-        mutation: CREATE_BLOG,
-        variables: {
-          category: blog.category,
-          title: blog.title,
-          content: blog.content,
-          imageUrl: blog.imageUrl,
-          userId: blog.userId,
-        },
-      })
-      .pipe(map((result: any) => result.data.createBlog));
+  addBlog(blog: AddBlogModel) {
+    return this.apollo.mutate({
+      mutation: CREATE_BLOG,
+      variables: {
+        category: blog.category,
+        title: blog.title,
+        content: blog.content,
+        imageUrl: blog.imageUrl,
+        userId: blog.userId,
+      },
+    });
   }
 }

@@ -1,8 +1,9 @@
 <quill-editor
   [formControl]="control"
   class="content-editor"
-  [placeholder]="''"
+  [placeholder]="'Write Something here...'"
   [modules]="quillConfiguration"
-  [styles]="{ 'min-height': '120px' }"
+  [styles]="{ 'min-height': '120px', 'max-width': '100%' }"
+  class="w-full h-96 rounded-0"
 >
 </quill-editor>

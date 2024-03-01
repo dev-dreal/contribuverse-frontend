@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { RichTextEditorComponent } from '../../../../shared/components/smart/rich-text-editor/rich-text-editor.component';
 import { AddBlogModel } from '../../../../models/blog.model';
@@ -23,7 +29,7 @@ import { SupabaseService } from '../../../../services/auth/supabase.service';
 export class AddBlogComponent {
   SPINNER = SPINNER;
   blogCategories: string[] = [];
-  addBlogForm = this.fb.group({
+  addBlogForm: FormGroup = this.fb.group({
     category: ['', [Validators.required]],
     title: ['', [Validators.required]],
     content: ['', [Validators.required]],
@@ -50,6 +56,10 @@ export class AddBlogComponent {
         });
       },
     });
+  }
+
+  get blogContentControl() {
+    return this.addBlogForm.controls['content'] as FormControl;
   }
 
   toggleDropdown() {
@@ -87,5 +97,10 @@ export class AddBlogComponent {
         console.log(error);
       },
     });
+  }
+
+  handleError(controlName: string, errorName: string) {
+    const control = this.addBlogForm.controls[controlName];
+    return (control.touched || control.dirty) && control.hasError(errorName);
   }
 }
