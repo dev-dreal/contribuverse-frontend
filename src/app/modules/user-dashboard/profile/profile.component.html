@@ -1,35 +1,43 @@
-<form
-  [formGroup]="updateProfileForm"
-  class="flex flex-col items-center gap-4 justify-around w-full max-w-md mx-auto bg-black p-8 rounded-lg shadow-lg w-4/5"
->
-  <!-- <app-avatar [avatarUrl]="this.avatarUrl" (upload)="updateAvatar($event)">
-  </app-avatar> -->
-  <div>
-    <label for="email">Email</label>
-    <!-- <input id="email" type="text" [value]="session.user.email" disabled /> -->
-  </div>
-  <div>
-    <label for="username">Name</label>
-    <input formControlName="username" id="username" type="text" />
-  </div>
-  <div>
-    <label for="website">Website</label>
-    <input formControlName="website" id="website" type="url" />
-  </div>
+@if (loading) {
+  <div class="text-4xl flex justify-center items-center">Loading...</div>
+} @else {
+  <form
+    [formGroup]="updateProfileForm"
+    (ngSubmit)="updateProfile()"
+    class="flex flex-col items-center gap-4 justify-around w-full max-w-md mx-auto bg-white text-black p-8 rounded-lg shadow-lg w-4/5"
+  >
+    <app-avatar [avatarUrl]="this.avatarUrl" (upload)="updateAvatar($event)">
+    </app-avatar>
+    <div>
+      <label for="email">Email</label>
+      <input id="email" type="text" [value]="session?.user?.email" disabled />
+    </div>
+    <div>
+      <label for="username">Name</label>
+      <input formControlName="username" id="username" type="text" />
+    </div>
+    <div>
+      <label for="website">Website</label>
+      <input formControlName="website" id="website" type="url" />
+    </div>
 
-  <div>
-    <button
-      type="submit"
-      class="rounded-lg bg-primaryBlue p-2 px-8 border-2 text-white"
-      [disabled]="loading"
-    >
-      {{ loading ? "Loading ..." : "Update" }}
-    </button>
-  </div>
+    <div>
+      <button
+        type="submit"
+        class="rounded-lg bg-primaryBlue p-2 px-8 border-2 text-white"
+        [disabled]="loading"
+      >
+        {{ loading ? "Loading ..." : "Update" }}
+      </button>
+    </div>
 
-  <div>
-    <button class="rounded-lg bg-darkBlue p-2 px-8 border-2 text-white">
-      Sign Out
-    </button>
-  </div>
-</form>
+    <div>
+      <button
+        class="rounded-lg bg-darkBlue p-2 px-8 border-2 text-white"
+        (click)="signOut()"
+      >
+        Sign Out
+      </button>
+    </div>
+  </form>
+}

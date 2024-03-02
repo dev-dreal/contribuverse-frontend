@@ -1,5 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { SidebarMenuItemComponent } from '../../../shared/components/ui/sidebar-menu-item/sidebar-menu-item.component';
+import {
+  Profile,
+  SupabaseService,
+} from '../../../services/auth/supabase.service';
+import { AuthSession, User } from '@supabase/supabase-js';
+import { GlobalsService } from '../../../services/globals/globals.service';
 
 @Component({
   selector: 'left-sidebar',
@@ -9,10 +15,14 @@ import { SidebarMenuItemComponent } from '../../../shared/components/ui/sidebar-
   styleUrl: './left-sidebar.component.scss',
 })
 export class LeftSidebarComponent {
+  session: AuthSession | null = null;
+  loading: boolean = true;
+  profile: Profile = {} as Profile;
+
   currentBlog = signal({
-    label: 'Patrick',
+    label: 'Contribute',
     icon: 'assets/svgs/ml.svg',
-    route: '',
+    route: '/blogs',
   });
 
   menuItems = [

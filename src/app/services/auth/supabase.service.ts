@@ -23,6 +23,8 @@ export interface Profile {
   providedIn: 'root',
 })
 export class SupabaseService {
+  private _session: AuthSession | null = null;
+
   private supabase: SupabaseClient;
   // Supabase user state
   private _$user = new BehaviorSubject<User | null | undefined>(undefined);
@@ -106,9 +108,24 @@ export class SupabaseService {
     });
   }
 
+  async ngOnInit() {
+    await this.getSession();
+  }
+
+  async getSession() {
+    const { data, error } = await this.supabase.auth.getSession();
+    if (error) {
+      throw error;
+    }
+    this._session = data.session;
+    console.log(data);
+    return data;
+  }
+
   // get session() {
   //   this.supabase.auth.getSession().then(({ data }) => {
   //     this._session = data.session;
+  //     console.log(this._session);
   //   });
   //   return this._session;
   // }
@@ -170,8 +187,13 @@ export class SupabaseService {
     return this.supabase.auth.signInWithOtp({ email });
   }
 
-  signOut() {
-    return this.supabase.auth.signOut();
+  async signOut() {
+    const { error } = await this.supabase.auth.signOut();
+    if (error) {
+      this.globals.toast.error(error.message);
+      throw error;
+    }
+    this.globals.router.navigate(['/']);
   }
 
   updateProfile(profile: Profile) {

@@ -11,6 +11,7 @@ import { SupabaseService } from '../../../services/auth/supabase.service';
 import { GlobalsService } from '../../../services/globals/globals.service';
 import { fadingAnimation } from '../../../helpers/animations';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
+import { AuthSession } from '@supabase/supabase-js';
 
 @Component({
   selector: 'app-login',
@@ -25,16 +26,25 @@ export class LoginComponent {
   loginForm = {} as FormGroup;
 
   constructor(
-    private fb: FormBuilder,
     private supabase: SupabaseService,
     private globals: GlobalsService,
   ) {}
 
   ngOnInit() {
-    this.loginForm = this.fb.group({
+    this.loginForm = this.globals.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+
+    this.checkSession();
+  }
+
+  async checkSession() {
+    const { session } = await this.supabase.getSession();
+    if (session) {
+      this.globals.toast.info('You are already logged in.');
+      this.globals.router.navigate(['/user/profile']);
+    }
   }
 
   onLogin() {
@@ -52,17 +62,15 @@ export class LoginComponent {
           this.globals.router.navigateByUrl(redirectUrl);
         } else {
           // Redirect to a default route or specific page if no redirect URL is provided
-          this.globals.router.navigate(['/blogs']);
+          this.globals.router.navigate(['/user/profile']);
         }
         this.globals.toast.success('Login successful!');
         this.globals.loader.stopAll();
-        console.log('authenticated');
       })
       .catch((err) => {
         console.log(err);
         this.globals.loader.stopAll();
       });
-    console.log(this.loginForm.value);
   }
 
   async signInWithGitHub() {

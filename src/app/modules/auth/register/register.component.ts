@@ -27,6 +27,16 @@ export class RegisterComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]],
     });
+
+    this.checkSession();
+  }
+
+  async checkSession() {
+    const { session } = await this.supabase.getSession();
+    if (session) {
+      this.globals.toast.info('You are already logged in.');
+      this.globals.router.navigate(['/user/profile']);
+    }
   }
 
   async onSubmit() {
