@@ -21,7 +21,7 @@ export class LeftSidebarComponent {
 
   currentBlog = signal({
     label: 'Contribute',
-    icon: 'assets/svgs/ml.svg',
+    icon: 'assets/svgs/write.svg',
     route: '/blogs',
   });
 
