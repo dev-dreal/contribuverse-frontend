@@ -4,15 +4,17 @@ import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { SupabaseService } from '../../../services/auth/supabase.service';
 import { GlobalsService } from '../../../services/globals/globals.service';
+import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, NgxUiLoaderModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
+  SPINNER = SPINNER;
   registerForm = {} as FormGroup;
 
   constructor(
@@ -40,15 +42,18 @@ export class RegisterComponent {
   }
 
   async onSubmit() {
+    this.globals.loader.start();
     const { data, error } = await this.supabase.register(
       this.registerForm.value.email,
       this.registerForm.value.password,
     );
 
     if (data && data.user?.aud === 'authenticated') {
+      this.globals.loader.stopAll();
       this.globals.toast.success('Check your email for confirmation link.');
       this.globals.router.navigate(['/auth/login']);
     } else if (error) {
+      this.globals.loader.stopAll();
       this.globals.toast.error(error.message);
     }
   }
