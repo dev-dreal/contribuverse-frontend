@@ -25,6 +25,7 @@
     "ngx-pagination": "^6.0.3",
     "ngx-quill": "^25.0.3",
     "ngx-skeleton-loader": "^9.0.0",
+    "ngx-toastr": "^18.0.0",
     "ngx-ui-loader": "^13.0.0",
     "quill": "2.0.0-rc.2",
     "rxjs": "~7.8.0",

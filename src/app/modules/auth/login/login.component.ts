@@ -54,6 +54,7 @@ export class LoginComponent {
           // Redirect to a default route or specific page if no redirect URL is provided
           this.globals.router.navigate(['/blogs']);
         }
+        this.globals.toast.success('Login successful!');
         this.globals.loader.stopAll();
         console.log('authenticated');
       })
@@ -73,6 +74,7 @@ export class LoginComponent {
     this.supabase
       .signOut()
       .then(() => {
+        this.globals.toast.success('You have been logged out.');
         this.globals.loader.stopAll();
         this.globals.router.navigate(['/']);
       })

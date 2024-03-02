@@ -1,11 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { SupabaseService } from '../../../services/auth/supabase.service';
 import { GlobalsService } from '../../../services/globals/globals.service';
@@ -21,13 +16,12 @@ export class RegisterComponent {
   registerForm = {} as FormGroup;
 
   constructor(
-    private fb: FormBuilder,
     private supabase: SupabaseService,
     private globals: GlobalsService,
   ) {}
 
   ngOnInit() {
-    this.registerForm = this.fb.group({
+    this.registerForm = this.globals.fb.group({
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -35,19 +29,18 @@ export class RegisterComponent {
     });
   }
 
-  onSubmit() {
-    this.supabase
-      .register(this.registerForm.value.email, this.registerForm.value.password)
-      .then((res) => {
-        if (res.data.user?.aud === 'authenticated') {
-          this.globals.router.navigate(['/auth/login']);
-        }
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log(this.registerForm.value);
+  async onSubmit() {
+    const { data, error } = await this.supabase.register(
+      this.registerForm.value.email,
+      this.registerForm.value.password,
+    );
+
+    if (data && data.user?.aud === 'authenticated') {
+      this.globals.toast.success('Check your email for confirmation link.');
+      this.globals.router.navigate(['/auth/login']);
+    } else if (error) {
+      this.globals.toast.error(error.message);
+    }
   }
 
   handleError(controlName: string, errorName: string) {
