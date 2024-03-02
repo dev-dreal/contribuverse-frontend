@@ -64,10 +64,8 @@ export class LoginComponent {
     console.log(this.loginForm.value);
   }
 
-  signInWithGitHub() {
-    this.supabase.signInWithGithub().then((res) => {
-      console.log(res);
-    });
+  async signInWithGitHub() {
+    await this.supabase.signInWithGithub();
   }
 
   logOut() {

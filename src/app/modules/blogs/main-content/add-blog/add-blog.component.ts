@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { RichTextEditorComponent } from '../../../../shared/components/smart/rich-text-editor/rich-text-editor.component';
-import { AddBlogModel, CATEGORY } from '../../../../models/blog.model';
+import { AddBlogModel, BlogCategory } from '../../../../models/blog.model';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from '../../../../services/globals/globals.service';
 import { SupabaseService } from '../../../../services/auth/supabase.service';
@@ -29,13 +29,7 @@ import { SupabaseService } from '../../../../services/auth/supabase.service';
 export class AddBlogComponent {
   SPINNER = SPINNER;
   blogCategories: string[] = [];
-  addBlogForm: FormGroup = this.fb.group({
-    category: [null, [Validators.required]],
-    title: ['', [Validators.required]],
-    content: ['', [Validators.required]],
-    imageUrl: ['', [Validators.required]],
-    userId: ['', [Validators.required]],
-  });
+  addBlogForm: FormGroup = {} as FormGroup;
   isDropdownOpen = false;
   selectedOption: string | undefined;
 
@@ -47,6 +41,13 @@ export class AddBlogComponent {
   ) {}
 
   ngOnInit() {
+    this.addBlogForm = this.fb.group({
+      category: [null, [Validators.required]],
+      title: ['', [Validators.required]],
+      content: ['', [Validators.required]],
+      imageUrl: ['', [Validators.required]],
+      userId: ['', [Validators.required]],
+    });
     this.blogCategories = this.loadBlogCategories();
 
     this.supabase.$user?.subscribe({
