@@ -1,28 +1,27 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { AuthSession } from '@supabase/supabase-js';
+import { AuthSession, User } from '@supabase/supabase-js';
 import {
   Profile,
   SupabaseService,
 } from '../../../services/auth/supabase.service';
 import { CommonModule } from '@angular/common';
 import { AvatarComponent } from '../avatar/avatar.component';
+import { GlobalsService } from '../../../services/globals/globals.service';
 
 @Component({
-  selector: 'app-account',
+  selector: 'app-profile',
   standalone: true,
   imports: [CommonModule, AvatarComponent, ReactiveFormsModule],
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss'],
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
 })
-export class AccountComponent implements OnInit {
-  loading = false;
-  profile!: Profile;
+export class ProfileComponent {
+  loading: boolean = false;
+  profile: Profile = {} as Profile;
+  session: AuthSession | null = null;
 
-  @Input()
-  session!: AuthSession;
-
-  updateProfileForm = this.fb.group({
+  updateProfileForm = this.globals.fb.group({
     username: '',
     website: '',
     avatar_url: '',
@@ -30,10 +29,12 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private readonly supabase: SupabaseService,
-    private fb: FormBuilder,
+    private globals: GlobalsService,
   ) {}
 
   async ngOnInit(): Promise<void> {
+    const { session } = await this.supabase.getSession();
+    this.session = session;
     await this.getProfile();
 
     const { username, website, avatar_url } = this.profile;
@@ -58,14 +59,13 @@ export class AccountComponent implements OnInit {
   async getProfile() {
     try {
       this.loading = true;
-      const { user } = this.session;
+      const { user } = this.session as { user: User };
+
       const {
         data: profile,
         error,
         status,
       } = await this.supabase.profile(user);
-
-      console.log(profile);
 
       if (error && status !== 406) {
         throw error;
@@ -86,7 +86,7 @@ export class AccountComponent implements OnInit {
   async updateProfile(): Promise<void> {
     try {
       this.loading = true;
-      const { user } = this.session;
+      const { user } = this.session as { user: User };
 
       const username = this.updateProfileForm.value.username as string;
       const website = this.updateProfileForm.value.website as string;

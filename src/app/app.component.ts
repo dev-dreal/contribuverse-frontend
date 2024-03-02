@@ -4,19 +4,13 @@ import { InitialLoaderComponent } from './shared/components/smart/initial-loader
 import { fadingAnimation } from './helpers/animations';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from './services/globals/globals.service';
-import { AccountComponent } from './modules/user/account/account.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   standalone: true,
-  imports: [
-    InitialLoaderComponent,
-    RouterOutlet,
-    NgxUiLoaderModule,
-    AccountComponent,
-  ],
+  imports: [InitialLoaderComponent, RouterOutlet, NgxUiLoaderModule],
   providers: [GlobalsService],
   animations: [fadingAnimation],
 })

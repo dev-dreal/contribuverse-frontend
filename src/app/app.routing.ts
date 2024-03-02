@@ -38,6 +38,13 @@ export const AppRoutes: Routes = [
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
   {
+    path: 'user',
+    loadChildren: () =>
+      import('./modules/user-dashboard/user-dashboard.module').then(
+        (m) => m.UserDashBoardModule,
+      ),
+  },
+  {
     path: '**',
     redirectTo: '',
   },
