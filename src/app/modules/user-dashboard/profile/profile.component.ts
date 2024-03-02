@@ -67,8 +67,6 @@ export class ProfileComponent {
         status,
       } = await this.supabase.profile(user);
 
-      console.log(profile);
-
       if (error && status !== 406) {
         throw error;
       }

@@ -118,7 +118,6 @@ export class SupabaseService {
       throw error;
     }
     this._session = data.session;
-    console.log(data);
     return data;
   }
 

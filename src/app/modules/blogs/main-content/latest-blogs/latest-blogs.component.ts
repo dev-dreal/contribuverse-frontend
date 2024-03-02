@@ -39,7 +39,6 @@ export class LatestBlogsComponent {
   loadBlogs() {
     this.blogsService.getBlogs().subscribe({
       next: (blogs: BlogModel[]) => {
-        console.log(blogs);
         this.blogs.set(blogs);
         this.isBlogsLoading.set(false);
       },
