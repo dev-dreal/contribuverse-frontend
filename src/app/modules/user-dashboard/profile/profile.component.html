@@ -1,13 +1,12 @@
 <form
   [formGroup]="updateProfileForm"
-  (ngSubmit)="updateProfile()"
-  class="flex flex-col items-center gap-4 justify-around w-full max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg w-4/5"
+  class="flex flex-col items-center gap-4 justify-around w-full max-w-md mx-auto bg-black p-8 rounded-lg shadow-lg w-4/5"
 >
-  <app-avatar [avatarUrl]="this.avatarUrl" (upload)="updateAvatar($event)">
-  </app-avatar>
+  <!-- <app-avatar [avatarUrl]="this.avatarUrl" (upload)="updateAvatar($event)">
+  </app-avatar> -->
   <div>
     <label for="email">Email</label>
-    <input id="email" type="text" [value]="session.user.email" disabled />
+    <!-- <input id="email" type="text" [value]="session.user.email" disabled /> -->
   </div>
   <div>
     <label for="username">Name</label>
@@ -29,10 +28,7 @@
   </div>
 
   <div>
-    <button
-      class="rounded-lg bg-darkBlue p-2 px-8 border-2 text-white"
-      (click)="signOut()"
-    >
+    <button class="rounded-lg bg-darkBlue p-2 px-8 border-2 text-white">
       Sign Out
     </button>
   </div>

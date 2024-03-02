@@ -20,13 +20,6 @@ const authRoutes: Routes = [
         path: 'register',
         component: RegisterComponent,
       },
-      {
-        path: 'account',
-        loadComponent: () =>
-          import('../user/account/account.component').then(
-            (m) => m.AccountComponent,
-          ),
-      },
       //   {
       //     path: 'forgot-password',
       //     component: LoginComponent,
