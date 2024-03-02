@@ -8,6 +8,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { AppRoutes } from './app.routing';
 import { graphqlProvider } from './graphql.provider';
+import { provideToastr } from 'ngx-toastr';
+import { toastOptions } from './services/toaster/toaster.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(AppRoutes),
+    provideToastr(toastOptions),
     graphqlProvider,
   ],
 };

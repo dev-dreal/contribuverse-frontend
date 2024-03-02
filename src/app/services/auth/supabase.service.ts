@@ -10,7 +10,7 @@ import {
 } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
 import { BehaviorSubject, first, Observable, skipWhile } from 'rxjs';
-import { Router } from '@angular/router';
+import { GlobalsService } from '../globals/globals.service';
 
 export interface Profile {
   id?: string;
@@ -40,7 +40,7 @@ export class SupabaseService {
   ) as Observable<Profile | null>;
   private profile_subscription?: RealtimeChannel;
 
-  constructor(private router: Router) {
+  constructor(private globals: GlobalsService) {
     this.supabase = createClient(
       environment.supabase.url,
       environment.supabase.key,
@@ -150,7 +150,12 @@ export class SupabaseService {
       this.supabase.auth
         .signInWithPassword({ email, password })
         .then(({ data, error }) => {
-          if (error || !data) reject('Invalid email/password combination');
+          if (error || !data) {
+            this.globals.toast.error(
+              error?.message ?? 'Invalid email/password combination',
+            );
+            reject('Invalid email/password combination');
+          }
 
           // Wait for $profile to be set again.
           // We don't want to proceed until our API request for the user's profile has completed

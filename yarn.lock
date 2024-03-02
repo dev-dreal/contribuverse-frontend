@@ -4805,6 +4805,13 @@ ngx-skeleton-loader@^9.0.0:
   dependencies:
     tslib "^2.0.0"
 
+ngx-toastr@^18.0.0:
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-18.0.0.tgz#0016e897108817eb6b2ee16ff130b4c42fc214b0"
+  integrity sha512-jZ3rOG6kygl8ittY8OltIMSo47P1VStuS01igm3MZXK6InJwHVvxU7wDHI/HGMlXSyNvWncyOuFHnnMEAifsew==
+  dependencies:
+    tslib "^2.3.0"
+
 ngx-ui-loader@^13.0.0:
   version "13.0.0"
   resolved "https://registry.npmjs.org/ngx-ui-loader/-/ngx-ui-loader-13.0.0.tgz"

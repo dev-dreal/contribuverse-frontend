@@ -81,10 +81,12 @@ export class AddBlogComponent {
 
     this.blogsService.addBlog(newBlog).subscribe({
       next: (response) => {
+        this.globals.toast.success('Blog added successfully');
         this.globals.loader.stopAll();
         console.log(response);
       },
       error: (error) => {
+        this.globals.toast.error('Failed to add blog');
         this.globals.loader.stopAll();
         console.log(error);
       },
