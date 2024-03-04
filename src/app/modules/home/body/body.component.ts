@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { GlobalsService } from '../../../services/globals/globals.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { NavigationEnd, RouterLink } from '@angular/router';
+import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-body',
@@ -11,4 +12,12 @@ import { RouterLink } from '@angular/router';
   templateUrl: './body.component.html',
   styleUrl: './body.component.scss',
 })
-export class BodyComponent {}
+export class BodyComponent {
+  @Output() isGetStartedButtonClicked = new EventEmitter<boolean>();
+  constructor(private globals: GlobalsService) {}
+
+  navigateToDashboard() {
+    this.isGetStartedButtonClicked.emit(true);
+    this.globals.router.navigate(['/user/dashboard']);
+  }
+}
