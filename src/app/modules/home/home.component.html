@@ -7,6 +7,11 @@
       [isHamburgerMenuOpen]="isHamburgerMenuOpen()"
       (isMenuOpen)="updateMenuStatus($event)"
     ></app-header>
-    <app-body class="w-full"></app-body>
+    <app-body
+      class="w-full"
+      (isGetStartedButtonClicked)="initiateLoader($event)"
+    ></app-body>
   </div>
 </div>
+
+<ngx-ui-loader [fgsType]="SPINNER.ballScaleMultiple"></ngx-ui-loader>

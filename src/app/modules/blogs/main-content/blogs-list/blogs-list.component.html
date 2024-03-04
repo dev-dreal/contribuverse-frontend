@@ -2,7 +2,11 @@
   <h2 class="text-5xl text-white pl-4">Blogs</h2>
   <div class="flex justify-around items-center gap-10 w-full">
     <!-- Add blog Card -->
-    <blog-card class="w-1/5 h-60 py-2" [blog]="addBlogMetaData"></blog-card>
+    <blog-card
+      class="w-1/5 h-60 py-2"
+      [blog]="addBlogMetaData"
+      (click)="navigateToAddBlogPage()"
+    ></blog-card>
 
     @if (isBlogsLoading()) {
       @for (item of blogItems; track $index) {
