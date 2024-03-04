@@ -82,6 +82,7 @@ export class AddBlogComponent {
     this.blogsService.addBlog(newBlog).subscribe({
       next: (response) => {
         this.globals.toast.success('Blog added successfully');
+        this.globals.router.navigate(['/blogs']);
         this.globals.loader.stopAll();
         console.log(response);
       },

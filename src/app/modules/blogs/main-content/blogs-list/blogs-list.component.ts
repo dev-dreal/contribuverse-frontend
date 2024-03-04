@@ -1,10 +1,18 @@
-import { Component, Input, WritableSignal, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  WritableSignal,
+  signal,
+} from '@angular/core';
 import { BlogCardComponent } from './blog-card/blog-card.component';
 import { BlogModel } from '../../../../models/blog.model';
 import { CommonModule } from '@angular/common';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { fadingAnimation } from '../../../../helpers/animations';
+import { GlobalsService } from '../../../../services/globals/globals.service';
 
 @Component({
   selector: 'blogs-list',
@@ -15,12 +23,13 @@ import { fadingAnimation } from '../../../../helpers/animations';
   animations: [fadingAnimation],
 })
 export class BlogsListComponent {
+  @Output() isAddBlogButtonClicked = new EventEmitter<boolean>();
   blogs: WritableSignal<BlogModel[]> = signal([]);
   isBlogsLoading = signal(true);
   blogItems = [1, 2, 3, 4];
 
   addBlogMetaData: BlogModel = {
-    id: 'add-blog',
+    id: 0,
     title: 'Add a new blog',
     shortDescription: 'Add a new blog to the list of blogs.',
     imageUrl: 'assets/gifs/add-blog.gif',
@@ -33,10 +42,18 @@ export class BlogsListComponent {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
-  constructor(private blogsService: BlogsService) {}
+  constructor(
+    private blogsService: BlogsService,
+    private globals: GlobalsService,
+  ) {}
 
   ngOnInit(): void {
     this.loadBlogs();
+  }
+
+  navigateToAddBlogPage() {
+    this.isAddBlogButtonClicked.emit(true);
+    this.globals.router.navigate(['/blogs/add-blog']);
   }
 
   loadBlogs() {

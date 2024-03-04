@@ -19,7 +19,7 @@ export interface AddBlogModel {
 }
 
 export interface BlogModel {
-  id: string;
+  id: string | number;
   title: string;
   content: string;
   userId: string;
