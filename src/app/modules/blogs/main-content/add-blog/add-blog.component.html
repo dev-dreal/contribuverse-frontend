@@ -29,7 +29,7 @@
         class="block appearance-none w-1/4 bg-gray-300 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-300"
         formControlName="category"
       >
-        <option value="" disabled>Select an option</option>
+        <option value="" disabled selected>Select Category</option>
         @for (category of blogCategories; track $index) {
           <option value="{{ category }}">{{ category }}</option>
         }

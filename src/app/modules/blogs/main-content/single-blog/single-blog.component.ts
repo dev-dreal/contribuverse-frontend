@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BlogModel } from '../../../../models/blog.model';
-import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { fadingAnimation } from '../../../../helpers/animations';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
+import { GlobalsService } from '../../../../services/globals/globals.service';
 
 @Component({
   selector: 'single-blog',
@@ -15,26 +15,28 @@ import { BlogsService } from '../../../../services/blogs/blogs.service';
 })
 export class SingleBlogComponent {
   blog: BlogModel = {} as BlogModel;
-  id: string = '';
+  @Input() id?: string = '';
   constructor(
-    private route: ActivatedRoute,
     private blogsService: BlogsService,
-  ) {
-    this.id = this.route.snapshot.paramMap.get('id') || '';
-  }
+    private globals: GlobalsService,
+  ) {}
 
   ngOnInit(): void {
     this.loadBlog();
   }
 
   loadBlog() {
-    this.blogsService.getSingleBlog(this.id).subscribe({
-      next: (blog) => {
-        this.blog = blog;
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
+    if (this.id) {
+      this.blogsService.getSingleBlog(this.id).subscribe({
+        next: (blog) => {
+          this.blog = blog;
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
+    } else {
+      this.globals.toast.error('No blog id provided');
+    }
   }
 }

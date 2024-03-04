@@ -76,7 +76,7 @@ export class AddBlogComponent {
       title: this.addBlogForm.value.title!,
       content: this.addBlogForm.value.content!,
       imageUrl: this.addBlogForm.value.imageUrl!,
-      userId: this.addBlogForm.value.userId!,
+      userId: '329a0570-0d4c-4a4e-9c42-9aaecd6d8cf9',
     };
 
     this.blogsService.addBlog(newBlog).subscribe({
