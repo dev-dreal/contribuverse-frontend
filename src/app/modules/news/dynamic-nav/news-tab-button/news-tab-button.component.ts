@@ -13,4 +13,5 @@ export class NewsTabButtonComponent {
   @Input() label: string = '';
   @Input() imageUrl: string = '';
   @Input() altText: string = '';
+  @Input() isLabelLeft: boolean = true;
 }

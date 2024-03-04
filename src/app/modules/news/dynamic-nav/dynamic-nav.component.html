@@ -11,6 +11,7 @@
   } @else if (slidePosition === 1) {
     <div class="flex justify-between items-center gap-8">
       <news-tab-button
+        [isLabelLeft]="false"
         [label]="'Robotics'"
         [imageUrl]="leftArrow"
         [altText]="'left arrow'"
@@ -26,6 +27,7 @@
   } @else if (slidePosition === 2) {
     <div class="flex justify-between items-center gap-8">
       <news-tab-button
+        [isLabelLeft]="false"
         [label]="'Metaverse'"
         [imageUrl]="leftArrow"
         [altText]="'left arrow'"
@@ -40,6 +42,7 @@
     </div>
   } @else if (slidePosition === 3) {
     <news-tab-button
+      [isLabelLeft]="false"
       [label]="'Gaming'"
       [imageUrl]="leftArrow"
       [altText]="'left arrow'"
