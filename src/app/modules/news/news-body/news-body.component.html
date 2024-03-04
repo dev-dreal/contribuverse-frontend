@@ -62,6 +62,13 @@
     <div>
       <router-outlet></router-outlet>
     </div>
+    <sidebar-menu-item
+      (click)="showComingSoonAlert()"
+      class="mr-auto mt-4"
+      [label]="'Read more...'"
+      [isLink]="false"
+      [route]="''"
+    ></sidebar-menu-item>
 
     <div class="justify-end items-center hidden md:flex">
       @for (coolAnimal of coolTechAnimals; track $index) {

@@ -13,11 +13,18 @@ import { CoolTechAnimalModel } from '../../../models/coolTechAnimal.model';
 import { GlobalsService } from '../../../services/globals/globals.service';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { MenuMobileComponent } from '../../../shared/components/ui/menu-mobile/menu-mobile.component';
+import { SidebarMenuItemComponent } from '../../../shared/components/ui/sidebar-menu-item/sidebar-menu-item.component';
 
 @Component({
   selector: 'news-body',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MenuMobileComponent, RouterLink],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    MenuMobileComponent,
+    RouterLink,
+    SidebarMenuItemComponent,
+  ],
   providers: [GlobalsService],
   templateUrl: './news-body.component.html',
   styleUrl: './news-body.component.scss',
@@ -80,6 +87,10 @@ export class NewsBodyComponent {
 
   ngOnInit() {
     this.currentSlidePositionEvent.emit(this.activeSlideIndex());
+  }
+
+  showComingSoonAlert() {
+    this.globals.toast.info('Feature coming soon!');
   }
 
   openMenu() {
