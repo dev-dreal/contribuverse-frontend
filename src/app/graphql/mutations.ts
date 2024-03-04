@@ -2,11 +2,11 @@ import { gql } from 'apollo-angular';
 
 export const CREATE_BLOG = gql`
   mutation CreateBlog(
-    $category: String!
-    $title: String!
-    $content: String!
-    $imageUrl: String!
-    $userId: String!
+    $category: Category
+    $title: String
+    $content: String
+    $imageUrl: String
+    $userId: String
   ) {
     createBlog(
       category: $category
