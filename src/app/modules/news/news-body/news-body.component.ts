@@ -56,6 +56,14 @@ export class NewsBodyComponent {
       svgUrl: 'assets/svgs/cool-tech-dog.svg',
       state: 'bottom',
     },
+    {
+      title: 'Cool Tech Horse',
+      route: 'news/movies',
+      imgUrl:
+        'https://res.cloudinary.com/dv765kdgq/image/upload/v1709583749/cool-tech-horse_brodrx.png',
+      svgUrl: 'assets/svgs/cool-tech-horse.svg',
+      state: 'bottom',
+    },
   ];
 
   selectedAnimal = this.coolTechAnimals[0];
@@ -88,16 +96,15 @@ export class NewsBodyComponent {
   }
 
   isTopOrBottom(index: number): string {
-    if ((index + 1) % this.coolTechAnimals.length === this.activeSlideIndex()) {
+    const numItems = this.coolTechAnimals.length;
+    const activeIndex = this.activeSlideIndex();
+    if (index === activeIndex) {
+      return 'center';
+    } else if ((index + 1) % numItems === activeIndex % numItems) {
       return 'top';
-    } else if (
-      (this.activeSlideIndex() + 1) % this.coolTechAnimals.length ===
-      index
-    ) {
+    } else {
       return 'bottom';
     }
-
-    return 'center';
   }
 
   getImageResolution(url: string, width: number, height: number): string {
