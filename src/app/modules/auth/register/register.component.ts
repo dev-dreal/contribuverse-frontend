@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { SupabaseService } from '../../../services/auth/supabase.service';
 import { GlobalsService } from '../../../services/globals/globals.service';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
+import { fadingAnimation } from '../../../helpers/animations';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,7 @@ import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
   imports: [CommonModule, RouterLink, ReactiveFormsModule, NgxUiLoaderModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
+  animations: [fadingAnimation],
 })
 export class RegisterComponent {
   SPINNER = SPINNER;
@@ -27,7 +29,6 @@ export class RegisterComponent {
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]],
     });
 
     this.checkSession();

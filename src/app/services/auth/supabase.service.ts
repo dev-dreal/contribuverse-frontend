@@ -155,8 +155,6 @@ export class SupabaseService {
     const { data, error } = await this.supabase.auth.signInWithOAuth({
       provider: 'github',
     });
-
-    console.log(data, error);
   }
 
   signInWithPassword(email: string, password: string) {

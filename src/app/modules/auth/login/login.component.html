@@ -1,86 +1,64 @@
-<div @fade class="bg-primaryBlue h-screen flex items-center justify-center">
-  <form
-    [formGroup]="loginForm"
-    (ngSubmit)="onLogin()"
-    class="bg-gray-100 p-8 rounded shadow-md w-10/12 md:w-2/5"
+<div class="bg-darkBlue" @fade>
+  <div
+    class="flex justify-center items-center relative w-full h-screen overflow-hidden"
   >
-    <h2 class="text-4xl font-semibold mb-4">Login</h2>
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onLogin()"
+      class="card rounded-[15px] w-10/12 md:w-1/3"
+    >
+      <h1 class="title">Login</h1>
+      <p class="subtitle">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email..."
+          formControlName="email"
+          class="input-container mt-1 p-4 w-full border rounded-md placeholder:text-white placeholder:font-semi-bold placeholder:text-3xl placeholder:p-3 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent"
+        />
+        @if (handleError("email", "required")) {
+          <div class="text-yellow-300 text-sm mt-2">Email is required</div>
+        } @else if (handleError("email", "email")) {
+          <div class="text-yellow-300 text-sm mt-2">Enter valid email</div>
+        }
+      </p>
 
-    <!-- Email Input -->
-    <div class="mb-4">
-      <label for="email" class="block text-sm font-medium text-gray-600"
-        >Email</label
-      >
-      <input
-        type="email"
-        id="email"
-        name="email"
-        formControlName="email"
-        class="mt-1 p-2 w-full border rounded-md"
-      />
+      <p class="subtitle">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password..."
+          formControlName="password"
+          class="input-container mt-1 p-4 w-full border rounded-md placeholder:text-white placeholder:font-semi-bold placeholder:text-3xl placeholder:p-3 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent"
+        />
+        @if (handleError("password", "required")) {
+          <div class="text-yellow-300 text-sm mt-2">Password is required</div>
+        } @else if (handleError("password", "minlength")) {
+          <div class="text-yellow-300 text-sm mt-2">
+            Password must be at least 6 characters
+          </div>
+        }
+      </p>
 
-      @if (handleError("email", "required")) {
-        <div class="text-red-500 text-sm mt-2">Email is required</div>
-      } @else if (handleError("email", "email")) {
-        <div class="text-red-500 text-sm mt-2">Enter valid email</div>
-      }
-    </div>
-
-    <!-- Password Input -->
-    <div class="mb-6">
-      <label for="password" class="block text-sm font-medium text-gray-600"
-        >Password</label
-      >
-      <input
-        type="password"
-        id="password"
-        name="password"
-        formControlName="password"
-        class="mt-1 p-2 w-full border rounded-md"
-      />
-
-      @if (handleError("password", "required")) {
-        <div class="text-red-500 text-sm mt-2">Password is required</div>
-      } @else if (handleError("password", "minlength")) {
-        <div class="text-red-500 text-sm mt-2">
-          Password must be at least 6 characters
+      <div class="flex justify-between items-center">
+        <div class="mb-6 text-right">
+          <a href="#" class="text-white hover:underline">Forgot Password?</a>
         </div>
-      }
-    </div>
-
-    <!-- Forgot Password Link -->
-    <div class="mb-6 text-right">
-      <a href="#" class="text-blue-500 hover:underline">Forgot Password?</a>
-    </div>
-
-    <!-- Login Button -->
-    <button
-      [disabled]="loginForm.invalid"
-      class="bg-blue-500 text-white p-2 rounded-md w-full mb-2"
-    >
-      Login
-    </button>
-    <!-- <button
-      (click)="signInWithGitHub()"
-      class="bg-red-500 text-white p-2 rounded-md w-full mb-2"
-    >
-      Sign In with GitHub
-    </button> -->
-    <button
-      (click)="logOut()"
-      class="bg-red-500 text-white p-2 rounded-md w-full"
-    >
-      Logout
-    </button>
-
-    <!-- Register Link -->
-    <div class="mt-4 text-center">
-      <p class="text-sm text-gray-600">Don't have an account?</p>
-      <a routerLink="/auth/register" class="text-blue-500 hover:underline"
-        >Register here</a
-      >
-    </div>
-  </form>
+        <button [disabled]="loginForm.invalid" type="submit" class="btn">
+          Login
+        </button>
+      </div>
+      <div class="mt-4 text-center">
+        <p class="text-sm text-slate-200">Don't have an account?</p>
+        <a routerLink="/auth/register" class="text-lime-300 hover:underline"
+          >Register here</a
+        >
+      </div>
+    </form>
+    <div class="blob"></div>
+  </div>
 </div>
 
 <ngx-ui-loader
