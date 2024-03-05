@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NavLinkComponent } from '../../../shared/components/ui/nav-link/nav-link.component';
 import { RouterLink } from '@angular/router';
 
@@ -10,10 +10,16 @@ import { RouterLink } from '@angular/router';
   styleUrl: './news-header.component.scss',
 })
 export class NewsHeaderComponent {
+  @Output() isNavLinkClicked = new EventEmitter<boolean>();
+
   navLinks = [
     { label: 'Robotics', route: 'robotics' },
     { label: 'Metaverse', route: 'metaverse' },
     { label: 'Gaming', route: 'gaming' },
     { label: 'Movies', route: 'movies' },
   ];
+
+  onNavClicked() {
+    this.isNavLinkClicked.emit(true);
+  }
 }

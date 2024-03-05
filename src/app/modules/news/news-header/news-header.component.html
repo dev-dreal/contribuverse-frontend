@@ -12,7 +12,8 @@
       @for (nav of navLinks; track $index) {
         <li>
           <nav-link
-            [route]="nav.route"
+            (click)="onNavClicked()"
+            [route]="''"
             [label]="nav.label"
             [textColor]="'white'"
             [isTextShadow]="false"
