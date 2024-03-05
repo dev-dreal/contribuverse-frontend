@@ -14,8 +14,8 @@ const setEnv = () => {
     appVersion: "${appVersion}",
     supabase: {
         tag: "${process.env['SUPABASE_TAG']}",
-        url: ""${process.env['SUPABASE_CALLBACK_URL']}"",
-        key: "SUPABASE_KEY",
+        url: "${process.env['SUPABASE_CALLBACK_URL']}",
+        key: 'SUPABASE_KEY',
       },
     production: true,
   };
