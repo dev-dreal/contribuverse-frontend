@@ -13,8 +13,8 @@ const setEnv = () => {
   const envConfigFile = `export const environment = {
     appVersion: "${appVersion}",
     supabase: {
-        tag: "${process.env['SUPABASE_TAG']}",
-        url: "${process.env['SUPABASE_CALLBACK_URL']}",
+        tag: "${process.env.SUPABASE_TAG}",
+        url: "${process.env.SUPABASE_CALLBACK_URL}",
         key: 'SUPABASE_KEY',
       },
     production: true,
@@ -23,6 +23,7 @@ const setEnv = () => {
   console.log(
     colors.magenta(
       'The file `environment.ts` will be written with the following content: \n',
+      envConfigFile,
     ),
   );
   writeFile(targetPath, envConfigFile, (err: unknown) => {
