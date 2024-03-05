@@ -14,8 +14,16 @@ import { DynamicNavComponent } from './dynamic-nav/dynamic-nav.component';
 })
 export class NewsComponent {
   currentSlidePosition = signal(0);
+  navLinkClicked = signal(false);
 
   getCurrentSlideStatus(event: number) {
     this.currentSlidePosition.set(event);
+  }
+
+  handleNavLinkClick(navClicked: boolean) {
+    this.navLinkClicked.set(navClicked);
+    setTimeout(() => {
+      this.navLinkClicked.set(false);
+    }, 1000);
   }
 }
