@@ -15,7 +15,7 @@ const setEnv = () => {
     supabase: {
         tag: "${process.env['SUPABASE_TAG']}",
         url: "${process.env['SUPABASE_CALLBACK_URL']}",
-        key: 'SUPABASE_KEY',
+        key: "${process.env['SUPABASE_KEY']}",
       },
     production: true,
   };
@@ -23,6 +23,7 @@ const setEnv = () => {
   console.log(
     colors.magenta(
       'The file `environment.ts` will be written with the following content: \n',
+      envConfigFile,
     ),
   );
   writeFile(targetPath, envConfigFile, (err: unknown) => {
