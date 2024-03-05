@@ -13,9 +13,9 @@ const setEnv = () => {
   const envConfigFile = `export const environment = {
     appVersion: "${appVersion}",
     supabase: {
-        tag: "${process.env.SUPABASE_TAG}",
-        url: "${process.env.SUPABASE_CALLBACK_URL}",
-        key: 'SUPABASE_KEY',
+        tag: "${process.env['SUPABASE_TAG']}",
+        url: "${process.env['SUPABASE_CALLBACK_URL']}",
+        key: "${process.env['SUPABASE_KEY']}",
       },
     production: true,
   };
