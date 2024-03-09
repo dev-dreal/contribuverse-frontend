@@ -5,6 +5,7 @@
     <blog-card
       class="w-1/5 h-60 py-2"
       [blog]="addBlogMetaData"
+      [isLargeBoxShadow]="false"
       (click)="navigateToAddBlogPage()"
     ></blog-card>
 
@@ -25,7 +26,15 @@
       }
     } @else {
       @for (blog of blogs() | slice: 0 : 4; track $index) {
-        <blog-card @fade class="w-1/5 h-60 py-2" [blog]="blog"></blog-card>
+        <div class="w-1/5 h-60 py-2 flex flex-col items-center justify-between">
+          <blog-card
+            @fade
+            class="w-full h-full"
+            [isLargeBoxShadow]="false"
+            [blog]="blog"
+          ></blog-card>
+          <p class="text-white">{{ blog.title }}</p>
+        </div>
       }
     }
   </div>

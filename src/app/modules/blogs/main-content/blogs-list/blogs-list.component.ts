@@ -57,14 +57,9 @@ export class BlogsListComponent {
   }
 
   loadBlogs() {
-    this.blogsService.getBlogs().subscribe({
-      next: (blogs) => {
-        this.blogs.set(blogs);
-        this.isBlogsLoading.set(false);
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
+    this.blogs.set(this.blogsService.getBlogCategories());
+    setTimeout(() => {
+      this.isBlogsLoading.set(false);
+    }, 1000);
   }
 }
