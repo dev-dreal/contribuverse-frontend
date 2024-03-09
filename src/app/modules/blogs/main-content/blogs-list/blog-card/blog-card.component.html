@@ -3,5 +3,9 @@
   alt="{{ blog.title }}"
   title="{{ blog.title }}"
   [routerLink]="blog.id ? [blog.id] : null"
-  class="shrink-0 rounded-[15px] bg-darkBlue w-full h-full object-contain wrapper"
+  [ngClass]="{
+    wrapper: isLargeBoxShadow,
+    'wrapper-md-shadow': !isLargeBoxShadow
+  }"
+  class="shrink-0 rounded-[15px] bg-darkBlue w-full h-full object-contain"
 />

@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -9,7 +8,7 @@ import {
 } from '@angular/forms';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { RichTextEditorComponent } from '../../../../shared/components/smart/rich-text-editor/rich-text-editor.component';
-import { AddBlogModel, BlogCategory } from '../../../../models/blog.model';
+import { AddBlogModel } from '../../../../models/blog.model';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from '../../../../services/globals/globals.service';
 import { SupabaseService } from '../../../../services/auth/supabase.service';
@@ -32,16 +31,17 @@ export class AddBlogComponent {
   addBlogForm: FormGroup = {} as FormGroup;
   isDropdownOpen = false;
   selectedOption: string | undefined;
+  userEmail: string = '';
+  userId: string = '';
 
   constructor(
     private blogsService: BlogsService,
     private globals: GlobalsService,
-    private fb: FormBuilder,
     private supabase: SupabaseService,
   ) {}
 
   ngOnInit() {
-    this.addBlogForm = this.fb.group({
+    this.addBlogForm = this.globals.fb.group({
       category: [null, [Validators.required]],
       title: ['', [Validators.required]],
       content: ['', [Validators.required]],
@@ -50,10 +50,18 @@ export class AddBlogComponent {
     });
     this.blogCategories = this.loadBlogCategories();
 
+    // Get user's email from supabase
     this.supabase.$user?.subscribe({
       next: (user) => {
+        this.userEmail = user?.email!;
+      },
+    });
+
+    // Get user's id from email
+    this.blogsService.getUserIdByEmail(this.userEmail).subscribe({
+      next: (response) => {
         this.addBlogForm.patchValue({
-          userId: user?.id,
+          userId: response,
         });
       },
     });
@@ -64,7 +72,7 @@ export class AddBlogComponent {
   }
 
   loadBlogCategories() {
-    return this.blogsService.getBlogCategories();
+    return this.blogsService.getBlogCategoriesStrings();
   }
 
   createBlog() {
@@ -76,7 +84,7 @@ export class AddBlogComponent {
       title: this.addBlogForm.value.title!,
       content: this.addBlogForm.value.content!,
       imageUrl: this.addBlogForm.value.imageUrl!,
-      userId: '329a0570-0d4c-4a4e-9c42-9aaecd6d8cf9',
+      userId: this.userId,
     };
 
     this.blogsService.addBlog(newBlog).subscribe({

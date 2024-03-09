@@ -59,3 +59,11 @@ export const GET_BLOG = gql`
     }
   }
 `;
+
+export const GET_USER_ID_BY_EMAIL = gql`
+  query Query($email: String) {
+    getUserByEmail(email: $email) {
+      id
+    }
+  }
+`;
