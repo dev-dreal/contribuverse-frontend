@@ -1,15 +1,3 @@
-export enum BlogCategory {
-  TECH = 'TECH',
-  ANDROID = 'ANDROID',
-  AI_ML = 'AI_ML',
-  WEB = 'WEB',
-  JOBS = 'JOBS',
-  STARTUPS = 'STARTUPS',
-  UI_UX = 'UI_UX',
-  BOOKS = 'BOOKS',
-  DATABASES = 'DATABASES',
-}
-
 export interface AddBlogModel {
   category: string;
   title: string;

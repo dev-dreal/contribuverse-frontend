@@ -30,6 +30,10 @@ body {
   @apply text-white transform hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer hover:bg-secondaryBlue shadow-black shadow-lg;
 }
 
+.wrapper-md-shadow {
+  @apply text-white transform hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer hover:bg-secondaryBlue shadow-black shadow-md;
+}
+
 @media screen and (max-width: 768px) {
   .logo-home {
     width: 50px;
