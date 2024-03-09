@@ -22,20 +22,33 @@
           | slice: 0 : 2;
         track $index
       ) {
-        @if ($index !== 0) {
-          <latest-blog
-            @fade
-            [blog]="blog"
-            class="w-full hidden md:block w-1/2"
-          ></latest-blog>
-        } @else {
+        @if ($first) {
           <latest-blog
             @fade
             [blog]="blog"
             [longDescriptionCutOff]="5"
             class="w-full md:w-1/2"
           ></latest-blog>
+        } @else {
+          <latest-blog
+            @fade
+            [blog]="blog"
+            class="hidden md:block w-1/2"
+          ></latest-blog>
         }
+        <!-- If the blogs total is not even, add a skeleton loader at the end -->
+        <!-- @if (blogs().length % 2 !== 0 && page === (blogs().length + 1) / 2) {
+          <ngx-skeleton-loader
+            animation="pulse"
+            appearance="circle"
+            [theme]="{
+              'border-radius': '15px',
+              'background-color': '#035e63',
+              height: '90%',
+              width: '400px'
+            }"
+          />
+        } -->
       }
     }
   </div>
