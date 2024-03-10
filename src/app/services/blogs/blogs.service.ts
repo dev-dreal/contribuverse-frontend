@@ -95,13 +95,13 @@ export class BlogsService {
 
   getUserIdByEmail(email: string): Observable<string> {
     return this.apollo
-      .watchQuery<string>({
+      .watchQuery<any>({
         query: GET_USER_ID_BY_EMAIL,
         variables: {
           email,
         },
       })
-      .valueChanges.pipe(map((result) => result.data));
+      .valueChanges.pipe(map((result) => result.data.getUserByEmail.id));
   }
 
   getBlogs(): Observable<BlogModel[]> {
