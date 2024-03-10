@@ -9,7 +9,7 @@ import {
   signal,
 } from '@angular/core';
 import { circularMotion, fadingAnimation } from '../../../helpers/animations';
-import { CoolTechAnimalModel } from '../../../models/coolTechAnimal.model';
+import { CoolTechAnimalModel } from '../../../models/cool-tech-animal.model';
 import { GlobalsService } from '../../../services/globals/globals.service';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { MenuMobileComponent } from '../../../shared/components/ui/menu-mobile/menu-mobile.component';

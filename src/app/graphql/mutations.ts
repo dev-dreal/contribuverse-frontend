@@ -26,3 +26,15 @@ export const CREATE_BLOG = gql`
     }
   }
 `;
+
+export const CREATE_USER = gql`
+  mutation Mutation($name: String, $email: String) {
+    createUser(name: $name, email: $email) {
+      id
+      name
+      email
+      updatedAt
+      createdAt
+    }
+  }
+`;
