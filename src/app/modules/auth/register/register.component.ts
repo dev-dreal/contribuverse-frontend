@@ -6,6 +6,9 @@ import { SupabaseService } from '../../../services/auth/supabase.service';
 import { GlobalsService } from '../../../services/globals/globals.service';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { fadingAnimation } from '../../../helpers/animations';
+import { UsersService } from '../../../services/users/users.service';
+import { catchError } from 'rxjs';
+import { CreateUserModel } from '../../../models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -22,6 +25,7 @@ export class RegisterComponent {
   constructor(
     private supabase: SupabaseService,
     private globals: GlobalsService,
+    private usersService: UsersService,
   ) {}
 
   ngOnInit() {
@@ -49,6 +53,11 @@ export class RegisterComponent {
       this.registerForm.value.password,
     );
 
+    this.createUserOnDB(
+      this.registerForm.value.username,
+      this.registerForm.value.email,
+    );
+
     if (data && data.user?.aud === 'authenticated') {
       this.globals.loader.stopAll();
       this.globals.toast.success('Check your email for confirmation link.');
@@ -57,6 +66,30 @@ export class RegisterComponent {
       this.globals.loader.stopAll();
       this.globals.toast.error(error.message);
     }
+  }
+
+  createUserOnDB(name: string, email: string) {
+    this.usersService
+      .createUser(name, email)
+      .pipe(
+        catchError((error) => {
+          console.error('Error creating user on DB', error);
+          this.globals.toast.error('Error creating user on DB');
+          return error;
+        }),
+      )
+      .subscribe({
+        next: (data) => {
+          console.log('User created on DB', data);
+        },
+        error: (error) => {
+          console.error('Error creating user on DB', error);
+          this.globals.toast.error('Error creating user on DB');
+        },
+        complete: () => {
+          console.log('User creation on DB completed');
+        },
+      });
   }
 
   handleError(controlName: string, errorName: string) {

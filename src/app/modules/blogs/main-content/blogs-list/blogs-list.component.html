@@ -26,15 +26,12 @@
       }
     } @else {
       @for (blog of blogs() | slice: 0 : 4; track $index) {
-        <div class="w-1/5 h-60 py-2 flex flex-col items-center justify-between">
-          <blog-card
-            @fade
-            class="w-full h-full"
-            [isLargeBoxShadow]="false"
-            [blog]="blog"
-          ></blog-card>
-          <p class="text-white">{{ blog.title }}</p>
-        </div>
+        <blog-card
+          @fade
+          class="w-1/5 h-60 py-2"
+          [isLargeBoxShadow]="false"
+          [blog]="blog"
+        ></blog-card>
       }
     }
   </div>
