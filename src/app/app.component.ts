@@ -4,6 +4,7 @@ import { InitialLoaderComponent } from './shared/components/smart/initial-loader
 import { fadingAnimation } from './helpers/animations';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from './services/globals/globals.service';
+import { FirebaseService } from './services/auth/firebase.service';
 
 @Component({
   selector: 'app-root',
@@ -18,10 +19,24 @@ export class AppComponent {
   isLoading: boolean = true;
   SPINNER = SPINNER;
 
-  constructor(private globals: GlobalsService) {}
+  constructor(
+    private globals: GlobalsService,
+    private firebaseService: FirebaseService,
+  ) {}
 
   ngOnInit() {
     this.globals.loader.start();
+    this.firebaseService.user$.subscribe((user) => {
+      if (user) {
+        this.firebaseService.currentUserSig.set({
+          email: user.email!,
+          username: user.displayName!,
+        });
+      } else {
+        this.firebaseService.currentUserSig.set(null);
+      }
+      console.log(this.firebaseService.currentUserSig());
+    });
 
     setTimeout(() => {
       this.globals.loader.stopAll();

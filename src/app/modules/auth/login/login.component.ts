@@ -12,6 +12,7 @@ import { GlobalsService } from '../../../services/globals/globals.service';
 import { fadingAnimation } from '../../../helpers/animations';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { AuthSession } from '@supabase/supabase-js';
+import { FirebaseService } from '../../../services/auth/firebase.service';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,7 @@ export class LoginComponent {
   constructor(
     private supabase: SupabaseService,
     private globals: GlobalsService,
+    private firebaseService: FirebaseService,
   ) {}
 
   ngOnInit() {
@@ -49,28 +51,50 @@ export class LoginComponent {
 
   onLogin() {
     this.globals.loader.start();
-    this.supabase
-      .signInWithPassword(
-        this.loginForm.value.email,
-        this.loginForm.value.password,
-      )
-      .then((res) => {
-        // Redirect to a specific page after successful login
-        const redirectUrl =
-          this.globals.route.snapshot.queryParams['redirect_url'];
-        if (redirectUrl) {
-          this.globals.router.navigateByUrl(redirectUrl);
-        } else {
-          // Redirect to a default route or specific page if no redirect URL is provided
-          this.globals.router.navigate(['/user/profile']);
-        }
-        this.globals.toast.success('Login successful!');
-        this.globals.loader.stopAll();
-      })
-      .catch((err) => {
-        console.log(err);
-        this.globals.loader.stopAll();
+
+    this.firebaseService
+      .login(this.loginForm.value.email, this.loginForm.value.password)
+      .subscribe({
+        next: () => {
+          const redirectUrl =
+            this.globals.route.snapshot.queryParams['redirect_url'];
+          // if (redirectUrl) {
+          //   this.globals.router.navigateByUrl(redirectUrl);
+          // } else {
+          //   this.globals.router.navigate(['/user/profile']);
+          // }
+          this.globals.router.navigate(['/']);
+          this.globals.toast.success('Login successful!');
+          this.globals.loader.stopAll();
+        },
+        error: (err) => {
+          console.log(err);
+          this.globals.loader.stopAll();
+        },
       });
+
+    // this.supabase
+    //   .signInWithPassword(
+    //     this.loginForm.value.email,
+    //     this.loginForm.value.password,
+    //   )
+    //   .then((res) => {
+    //     // Redirect to a specific page after successful login
+    //     const redirectUrl =
+    //       this.globals.route.snapshot.queryParams['redirect_url'];
+    //     if (redirectUrl) {
+    //       this.globals.router.navigateByUrl(redirectUrl);
+    //     } else {
+    //       // Redirect to a default route or specific page if no redirect URL is provided
+    //       this.globals.router.navigate(['/user/profile']);
+    //     }
+    //     this.globals.toast.success('Login successful!');
+    //     this.globals.loader.stopAll();
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     this.globals.loader.stopAll();
+    //   });
   }
 
   async signInWithGitHub() {
