@@ -16,6 +16,7 @@ export class SidebarMenuItemComponent {
   @Input() isBgDarker: boolean = false;
   @Input() isLink: boolean = true;
   @Input() removeLabelOnResponsive: boolean = false;
+  @Input() height: string = '18';
 
   get isMobile(): boolean {
     return window.innerWidth <= 768;
