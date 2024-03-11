@@ -12,7 +12,7 @@ import { GlobalsService } from '../../../../../services/globals/globals.service'
 })
 export class LatestBlogComponent {
   @Input({ required: true }) blog!: BlogModel;
-  @Input() longDescriptionCutOff: number = 20;
+  @Input() longDescriptionCutOff: number = 10;
 
   constructor(private globals: GlobalsService) {}
 

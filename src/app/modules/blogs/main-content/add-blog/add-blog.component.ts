@@ -12,6 +12,7 @@ import { AddBlogModel } from '../../../../models/blog.model';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from '../../../../services/globals/globals.service';
 import { SupabaseService } from '../../../../services/auth/supabase.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'add-blog',
@@ -51,19 +52,21 @@ export class AddBlogComponent {
     this.blogCategories = this.loadBlogCategories();
 
     // Get user's email from supabase
-    this.supabase.$user?.subscribe({
+    this.supabase.$user?.pipe(first()).subscribe({
       next: (user) => {
         this.userEmail = user?.email!;
+        this.getUserByEmail(this.userEmail);
       },
     });
+  }
 
+  getUserByEmail(email: string) {
     // Get user's id from email
-    this.blogsService.getUserIdByEmail(this.userEmail).subscribe({
-      next: (response) => {
-        this.addBlogForm.patchValue({
-          userId: response,
-        });
-      },
+    this.blogsService.getUserIdByEmail(email).subscribe((response) => {
+      console.log(response);
+      this.addBlogForm.patchValue({
+        userId: response,
+      });
     });
   }
 
