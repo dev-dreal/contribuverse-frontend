@@ -5,6 +5,7 @@
     [label]="currentBlog().label"
     [route]="currentBlog().route"
     [icon]="currentBlog().icon"
+    [height]="'16'"
     class="w-11/12"
   ></sidebar-menu-item>
   <h2 class="text-white text-4xl font-bold">Menu</h2>
@@ -12,6 +13,7 @@
     <sidebar-menu-item
       [label]="menu.label"
       [route]="menu.route"
+      [height]="'16'"
       [icon]="menu.icon"
       [removeLabelOnResponsive]="true"
       class="w-11/12"

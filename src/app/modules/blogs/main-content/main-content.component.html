@@ -1,6 +1,6 @@
-<div class="px-6 py-6 flex flex-col justify-between h-full">
+<div class="px-6 py-6 flex flex-col justify-around h-full w-full">
   <blogs-list (isAddBlogButtonClicked)="initiateLoader($event)"></blogs-list>
   <search-bar></search-bar>
-  <latest-blogs class="h-1/2"></latest-blogs>
+  <latest-blogs class="h-2/3 w-full"></latest-blogs>
 </div>
 <ngx-ui-loader [fgsType]="SPINNER.ballScaleMultiple"></ngx-ui-loader>
