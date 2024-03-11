@@ -44,7 +44,8 @@ export class NewsBodyComponent {
       route: 'news/robotics',
       imgUrl:
         'https://res.cloudinary.com/dv765kdgq/image/upload/v1705701240/cool-leopard_kiqkep.png',
-      svgUrl: 'assets/svgs/cool-tech-leopard.svg',
+      svgUrl:
+        'https://res.cloudinary.com/dv765kdgq/image/upload/v1710193945/cool-tech-leopard_six8lz.svg',
       state: 'top',
     },
     {
@@ -52,7 +53,8 @@ export class NewsBodyComponent {
       route: 'news/metaverse',
       imgUrl:
         'https://res.cloudinary.com/dv765kdgq/image/upload/v1705701240/cool-lion_dnyxmr.png',
-      svgUrl: 'assets/svgs/cool-tech-lion.svg',
+      svgUrl:
+        'https://res.cloudinary.com/dv765kdgq/image/upload/v1710193946/cool-tech-lion_nbypoq.svg',
       state: 'center',
     },
     {
@@ -60,7 +62,8 @@ export class NewsBodyComponent {
       route: 'news/gaming',
       imgUrl:
         'https://res.cloudinary.com/dv765kdgq/image/upload/v1705701240/cool-dog_uxpho4.png',
-      svgUrl: 'assets/svgs/cool-tech-dog.svg',
+      svgUrl:
+        'https://res.cloudinary.com/dv765kdgq/image/upload/v1710193946/cool-tech-dog_qwrrxt.svg',
       state: 'bottom',
     },
     {
@@ -68,7 +71,8 @@ export class NewsBodyComponent {
       route: 'news/movies',
       imgUrl:
         'https://res.cloudinary.com/dv765kdgq/image/upload/v1709583749/cool-tech-horse_brodrx.png',
-      svgUrl: 'assets/svgs/cool-tech-horse.svg',
+      svgUrl:
+        'https://res.cloudinary.com/dv765kdgq/image/upload/v1710193946/cool-tech-horse_hhie0l.svg',
       state: 'bottom',
     },
   ];

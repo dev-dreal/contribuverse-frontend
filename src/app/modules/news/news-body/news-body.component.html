@@ -1,5 +1,5 @@
 <div
-  class="flex flex-col justify-start items-center gap-4 bg-slate-100 px-8 py-3 shadow-lg shadow-white rounded-md relative overflow-visible md:flex-row md:h-3/4 md:justify-center md:gap-0"
+  class="flex flex-col justify-start items-center gap-4 bg-slate-100 px-8 py-3 shadow-lg shadow-white rounded-md relative md:flex-row md:justify-center md:gap-0"
 >
   <div class="flex items-center justify-start w-full md:hidden">
     <img
@@ -45,12 +45,12 @@
     <!-- Cool Tech Animals Display -->
     @for (coolAnimal of coolTechAnimals; track $index) {
       <img
-        src="{{ coolAnimal.svgUrl }}"
-        [width]="isTopOrBottom($index) === 'center' ? '75%' : '133px'"
+        src="{{ getImageResolution(coolAnimal.svgUrl, 450, 450) }}"
+        [width]="isTopOrBottom($index) === 'center' ? '60%' : '133px'"
         alt="{{ coolAnimal.title }}"
         class="-rotate-[18.334deg] duration-700 ease-in-out cursor-pointer"
         [ngClass]="{
-          'w-3/4': isTopOrBottom($index) === 'center'
+          'w-3/5': isTopOrBottom($index) === 'center'
         }"
       />
     }
@@ -70,7 +70,7 @@
       [route]="''"
     ></sidebar-menu-item>
 
-    <div class="justify-end items-center hidden md:flex">
+    <div class="justify-evenly items-center hidden md:flex">
       @for (coolAnimal of coolTechAnimals; track $index) {
         <div
           class="flex flex-col justify-center items-center relative"
@@ -79,9 +79,9 @@
           }"
         >
           <img
-            src="{{ coolAnimal.svgUrl }}"
+            src="{{ getImageResolution(coolAnimal.svgUrl, 100, 150) }}"
             alt="{{ coolAnimal.title }}"
-            width="133px"
+            width="100px"
             height="150px"
             class="cursor-pointer transition ease-in-out delay-700"
             (click)="selectAnimal($index)"
