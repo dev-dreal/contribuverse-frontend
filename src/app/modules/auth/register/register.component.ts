@@ -94,29 +94,69 @@ export class RegisterComponent {
     // }
   }
 
-  createUserOnDB(name: string, email: string) {
-    this.usersService
-      .createUser(name, email)
-      .pipe(
-        catchError((error) => {
-          console.error('Error creating user on DB', error);
-          this.globals.toast.error('Error creating user on DB');
-          return error;
-        }),
-      )
-      .subscribe({
-        next: (data) => {
-          console.log('User created on DB', data);
-        },
-        error: (error) => {
-          console.error('Error creating user on DB', error);
-          this.globals.toast.error('Error creating user on DB');
-        },
-        complete: () => {
-          console.log('User creation on DB completed');
-        },
-      });
+  loginWithGoogle() {
+    this.firebaseService.loginWithGoogle().subscribe({
+      next: () => {
+        const redirectUrl =
+          this.globals.route.snapshot.queryParams['redirect_url'];
+        if (redirectUrl) {
+          this.globals.router.navigateByUrl(redirectUrl);
+        } else {
+          this.globals.router.navigate(['/user/profile']);
+        }
+        this.globals.toast.success('Login successful!');
+        this.globals.loader.stopAll();
+      },
+      error: (err) => {
+        console.log(err);
+        this.globals.loader.stopAll();
+      },
+    });
   }
+
+  loginWithGithub() {
+    this.firebaseService.loginWithGitHub().subscribe({
+      next: () => {
+        const redirectUrl =
+          this.globals.route.snapshot.queryParams['redirect_url'];
+        if (redirectUrl) {
+          this.globals.router.navigateByUrl(redirectUrl);
+        } else {
+          this.globals.router.navigate(['/user/profile']);
+        }
+        this.globals.toast.success('Login successful!');
+        this.globals.loader.stopAll();
+      },
+      error: (err) => {
+        console.log(err);
+        this.globals.loader.stopAll();
+      },
+    });
+  }
+
+  // createUserOnDB(name: string, email: string) {
+  //   this.usersService
+  //     .createUser(name, email)
+  //     .pipe(
+  //       catchError((error) => {
+  //         console.error('Error creating user on DB', error);
+  //         this.globals.toast.error('Error creating user on DB');
+  //         return error;
+  //       }),
+  //     )
+  //     .subscribe({
+  //       next: (data) => {
+  //         console.log('User created on DB', data);
+  //       },
+  //       error: (error) => {
+  //         console.error('Error creating user on DB', error);
+  //         this.globals.toast.error('Error creating user on DB');
+  //       },
+  //       complete: () => {
+  //         console.log('User creation on DB completed');
+  //       },
+  //     });
+  // }
 
   handleError(controlName: string, errorName: string) {
     const control = this.registerForm.controls[controlName];

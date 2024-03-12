@@ -123,7 +123,7 @@ export class LoginComponent {
     });
   }
 
-  loginWithGitHub() {
+  loginWithGithub() {
     this.firebaseService.loginWithGitHub().subscribe({
       next: () => {
         const redirectUrl =
