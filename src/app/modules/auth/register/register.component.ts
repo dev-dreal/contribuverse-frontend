@@ -9,6 +9,7 @@ import { fadingAnimation } from '../../../helpers/animations';
 import { UsersService } from '../../../services/users/users.service';
 import { catchError } from 'rxjs';
 import { CreateUserModel } from '../../../models/user.model';
+import { FirebaseService } from '../../../services/auth/firebase.service';
 
 @Component({
   selector: 'app-register',
@@ -26,6 +27,7 @@ export class RegisterComponent {
     private supabase: SupabaseService,
     private globals: GlobalsService,
     private usersService: UsersService,
+    private firebaseService: FirebaseService,
   ) {}
 
   ngOnInit() {
@@ -48,24 +50,48 @@ export class RegisterComponent {
 
   async onSubmit() {
     this.globals.loader.start();
-    const { data, error } = await this.supabase.register(
-      this.registerForm.value.email,
-      this.registerForm.value.password,
-    );
 
-    this.createUserOnDB(
-      this.registerForm.value.username,
-      this.registerForm.value.email,
-    );
+    this.firebaseService
+      .register(
+        this.registerForm.value.email,
+        this.registerForm.value.username,
+        this.registerForm.value.password,
+      )
+      .subscribe({
+        next: (response) => {
+          console.log('User created on Firebase', response);
+        },
+        error: (error) => {
+          console.error('Error creating user', error);
+          this.globals.toast.error('Error creating user');
+        },
+        complete: () => {
+          this.globals.toast.success(
+            'User created successfully! Please proceed to login.',
+          );
+          console.log('User created successfully! Please proceed to login.');
+          this.globals.router.navigate(['/auth/login']);
+          this.globals.loader.stopAll();
+        },
+      });
+    // const { data, error } = await this.supabase.register(
+    //   this.registerForm.value.email,
+    //   this.registerForm.value.password,
+    // );
 
-    if (data && data.user?.aud === 'authenticated') {
-      this.globals.loader.stopAll();
-      this.globals.toast.success('Check your email for confirmation link.');
-      this.globals.router.navigate(['/auth/login']);
-    } else if (error) {
-      this.globals.loader.stopAll();
-      this.globals.toast.error(error.message);
-    }
+    // this.createUserOnDB(
+    //   this.registerForm.value.username,
+    //   this.registerForm.value.email,
+    // );
+
+    // if (data && data.user?.aud === 'authenticated') {
+    //   this.globals.loader.stopAll();
+    //   this.globals.toast.success('Check your email for confirmation link.');
+    //   this.globals.router.navigate(['/auth/login']);
+    // } else if (error) {
+    //   this.globals.loader.stopAll();
+    //   this.globals.toast.error(error.message);
+    // }
   }
 
   createUserOnDB(name: string, email: string) {
