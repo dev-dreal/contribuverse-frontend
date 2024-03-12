@@ -12,6 +12,7 @@ const setEnv = () => {
   // `environment.ts` file structure
   const envConfigFile = `export const environment = {
     appVersion: "${appVersion}",
+    production: true,
     supabase: {
         tag: "${process.env['SUPABASE_TAG']}",
         url: "${process.env['SUPABASE_CALLBACK_URL']}",
@@ -25,7 +26,6 @@ const setEnv = () => {
       messagingSenderId: "${process.env['FIREBASE_messagingSenderId']}",
       appId: "${process.env['FIREBASE_appId']}"
     },
-    production: true,
   };
   `;
   console.log(

@@ -49,6 +49,9 @@
         <button [disabled]="loginForm.invalid" type="submit" class="btn">
           Login
         </button>
+        <button class="btn" (click)="loginWithGitHub()">
+          Login With GitHub
+        </button>
       </div>
       <div class="mt-4 text-center">
         <p class="text-sm text-slate-200">Don't have an account?</p>
