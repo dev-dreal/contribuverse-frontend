@@ -42,10 +42,16 @@ export class LoginComponent {
   }
 
   async checkSession() {
-    const { session } = await this.supabase.getSession();
-    if (session) {
+    // const { session } = await this.supabase.getSession();
+    if (this.firebaseService.currentUserSig()) {
       this.globals.toast.info('You are already logged in.');
-      this.globals.router.navigate(['/user/profile']);
+      const redirectUrl =
+        this.globals.route.snapshot.queryParams['redirect_url'];
+      if (redirectUrl) {
+        this.globals.router.navigateByUrl(redirectUrl);
+      } else {
+        this.globals.router.navigate(['/user/profile']);
+      }
     }
   }
 
@@ -58,11 +64,11 @@ export class LoginComponent {
         next: () => {
           const redirectUrl =
             this.globals.route.snapshot.queryParams['redirect_url'];
-          // if (redirectUrl) {
-          //   this.globals.router.navigateByUrl(redirectUrl);
-          // } else {
-          //   this.globals.router.navigate(['/user/profile']);
-          // }
+          if (redirectUrl) {
+            this.globals.router.navigateByUrl(redirectUrl);
+          } else {
+            this.globals.router.navigate(['/user/profile']);
+          }
           this.globals.router.navigate(['/']);
           this.globals.toast.success('Login successful!');
           this.globals.loader.stopAll();
@@ -95,6 +101,46 @@ export class LoginComponent {
     //     console.log(err);
     //     this.globals.loader.stopAll();
     //   });
+  }
+
+  loginWithGoogle() {
+    this.firebaseService.loginWithGoogle().subscribe({
+      next: () => {
+        const redirectUrl =
+          this.globals.route.snapshot.queryParams['redirect_url'];
+        if (redirectUrl) {
+          this.globals.router.navigateByUrl(redirectUrl);
+        } else {
+          this.globals.router.navigate(['/user/profile']);
+        }
+        this.globals.toast.success('Login successful!');
+        this.globals.loader.stopAll();
+      },
+      error: (err) => {
+        console.log(err);
+        this.globals.loader.stopAll();
+      },
+    });
+  }
+
+  loginWithGithub() {
+    this.firebaseService.loginWithGitHub().subscribe({
+      next: () => {
+        const redirectUrl =
+          this.globals.route.snapshot.queryParams['redirect_url'];
+        if (redirectUrl) {
+          this.globals.router.navigateByUrl(redirectUrl);
+        } else {
+          this.globals.router.navigate(['/user/profile']);
+        }
+        this.globals.toast.success('Login successful!');
+        this.globals.loader.stopAll();
+      },
+      error: (err) => {
+        console.log(err);
+        this.globals.loader.stopAll();
+      },
+    });
   }
 
   async signInWithGitHub() {

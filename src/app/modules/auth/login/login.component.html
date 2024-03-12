@@ -1,60 +1,89 @@
-<div class="bg-darkBlue" @fade>
+<div id="body">
   <div
     class="flex justify-center items-center relative w-full h-screen overflow-hidden"
   >
     <form
       [formGroup]="loginForm"
       (ngSubmit)="onLogin()"
-      class="card rounded-[15px] w-10/12 md:w-1/3"
+      class="card rounded-[15px] w-10/12 flex justify-center items-center md:w-1/2"
     >
-      <h1 class="title">Login</h1>
-      <p class="subtitle">
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="Email..."
-          formControlName="email"
-          class="input-container mt-1 p-4 w-full border rounded-md placeholder:text-white placeholder:font-semi-bold placeholder:text-3xl placeholder:p-3 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent"
-        />
-        @if (handleError("email", "required")) {
-          <div class="text-yellow-300 text-sm mt-2">Email is required</div>
-        } @else if (handleError("email", "email")) {
-          <div class="text-yellow-300 text-sm mt-2">Enter valid email</div>
-        }
-      </p>
-
-      <p class="subtitle">
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Password..."
-          formControlName="password"
-          class="input-container mt-1 p-4 w-full border rounded-md placeholder:text-white placeholder:font-semi-bold placeholder:text-3xl placeholder:p-3 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent"
-        />
-        @if (handleError("password", "required")) {
-          <div class="text-yellow-300 text-sm mt-2">Password is required</div>
-        } @else if (handleError("password", "minlength")) {
-          <div class="text-yellow-300 text-sm mt-2">
-            Password must be at least 6 characters
-          </div>
-        }
-      </p>
-
-      <div class="flex justify-between items-center">
-        <div class="mb-6 text-right">
-          <a href="#" class="text-white hover:underline">Forgot Password?</a>
+      <div class="flex w-4/5 flex-col items-center justify-center gap-4 py-5">
+        <h1 class="title">Login to your account</h1>
+        <div class="w-full flex justify-evenly items-center">
+          <img
+            (click)="loginWithGoogle()"
+            width="50"
+            height="50"
+            class="cursor-pointer"
+            src="https://img.icons8.com/external-justicon-lineal-color-justicon/50/external-google-social-media-justicon-lineal-color-justicon.png"
+            alt="external-google-social-media-justicon-lineal-color-justicon"
+          />
+          <img
+            (click)="loginWithGithub()"
+            class="cursor-pointer"
+            width="64"
+            height="64"
+            src="https://img.icons8.com/color/50/github--v3.png"
+            alt="github--v3"
+          />
         </div>
-        <button [disabled]="loginForm.invalid" type="submit" class="btn">
-          Login
-        </button>
-      </div>
-      <div class="mt-4 text-center">
-        <p class="text-sm text-slate-200">Don't have an account?</p>
-        <a routerLink="/auth/register" class="text-lime-300 hover:underline"
-          >Register here</a
+        <p class="text-5xl font-bold mb-5">OR</p>
+        <p class="subtitle w-full">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            formControlName="email"
+            class="input-container w-full text-4xl mt-1 h-18 border rounded-md placeholder:text-white placeholder:font-semi-bold focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent"
+          />
+          @if (handleError("email", "required")) {
+            <div class="text-yellow-300 text-sm mt-2">Email is required</div>
+          } @else if (handleError("email", "email")) {
+            <div class="text-yellow-300 text-sm mt-2">Enter valid email</div>
+          }
+        </p>
+
+        <p class="subtitle w-full">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            formControlName="password"
+            class="input-container text-4xl mt-1 w-full h-18 border rounded-md placeholder:text-white placeholder:font-semi-bold focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent"
+          />
+          @if (handleError("password", "required")) {
+            <div class="text-yellow-300 text-sm mt-2">Password is required</div>
+          } @else if (handleError("password", "minlength")) {
+            <div class="text-yellow-300 text-sm mt-2">
+              Password must be at least 6 characters
+            </div>
+          }
+        </p>
+
+        <button
+          [disabled]="loginForm.invalid"
+          type="submit"
+          class="btn bg-primaryBlue text-black w-full transition duration-300 ease-in-out hover:bg-gold hover:text-white"
         >
+          LOGIN
+        </button>
+        <div
+          class="w-full flex flex-col justify-evenly items-center gap-4 md:flex-row md:justify-between"
+        >
+          <a href="#" class="text-white font-bold underline hover:text-pink-400"
+            >Forgot Password?</a
+          >
+          <div class="flex flex-col justify-between items-center md:mt-5">
+            <p class="text-sm text-slate-200 p-4">Don't have an account?</p>
+            <a
+              routerLink="/auth/register"
+              class="text-yellow-500 font-bold underline hover:text-pink-400"
+              >Register here</a
+            >
+          </div>
+        </div>
       </div>
     </form>
     <div class="blob"></div>

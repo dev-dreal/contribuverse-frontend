@@ -16,7 +16,8 @@
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   z-index: 10;
-  color: whitesmoke;
+  font-weight: bold;
+  padding: 1.5rem;
 }
 
 .card {
@@ -50,16 +51,16 @@
 }
 
 .btn {
-  background: none;
+  // background: none;
   border: none;
   text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
-  color: whitesmoke;
-  background-color: #fa709a;
+  // color: whitesmoke;
+  // background-color: #fa709a;
   padding: 0.8rem 1.8rem;
   border-radius: 2rem;
-  cursor: pointer;
+  // cursor: pointer;
 }
 
 .blob {

@@ -1,8 +1,11 @@
 import { Injectable, inject, signal } from '@angular/core';
 import {
   Auth,
+  GithubAuthProvider,
+  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
   updateProfile,
   user,
 } from '@angular/fire/auth';
@@ -39,6 +42,18 @@ export class FirebaseService {
       email,
       password,
     ).then(() => {});
+    return from(promise);
+  }
+
+  loginWithGoogle(): Observable<void> {
+    const provider = new GoogleAuthProvider();
+    const promise = signInWithPopup(this.firebaseAuth, provider).then(() => {});
+    return from(promise);
+  }
+
+  loginWithGitHub(): Observable<void> {
+    const provider = new GithubAuthProvider();
+    const promise = signInWithPopup(this.firebaseAuth, provider).then(() => {});
     return from(promise);
   }
 
