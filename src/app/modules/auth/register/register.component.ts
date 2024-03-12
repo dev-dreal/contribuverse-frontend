@@ -41,10 +41,16 @@ export class RegisterComponent {
   }
 
   async checkSession() {
-    const { session } = await this.supabase.getSession();
-    if (session) {
+    // const { session } = await this.supabase.getSession();
+    if (this.firebaseService.currentUserSig()) {
       this.globals.toast.info('You are already logged in.');
-      this.globals.router.navigate(['/user/profile']);
+      const redirectUrl =
+        this.globals.route.snapshot.queryParams['redirect_url'];
+      if (redirectUrl) {
+        this.globals.router.navigateByUrl(redirectUrl);
+      } else {
+        this.globals.router.navigate(['/user/profile']);
+      }
     }
   }
 
