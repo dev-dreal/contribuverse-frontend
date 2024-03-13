@@ -5,6 +5,8 @@ import { fadingAnimation } from './helpers/animations';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from './services/globals/globals.service';
 import { FirebaseService } from './services/auth/firebase.service';
+import { UsersService } from './services/users/users.service';
+import { catchError, first } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -22,20 +24,23 @@ export class AppComponent {
   constructor(
     private globals: GlobalsService,
     private firebaseService: FirebaseService,
+    private usersService: UsersService,
   ) {}
 
   ngOnInit() {
     this.globals.loader.start();
-    this.firebaseService.user$.subscribe((user) => {
-      if (user) {
-        this.firebaseService.currentUserSig.set({
-          email: user.email!,
-          username: user.displayName!,
-        });
-      } else {
-        this.firebaseService.currentUserSig.set(null);
-      }
-      console.log(this.firebaseService.currentUserSig());
+    this.firebaseService.user$.subscribe({
+      next: (user) => {
+        if (user) {
+          this.firebaseService.currentUserSig.set({
+            email: user.email!,
+            username: user.displayName!,
+          });
+        } else {
+          this.firebaseService.currentUserSig.set(null);
+        }
+        console.log(this.firebaseService.currentUserSig());
+      },
     });
 
     setTimeout(() => {

@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AddBlogModel, BlogModel } from '../../models/blog.model';
-import {
-  GET_BLOGS,
-  GET_BLOG,
-  GET_USER_ID_BY_EMAIL,
-} from '../../graphql/queries';
+import { GET_BLOGS, GET_BLOG } from '../../graphql/queries';
 import { Apollo } from 'apollo-angular';
 import { Observable, map } from 'rxjs';
 import { CREATE_BLOG } from '../../graphql/mutations';
@@ -91,17 +87,6 @@ export class BlogsService {
         updatedAt: new Date().toISOString(),
       },
     ];
-  }
-
-  getUserIdByEmail(email: string): Observable<string> {
-    return this.apollo
-      .watchQuery<any>({
-        query: GET_USER_ID_BY_EMAIL,
-        variables: {
-          email,
-        },
-      })
-      .valueChanges.pipe(map((result) => result.data.getUserByEmail.id));
   }
 
   getBlogs(): Observable<BlogModel[]> {

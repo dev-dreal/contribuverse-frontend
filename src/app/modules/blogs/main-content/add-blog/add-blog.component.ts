@@ -13,6 +13,8 @@ import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from '../../../../services/globals/globals.service';
 import { SupabaseService } from '../../../../services/auth/supabase.service';
 import { first } from 'rxjs';
+import { FirebaseService } from '../../../../services/auth/firebase.service';
+import { UsersService } from '../../../../services/users/users.service';
 
 @Component({
   selector: 'add-blog',
@@ -37,8 +39,9 @@ export class AddBlogComponent {
 
   constructor(
     private blogsService: BlogsService,
+    private usersService: UsersService,
     private globals: GlobalsService,
-    private supabase: SupabaseService,
+    private firebaseAuth: FirebaseService,
   ) {}
 
   ngOnInit() {
@@ -52,21 +55,28 @@ export class AddBlogComponent {
     this.blogCategories = this.loadBlogCategories();
 
     // Get user's email from supabase
-    this.supabase.$user?.pipe(first()).subscribe({
-      next: (user) => {
-        this.userEmail = user?.email!;
-        this.getUserByEmail(this.userEmail);
-      },
-    });
+    // this.supabase.$user?.pipe(first()).subscribe({
+    //   next: (user) => {
+    //     this.userEmail = user?.email!;
+    //     this.getUserByEmail(this.userEmail);
+    //   },
+    // });
+    this.getUserByEmail(this.firebaseAuth.currentUserSig()?.email!);
   }
 
   getUserByEmail(email: string) {
-    // Get user's id from email
-    this.blogsService.getUserIdByEmail(email).subscribe((response) => {
-      console.log(response);
-      this.addBlogForm.patchValue({
-        userId: response,
-      });
+    console.log(email);
+    this.usersService.getUserIdByEmail(email).subscribe({
+      next: (response) => {
+        this.userId = response;
+        this.addBlogForm.patchValue({
+          userId: response,
+        });
+      },
+      error: (error) => {
+        console.error(error);
+        this.globals.toast.error(error.message);
+      },
     });
   }
 
