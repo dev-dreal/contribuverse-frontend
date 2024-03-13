@@ -29,6 +29,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   animations: [fadingAnimation],
 })
 export class LatestBlogsComponent {
+  WINDOW = window;
   isBlogsLoading = signal(true);
   blogItems = [1, 2];
   blogs: WritableSignal<BlogModel[]> = signal([]);

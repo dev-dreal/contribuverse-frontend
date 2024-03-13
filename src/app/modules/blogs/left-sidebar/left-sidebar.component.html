@@ -1,11 +1,12 @@
 <div
-  class="bg-secondaryBlue h-full rounded-[35px] flex flex-col justify-evenly items-center px-4"
+  class="bg-secondaryBlue w-full h-screen rounded-[35px] flex flex-col justify-center items-center p-4"
 >
   <sidebar-menu-item
     [label]="currentBlog().label"
     [route]="currentBlog().route"
     [icon]="currentBlog().icon"
-    [height]="'16'"
+    [removeLabelOnResponsive]="true"
+    [height]="'10'"
     class="w-11/12"
   ></sidebar-menu-item>
   <h2 class="text-white text-4xl font-bold">Menu</h2>
@@ -13,11 +14,11 @@
     <sidebar-menu-item
       [label]="menu.label"
       [route]="menu.route"
-      [height]="'16'"
+      [height]="'10'"
       [icon]="menu.icon"
       [removeLabelOnResponsive]="true"
       class="w-11/12"
     ></sidebar-menu-item>
   }
-  <img src="assets/gifs/rocket.gif" alt="rocket gif" />
+  <img src="assets/gifs/rocket.gif" alt="rocket gif" class="shrink-0" />
 </div>
