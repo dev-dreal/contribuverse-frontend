@@ -8,7 +8,8 @@
       class="card rounded-[15px] w-10/12 flex justify-center items-center md:w-1/2"
     >
       <div class="flex w-4/5 flex-col items-center justify-center gap-4 py-5">
-        <h1 class="title">Login to your account</h1>
+        <h1 class="title">Continue using</h1>
+        <!-- Social Auth -->
         <div class="w-full flex justify-evenly items-center">
           <img
             (click)="loginWithGoogle()"
@@ -18,6 +19,7 @@
             src="https://img.icons8.com/external-justicon-lineal-color-justicon/50/external-google-social-media-justicon-lineal-color-justicon.png"
             alt="external-google-social-media-justicon-lineal-color-justicon"
           />
+          <p class="text-5xl font-bold">OR</p>
           <img
             (click)="loginWithGithub()"
             class="cursor-pointer"
@@ -27,7 +29,12 @@
             alt="github--v3"
           />
         </div>
-        <p class="text-5xl font-bold mb-5">OR</p>
+        <div class="w-full flex justify-evenly items-center text-center">
+          <p class="text-5xl font-bold w-1/2">Google</p>
+          <p class="text-5xl font-bold w-1/2">Github</p>
+        </div>
+        <!-- End of Social Auth -->
+        <!-- <p class="text-5xl font-bold mb-5">OR</p>
         <p class="subtitle w-full">
           <input
             type="email"
@@ -60,16 +67,16 @@
               Password must be at least 6 characters
             </div>
           }
-        </p>
+        </p> -->
 
-        <button
+        <!-- <button
           [disabled]="loginForm.invalid"
           type="submit"
           class="btn bg-primaryBlue text-black w-full transition duration-300 ease-in-out hover:bg-gold hover:text-white"
         >
           LOGIN
-        </button>
-        <div
+        </button> -->
+        <!-- <div
           class="w-full flex flex-col justify-evenly items-center gap-4 md:flex-row md:justify-between"
         >
           <a href="#" class="text-white font-bold underline hover:text-pink-400"
@@ -83,7 +90,7 @@
               >Register here</a
             >
           </div>
-        </div>
+        </div> -->
       </div>
     </form>
     <div class="blob"></div>

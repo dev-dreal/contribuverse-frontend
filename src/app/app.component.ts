@@ -35,6 +35,7 @@ export class AppComponent {
           this.firebaseService.currentUserSig.set({
             email: user.email!,
             username: user.displayName!,
+            profileImgUrl: user.photoURL!,
           });
         } else {
           this.firebaseService.currentUserSig.set(null);

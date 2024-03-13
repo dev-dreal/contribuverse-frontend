@@ -32,9 +32,7 @@ export class AddBlogComponent {
   SPINNER = SPINNER;
   blogCategories: string[] = [];
   addBlogForm: FormGroup = {} as FormGroup;
-  isDropdownOpen = false;
-  selectedOption: string | undefined;
-  userEmail: string = '';
+  isLoading: boolean = true;
   userId: string = '';
 
   constructor(
@@ -45,6 +43,7 @@ export class AddBlogComponent {
   ) {}
 
   ngOnInit() {
+    this.globals.loader.start();
     this.addBlogForm = this.globals.fb.group({
       category: [null, [Validators.required]],
       title: ['', [Validators.required]],
@@ -53,31 +52,31 @@ export class AddBlogComponent {
       userId: ['', [Validators.required]],
     });
     this.blogCategories = this.loadBlogCategories();
-
-    // Get user's email from supabase
-    // this.supabase.$user?.pipe(first()).subscribe({
-    //   next: (user) => {
-    //     this.userEmail = user?.email!;
-    //     this.getUserByEmail(this.userEmail);
-    //   },
-    // });
     this.getUserByEmail(this.firebaseAuth.currentUserSig()?.email!);
   }
 
   getUserByEmail(email: string) {
-    console.log(email);
-    this.usersService.getUserIdByEmail(email).subscribe({
-      next: (response) => {
-        this.userId = response;
-        this.addBlogForm.patchValue({
-          userId: response,
-        });
-      },
-      error: (error) => {
-        console.error(error);
-        this.globals.toast.error(error.message);
-      },
-    });
+    this.usersService
+      .getUserIdByEmail(email)
+      .pipe(first())
+      .subscribe({
+        next: (userId) => {
+          console.log('User ID:', userId);
+          this.userId = userId;
+          this.addBlogForm.patchValue({
+            userId: userId,
+          });
+        },
+        error: (error) => {
+          console.error(error);
+          this.globals.toast.error(error.message);
+        },
+        complete: () => {
+          this.isLoading = false;
+          console.log('Add blog complete');
+          this.globals.loader.stopAll();
+        },
+      });
   }
 
   get blogContentControl() {

@@ -19,5 +19,6 @@ export interface Follower {
 
 export interface UserInterface {
   email: string;
+  profileImgUrl: string;
   username: string;
 }

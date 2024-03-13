@@ -3,71 +3,73 @@
 >
   <h1 class="text-4xl font-bold">Add blog</h1>
 
-  <form
-    [formGroup]="addBlogForm"
-    (ngSubmit)="createBlog()"
-    class="w-full flex flex-col justify-center items-center space-y-6 mt-5"
-  >
-    <input
-      type="text"
-      class="w-3/4 h-12 p-3 rounded-lg border-2 border-gray-300"
-      placeholder="Title"
-      formControlName="title"
-    />
-
-    @if (handleError("title", "required")) {
-      <div class="text-red-500 text-sm mt-2">Title is required</div>
-    }
-
-    <div
-      class="relative flex justify-between items-center w-3/4 h-12 p-5 rounded-lg border-2 border-gray-300"
+  @if (!isLoading) {
+    <form
+      [formGroup]="addBlogForm"
+      (ngSubmit)="createBlog()"
+      class="w-full flex flex-col justify-center items-center space-y-6 mt-5"
     >
-      <label for="category" class="block text-gray-700 font-bold"
-        >Category</label
-      >
-      <select
-        class="block appearance-none w-1/4 bg-gray-300 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-300"
-        formControlName="category"
-      >
-        <option value="" disabled selected>Select Category</option>
-        @for (category of blogCategories; track $index) {
-          <option value="{{ category }}">{{ category }}</option>
-        }
-      </select>
+      <input
+        type="text"
+        class="w-3/4 h-12 p-3 rounded-lg border-2 border-gray-300"
+        placeholder="Title"
+        formControlName="title"
+      />
 
-      @if (handleError("category", "required")) {
-        <div class="text-red-500 text-sm mt-2">Category is required</div>
+      @if (handleError("title", "required")) {
+        <div class="text-red-500 text-sm mt-2">Title is required</div>
       }
-    </div>
 
-    <input
-      type="text"
-      class="w-3/4 h-12 p-3 rounded-lg border-2 border-gray-300"
-      placeholder="Cover Image"
-      formControlName="imageUrl"
-    />
+      <div
+        class="relative flex justify-between items-center w-3/4 h-12 p-5 rounded-lg border-2 border-gray-300"
+      >
+        <label for="category" class="block text-gray-700 font-bold"
+          >Category</label
+        >
+        <select
+          class="block appearance-none w-1/4 bg-gray-300 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-blue-300"
+          formControlName="category"
+        >
+          <option value="" disabled selected>Select Category</option>
+          @for (category of blogCategories; track $index) {
+            <option value="{{ category }}">{{ category }}</option>
+          }
+        </select>
 
-    @if (handleError("imageUrl", "required")) {
-      <div class="text-red-500 text-sm mt-2">Cover Image is required</div>
-    }
+        @if (handleError("category", "required")) {
+          <div class="text-red-500 text-sm mt-2">Category is required</div>
+        }
+      </div>
 
-    <rich-text-editor
-      class="w-3/4 p-3 rounded-lg border-2 border-gray-300"
-      [control]="blogContentControl"
-    ></rich-text-editor>
+      <input
+        type="text"
+        class="w-3/4 h-12 p-3 rounded-lg border-2 border-gray-300"
+        placeholder="Cover Image"
+        formControlName="imageUrl"
+      />
 
-    @if (handleError("content", "required")) {
-      <div class="text-red-500 text-sm mt-2">Content is required</div>
-    }
+      @if (handleError("imageUrl", "required")) {
+        <div class="text-red-500 text-sm mt-2">Cover Image is required</div>
+      }
 
-    <button
-      [disabled]="addBlogForm.invalid"
-      type="submit"
-      class="w-3/4 h-12 p-3 rounded-lg bg-primaryBlue text-white flex justify-center items-center"
-    >
-      Add Blog
-    </button>
-  </form>
+      <rich-text-editor
+        class="w-3/4 p-3 rounded-lg border-2 border-gray-300"
+        [control]="blogContentControl"
+      ></rich-text-editor>
+
+      @if (handleError("content", "required")) {
+        <div class="text-red-500 text-sm mt-2">Content is required</div>
+      }
+
+      <button
+        [disabled]="addBlogForm.invalid"
+        type="submit"
+        class="w-3/4 h-12 p-3 rounded-lg bg-primaryBlue text-white flex justify-center items-center"
+      >
+        Add Blog
+      </button>
+    </form>
+  }
 </div>
 
-<ngx-ui-loader [fgsType]="SPINNER.cubeGrid"></ngx-ui-loader>
+<ngx-ui-loader [fgsType]="SPINNER.ballScaleMultiple"></ngx-ui-loader>
