@@ -111,6 +111,7 @@ export class ProfileComponent {
 
   signOut() {
     this.firebaseService.logout();
+    this.globals.toast.success('Logged out successfully');
     this.globals.router.navigate(['/']);
     // await this.supabase.signOut();
   }

@@ -1,4 +1,10 @@
-import { Component, Input, WritableSignal, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  Input,
+  WritableSignal,
+  signal,
+} from '@angular/core';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { BlogModel } from '../../../../models/blog.model';
 import { CommonModule } from '@angular/common';
@@ -6,6 +12,7 @@ import { LatestBlogComponent } from './latest-blog/latest-blog.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { fadingAnimation } from '../../../../helpers/animations';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'latest-blogs',
@@ -30,22 +37,28 @@ export class LatestBlogsComponent {
   tableSize: number = 2;
   tableSizes: number[] = [3, 6, 9, 12];
 
-  constructor(private blogsService: BlogsService) {}
+  constructor(
+    private blogsService: BlogsService,
+    private destroyRef: DestroyRef,
+  ) {}
 
   ngOnInit(): void {
     this.loadBlogs();
   }
 
-  loadBlogs() {
-    this.blogsService.getBlogs().subscribe({
-      next: (blogs: BlogModel[]) => {
-        this.blogs.set(blogs);
-        this.isBlogsLoading.set(false);
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
+  loadBlogs(): void {
+    this.blogsService
+      .getBlogs()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (blogs: BlogModel[]) => {
+          this.blogs.set(blogs);
+          this.isBlogsLoading.set(false);
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
   }
 
   onTableDataChange(event: any) {

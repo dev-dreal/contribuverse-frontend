@@ -9,14 +9,16 @@ import {
   updateProfile,
   user,
 } from '@angular/fire/auth';
-import { Observable, from } from 'rxjs';
+import { Observable, catchError, first, from } from 'rxjs';
 import { UserInterface } from '../../models/user.model';
+import { UsersService } from '../users/users.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseService {
   private firebaseAuth = inject(Auth);
+  private usersService = inject(UsersService);
   user$ = user(this.firebaseAuth);
   currentUserSig = signal<UserInterface | null | undefined>(undefined);
 
