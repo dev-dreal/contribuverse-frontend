@@ -13,7 +13,6 @@
     !
   </h1>
   <form
-    [formGroup]="updateProfileForm"
     class="flex flex-col items-center gap-4 justify-around w-full max-w-md mx-auto bg-white text-black p-8 rounded-lg shadow-lg w-4/5"
   >
     <!-- <app-avatar [avatarUrl]="this.avatarUrl"> </app-avatar> -->
@@ -42,20 +41,6 @@
         disabled
       />
     </div>
-    <!-- <div>
-      <label for="website">Website</label>
-      <input formControlName="website" id="website" type="url" />
-    </div> -->
-
-    <!-- <div>
-      <button
-        type="submit"
-        class="rounded-lg bg-primaryBlue p-2 px-8 border-2 text-white"
-        [disabled]="loading"
-      >
-        {{ loading ? "Loading ..." : "Update" }}
-      </button>
-    </div> -->
 
     <div>
       <button
@@ -67,12 +52,5 @@
     </div>
   </form>
 }
-
-<!-- <ngx-ui-loader
-  @fade
-  [fgsColor]="'#30b3b5'"
-  [hasProgressBar]="false"
-  [fgsType]="SPINNER.squareJellyBox"
-></ngx-ui-loader> -->
 
 <ngx-ui-loader [fgsType]="SPINNER.ballScaleMultiple"></ngx-ui-loader>
