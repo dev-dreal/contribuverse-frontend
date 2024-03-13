@@ -9,7 +9,7 @@ import {
   updateProfile,
   user,
 } from '@angular/fire/auth';
-import { Observable, catchError, first, from, tap } from 'rxjs';
+import { Observable, catchError, from } from 'rxjs';
 import { UserInterface } from '../../models/user.model';
 import { UsersService } from '../users/users.service';
 
