@@ -36,7 +36,6 @@ export class AppComponent {
             email: user.email!,
             username: user.displayName!,
           });
-          this.addUserToDBIfNotExists(user.email!, user.displayName!);
         } else {
           this.firebaseService.currentUserSig.set(null);
         }
@@ -53,45 +52,5 @@ export class AppComponent {
     setTimeout(() => {
       this.isLoading = false;
     }, 3000);
-  }
-
-  addUserToDBIfNotExists(name: string, email: string) {
-    console.log('Add user to DB if not exists', name, email);
-    // Check if the user exists in the DB, if not, create it
-    this.usersService.getUserIdByEmail(email).subscribe({
-      next: (userId) => {},
-      error: (error) => {
-        this.createUserOnDB(name, email);
-        console.error('Error checking user on DB', error.message);
-        // this.globals.toast.error('Error checking user on DB');
-      },
-      complete: () => {
-        console.log('User check on DB completed');
-      },
-    });
-  }
-
-  createUserOnDB(name: string, email: string) {
-    this.usersService
-      .createUser(name, email)
-      .pipe(
-        catchError((error) => {
-          console.error('Error creating user on DB', error);
-          // this.globals.toast.error('Error creating user on DB');
-          return error;
-        }),
-      )
-      .subscribe({
-        next: (data) => {
-          console.log('User created on DB', data);
-        },
-        error: (error) => {
-          console.error('Error creating user on DB', error);
-          // this.globals.toast.error('Error creating user on DB');
-        },
-        complete: () => {
-          console.log('User creation on DB completed');
-        },
-      });
   }
 }

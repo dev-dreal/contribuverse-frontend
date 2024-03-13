@@ -9,7 +9,7 @@ import {
   updateProfile,
   user,
 } from '@angular/fire/auth';
-import { Observable, catchError, first, from } from 'rxjs';
+import { Observable, catchError, first, from, tap } from 'rxjs';
 import { UserInterface } from '../../models/user.model';
 import { UsersService } from '../users/users.service';
 
@@ -31,9 +31,10 @@ export class FirebaseService {
       this.firebaseAuth,
       email,
       password,
-    ).then((response) =>
-      updateProfile(response.user, { displayName: username }),
-    );
+    ).then((response) => {
+      updateProfile(response.user, { displayName: username });
+      this.addUserToDBIfNotExists(username, email);
+    });
 
     return from(promise);
   }
@@ -43,24 +44,74 @@ export class FirebaseService {
       this.firebaseAuth,
       email,
       password,
-    ).then(() => {});
+    ).then((res) => {
+      this.addUserToDBIfNotExists(res.user?.displayName!, email);
+    });
     return from(promise);
   }
 
   loginWithGoogle(): Observable<void> {
     const provider = new GoogleAuthProvider();
-    const promise = signInWithPopup(this.firebaseAuth, provider).then(() => {});
+    const promise = signInWithPopup(this.firebaseAuth, provider).then((res) => {
+      this.addUserToDBIfNotExists(res.user?.displayName!, res.user?.email!);
+      return;
+    });
     return from(promise);
   }
 
   loginWithGitHub(): Observable<void> {
     const provider = new GithubAuthProvider();
-    const promise = signInWithPopup(this.firebaseAuth, provider).then(() => {});
+    const promise = signInWithPopup(this.firebaseAuth, provider).then((res) => {
+      this.addUserToDBIfNotExists(res.user?.displayName!, res.user?.email!);
+      return;
+    });
     return from(promise);
   }
 
   logout(): Observable<void> {
     const promise = this.firebaseAuth.signOut();
     return from(promise);
+  }
+
+  addUserToDBIfNotExists(name: string, email: string) {
+    console.log('Add user to DB if not exists', name, email);
+    // Check if the user exists in the DB, if not, create it
+    this.usersService.getUserIdByEmail(email).subscribe({
+      next: (userId) => {
+        console.log('User check on DB', userId);
+      },
+      error: (error) => {
+        this.createUserOnDB(name, email);
+        console.error('Error checking user on DB', error.message);
+        // this.globals.toast.error('Error checking user on DB');
+      },
+      complete: () => {
+        console.log('User check on DB completed');
+      },
+    });
+  }
+
+  createUserOnDB(name: string, email: string) {
+    this.usersService
+      .createUser(name, email)
+      .pipe(
+        catchError((error) => {
+          console.error('Error creating user on DB', error);
+          // this.globals.toast.error('Error creating user on DB');
+          return error;
+        }),
+      )
+      .subscribe({
+        next: (data) => {
+          console.log('User created on DB', data);
+        },
+        error: (error) => {
+          console.error('Error creating user on DB', error);
+          // this.globals.toast.error('Error creating user on DB');
+        },
+        complete: () => {
+          console.log('User creation on DB completed');
+        },
+      });
   }
 }
