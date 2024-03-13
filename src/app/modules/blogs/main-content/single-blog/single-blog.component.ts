@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { fadingAnimation } from '../../../../helpers/animations';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { GlobalsService } from '../../../../services/globals/globals.service';
+// import { bubbleCursor, BubbleCursorOptions } from "cursor-effects";
 
 @Component({
   selector: 'single-blog',
@@ -16,6 +17,8 @@ import { GlobalsService } from '../../../../services/globals/globals.service';
 export class SingleBlogComponent {
   blog: BlogModel = {} as BlogModel;
   @Input() id?: string = '';
+  isLoading: boolean = true;
+
   constructor(
     private blogsService: BlogsService,
     private globals: GlobalsService,
@@ -30,6 +33,8 @@ export class SingleBlogComponent {
       this.blogsService.getSingleBlog(this.id).subscribe({
         next: (blog) => {
           this.blog = blog;
+          this.isLoading = false;
+          console.log('Single blog, complete', blog);
         },
         error: (error) => {
           console.error(error);

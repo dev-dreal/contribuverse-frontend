@@ -34,6 +34,7 @@ module.exports = {
         darkBlue: "rgb(3, 94, 99)",
         darkerBlue: "rgb(10, 35, 36)",
         gold: "rgb(179, 152, 0)",
+        cbWhite: "#D9D9D9",
       },
     },
   },
