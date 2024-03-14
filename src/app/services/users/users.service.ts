@@ -4,6 +4,7 @@ import { Observable, map } from 'rxjs';
 import { CREATE_USER } from '../../graphql/mutations';
 import { CreateUserModel } from '../../models/user.model';
 import { GET_USER_ID_BY_EMAIL, GET_USER_BY_ID } from '../../graphql/queries';
+import { BlogAuthorModel } from '../../models/blog.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,7 +19,9 @@ export class UsersService {
           email,
         },
       })
-      .valueChanges.pipe(map((result) => result.data.getUserByEmail.id));
+      .valueChanges.pipe(
+        map((result) => result.data.getUserByEmail.id as string),
+      );
   }
 
   createUser(name: string, email: string): Observable<CreateUserModel> {
@@ -33,7 +36,7 @@ export class UsersService {
       .pipe(map((result: any) => result.data.createUser));
   }
 
-  getUserById(userId: string) {
+  getUserById(userId: string): Observable<BlogAuthorModel> {
     return this.apollo
       .watchQuery<any>({
         query: GET_USER_BY_ID,
@@ -41,6 +44,6 @@ export class UsersService {
           userId,
         },
       })
-      .valueChanges.pipe(map((result) => result.data.user));
+      .valueChanges.pipe(map((result) => result.data.user as BlogAuthorModel));
   }
 }

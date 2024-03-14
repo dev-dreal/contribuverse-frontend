@@ -1,9 +1,18 @@
+import { Follower } from './user.model';
+
 export interface AddBlogModel {
   category: string;
   title: string;
   content: string;
   imageUrl: string;
   userId: string;
+}
+
+export interface BlogAuthorModel {
+  name: string;
+  email: string;
+  blogs: BlogModel[];
+  followers: Follower[];
 }
 
 export interface BlogModel {
@@ -19,7 +28,6 @@ export interface BlogModel {
   createdAt: string;
   updatedAt: string;
   shortDescription?: string;
-  longDescription?: string;
 }
 
 export interface Comment {

@@ -1,5 +1,5 @@
 import { Component, Input, WritableSignal, signal } from '@angular/core';
-import { BlogModel } from '../../../../models/blog.model';
+import { BlogAuthorModel, BlogModel } from '../../../../models/blog.model';
 import { CommonModule } from '@angular/common';
 import { fadingAnimation } from '../../../../helpers/animations';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
@@ -25,7 +25,7 @@ export class SingleBlogComponent {
   blog: BlogModel = {} as BlogModel;
   isBlogLoading: WritableSignal<boolean> = signal(true);
   isBlogAuthorLoading: WritableSignal<boolean> = signal(true);
-  blogAuthor: any;
+  blogAuthor: BlogAuthorModel = {} as BlogAuthorModel;
   userId: string = '';
 
   constructor(
@@ -54,6 +54,8 @@ export class SingleBlogComponent {
         },
         error: (error) => {
           console.error(error);
+          this.globals.toast.error('Blog does not exist');
+          this.globals.router.navigate(['/blogs']);
         },
       });
     } else {
@@ -66,6 +68,7 @@ export class SingleBlogComponent {
       next: (res) => {
         this.blogAuthor = res;
         this.isBlogAuthorLoading.set(false);
+        console.log(this.blogAuthor);
       },
       error: (err) => {
         console.log(err);
