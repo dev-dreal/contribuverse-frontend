@@ -3,7 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { Observable, map } from 'rxjs';
 import { CREATE_USER } from '../../graphql/mutations';
 import { CreateUserModel } from '../../models/user.model';
-import { GET_USER_ID_BY_EMAIL } from '../../graphql/queries';
+import { GET_USER_ID_BY_EMAIL, GET_USER_BY_ID } from '../../graphql/queries';
 @Injectable({
   providedIn: 'root',
 })
@@ -31,5 +31,16 @@ export class UsersService {
         },
       })
       .pipe(map((result: any) => result.data.createUser));
+  }
+
+  getUserById(userId: string) {
+    return this.apollo
+      .watchQuery<any>({
+        query: GET_USER_BY_ID,
+        variables: {
+          userId,
+        },
+      })
+      .valueChanges.pipe(map((result) => result.data.user));
   }
 }

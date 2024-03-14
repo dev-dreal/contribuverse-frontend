@@ -5,7 +5,7 @@
   <!-- Main Blog -->
   <main-blog-content
     [blog]="blog"
-    [isLoading]="isLoading"
+    [isLoading]="isBlogLoading"
     (click)="viewAboutBlog(false)"
     [ngClass]="{
       'z-10': isSingleBlogContentActive
@@ -16,6 +16,8 @@
   <!-- About Blog -->
   <about-blog
     (click)="viewAboutBlog(true)"
+    [isLoading]="isBlogAuthorLoading"
+    [blogAuthor]="blogAuthor"
     [ngClass]="{
       'z-10': isSingleBlogContentActive === false
     }"

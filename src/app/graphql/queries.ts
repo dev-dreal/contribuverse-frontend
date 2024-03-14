@@ -67,3 +67,20 @@ export const GET_USER_ID_BY_EMAIL = gql`
     }
   }
 `;
+
+export const GET_USER_BY_ID = gql`
+  query Query($userId: ID!) {
+    user(id: $userId) {
+      name
+      email
+      blogs {
+        title
+      }
+      followers {
+        id
+        follower
+        userId
+      }
+    }
+  }
+`;

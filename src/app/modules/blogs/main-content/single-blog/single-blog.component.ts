@@ -7,6 +7,7 @@ import { GlobalsService } from '../../../../services/globals/globals.service';
 import { FirebaseService } from '../../../../services/auth/firebase.service';
 import { AboutBlogComponent } from './about-blog/about-blog.component';
 import { MainBlogContentComponent } from './main-blog-content/main-blog-content.component';
+import { UsersService } from '../../../../services/users/users.service';
 // import { bubbleCursor, BubbleCursorOptions } from "cursor-effects";
 
 @Component({
@@ -22,10 +23,14 @@ export class SingleBlogComponent {
 
   isSingleBlogContentActive: boolean = true;
   blog: BlogModel = {} as BlogModel;
-  isLoading: WritableSignal<boolean> = signal(true);
+  isBlogLoading: WritableSignal<boolean> = signal(true);
+  isBlogAuthorLoading: WritableSignal<boolean> = signal(true);
+  blogAuthor: any;
+  userId: string = '';
 
   constructor(
     private blogsService: BlogsService,
+    private usersService: UsersService,
     private globals: GlobalsService,
     protected firebaseAuth: FirebaseService,
   ) {}
@@ -43,8 +48,9 @@ export class SingleBlogComponent {
       this.blogsService.getSingleBlog(this.id).subscribe({
         next: (blog) => {
           this.blog = blog;
-          this.isLoading.set(false);
-          console.log('Single blog, complete', blog);
+          this.userId = blog.userId;
+          this.isBlogLoading.set(false);
+          this.loadBlogAuthor(this.userId);
         },
         error: (error) => {
           console.error(error);
@@ -53,5 +59,17 @@ export class SingleBlogComponent {
     } else {
       this.globals.toast.error('No blog id provided');
     }
+  }
+
+  loadBlogAuthor(userId: string) {
+    this.usersService.getUserById(userId).subscribe({
+      next: (res) => {
+        this.blogAuthor = res;
+        this.isBlogAuthorLoading.set(false);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }
