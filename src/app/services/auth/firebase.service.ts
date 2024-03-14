@@ -82,12 +82,6 @@ export class FirebaseService {
     this.usersService.getUserIdByEmail(email).subscribe({
       next: (userId) => {
         console.log('User check on DB', userId);
-        this.globals.currentUser.set({
-          id: userId,
-          email: email,
-          username: name,
-          profileImgUrl: this.currentUserSig()?.profileImgUrl!,
-        });
       },
       error: (error) => {
         this.createUserOnDB(name, email);
