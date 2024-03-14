@@ -46,30 +46,30 @@ export class LoginComponent {
     }
   }
 
-  onLogin() {
-    this.globals.loader.start();
+  // onLogin() {
+  //   this.globals.loader.start();
 
-    this.firebaseService
-      .login(this.loginForm.value.email, this.loginForm.value.password)
-      .subscribe({
-        next: () => {
-          const redirectUrl =
-            this.globals.route.snapshot.queryParams['redirect_url'];
-          if (redirectUrl) {
-            this.globals.router.navigateByUrl(redirectUrl);
-          } else {
-            this.globals.router.navigate(['/user/profile']);
-          }
-          this.globals.router.navigate(['/']);
-          this.globals.toast.success('Login successful!');
-          this.globals.loader.stopAll();
-        },
-        error: (err) => {
-          console.log(err);
-          this.globals.loader.stopAll();
-        },
-      });
-  }
+  //   this.firebaseService
+  //     .login(this.loginForm.value.email, this.loginForm.value.password)
+  //     .subscribe({
+  //       next: () => {
+  //         const redirectUrl =
+  //           this.globals.route.snapshot.queryParams['redirect_url'];
+  //         if (redirectUrl) {
+  //           this.globals.router.navigateByUrl(redirectUrl);
+  //         } else {
+  //           this.globals.router.navigate(['/user/profile']);
+  //         }
+  //         this.globals.router.navigate(['/']);
+  //         this.globals.toast.success('Login successful!');
+  //         this.globals.loader.stopAll();
+  //       },
+  //       error: (err) => {
+  //         console.log(err);
+  //         this.globals.loader.stopAll();
+  //       },
+  //     });
+  // }
 
   loginWithGoogle() {
     this.firebaseService.loginWithGoogle().subscribe({

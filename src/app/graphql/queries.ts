@@ -60,10 +60,50 @@ export const GET_BLOG = gql`
   }
 `;
 
-export const GET_USER_ID_BY_EMAIL = gql`
+export const GET_USER_BY_EMAIL = gql`
   query Query($email: String) {
     getUserByEmail(email: $email) {
       id
+      name
+      email
+      followers {
+        id
+        follower
+        userId
+        createdAt
+        updatedAt
+      }
+      blogs {
+        id
+        title
+        userId
+        category
+        imageUrl
+        likes {
+          id
+          like
+          blogId
+          createdAt
+          updatedAt
+        }
+        tags {
+          id
+          tag
+          blogId
+          createdAt
+          updatedAt
+        }
+        content
+        comments {
+          id
+          comment
+          blogId
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -71,15 +111,46 @@ export const GET_USER_ID_BY_EMAIL = gql`
 export const GET_USER_BY_ID = gql`
   query Query($userId: ID!) {
     user(id: $userId) {
+      id
       name
       email
-      blogs {
-        title
-      }
       followers {
         id
         follower
         userId
+        createdAt
+        updatedAt
+      }
+      blogs {
+        id
+        title
+        userId
+        category
+        imageUrl
+        likes {
+          id
+          like
+          blogId
+          createdAt
+          updatedAt
+        }
+        tags {
+          id
+          tag
+          blogId
+          createdAt
+          updatedAt
+        }
+        content
+        comments {
+          id
+          comment
+          blogId
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
       }
     }
   }

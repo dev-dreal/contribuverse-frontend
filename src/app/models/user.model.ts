@@ -1,14 +1,15 @@
 import { BlogModel } from './blog.model';
 
-export interface CreateUserModel {
+export interface UserModel {
   id: string;
   name: string;
   email: string;
-  createdAt: string;
-  updatedAt: string;
   blogs: BlogModel[];
   followers: Follower[];
+  createdAt: string;
+  updatedAt: string;
 }
+
 export interface Follower {
   id: string;
   follower: number;
@@ -18,7 +19,12 @@ export interface Follower {
 }
 
 export interface UserInterface {
+  id: string;
   email: string;
-  profileImgUrl: string;
   username: string;
+  profileImgUrl: string;
+  blogs?: BlogModel[];
+  followers?: Follower[];
+  createdAt?: string;
+  updatedAt?: string;
 }

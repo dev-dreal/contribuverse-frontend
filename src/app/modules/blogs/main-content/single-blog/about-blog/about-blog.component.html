@@ -35,14 +35,21 @@
           >
             @if (!isLoading()) {
               {{ blogAuthor.blogs.length }}
+              {{ blogAuthor.blogs.length > 1 ? "BLOGS" : "BLOG" }}
+            } @else {
+              LOADING
             }
-            BLOGS
           </button>
           <button
-            (click)="followUser()"
-            class="rounded-lg py-2 px-3 bg-tertiaryBlue shadow-2xl md:py-4 md:px-6"
+            [disabled]="blogAuthorIsCurrentUser"
+            (click)="followUser(blogAuthor.id)"
+            class="rounded-lg py-2 px-3 bg-tertiaryBlue shadow-2xl md:py-4 md:px-6 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            FOLLOW
+            @if (followingMetaData()) {
+              FOLLOWING
+            } @else {
+              FOLLOW
+            }
           </button>
         </div>
       </div>
@@ -114,3 +121,5 @@
     <!-- End of Social Share -->
   </div>
 </div>
+
+<ngx-ui-loader [fgsType]="SPINNER.ballScaleMultiple"></ngx-ui-loader>

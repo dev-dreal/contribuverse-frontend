@@ -1,5 +1,5 @@
 import { Component, Input, WritableSignal, signal } from '@angular/core';
-import { BlogAuthorModel, BlogModel } from '../../../../models/blog.model';
+import { BlogModel } from '../../../../models/blog.model';
 import { CommonModule } from '@angular/common';
 import { fadingAnimation } from '../../../../helpers/animations';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
@@ -8,12 +8,20 @@ import { FirebaseService } from '../../../../services/auth/firebase.service';
 import { AboutBlogComponent } from './about-blog/about-blog.component';
 import { MainBlogContentComponent } from './main-blog-content/main-blog-content.component';
 import { UsersService } from '../../../../services/users/users.service';
+import { UserModel } from '../../../../models/user.model';
+import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
+
 // import { bubbleCursor, BubbleCursorOptions } from "cursor-effects";
 
 @Component({
   selector: 'single-blog',
   standalone: true,
-  imports: [CommonModule, AboutBlogComponent, MainBlogContentComponent],
+  imports: [
+    CommonModule,
+    AboutBlogComponent,
+    MainBlogContentComponent,
+    NgxUiLoaderModule,
+  ],
   templateUrl: './single-blog.component.html',
   styleUrl: './single-blog.component.scss',
   animations: [fadingAnimation],
@@ -21,11 +29,13 @@ import { UsersService } from '../../../../services/users/users.service';
 export class SingleBlogComponent {
   @Input() id?: string = '';
 
+  SPINNER = SPINNER;
+
   isSingleBlogContentActive: boolean = true;
   blog: BlogModel = {} as BlogModel;
   isBlogLoading: WritableSignal<boolean> = signal(true);
   isBlogAuthorLoading: WritableSignal<boolean> = signal(true);
-  blogAuthor: BlogAuthorModel = {} as BlogAuthorModel;
+  blogAuthor: UserModel = {} as UserModel;
   userId: string = '';
 
   constructor(
@@ -36,6 +46,7 @@ export class SingleBlogComponent {
   ) {}
 
   ngOnInit(): void {
+    this.globals.loader.start();
     this.loadBlog();
   }
 
@@ -68,10 +79,14 @@ export class SingleBlogComponent {
       next: (res) => {
         this.blogAuthor = res;
         this.isBlogAuthorLoading.set(false);
-        console.log(this.blogAuthor);
+        this.globals.loader.stopAll();
+        console.log('BLOG AUTHOR', this.blogAuthor);
       },
       error: (err) => {
         console.log(err);
+      },
+      complete: () => {
+        console.log('Complete');
       },
     });
   }
