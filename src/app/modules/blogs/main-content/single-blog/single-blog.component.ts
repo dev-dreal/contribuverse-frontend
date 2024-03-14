@@ -15,8 +15,10 @@ import { GlobalsService } from '../../../../services/globals/globals.service';
   animations: [fadingAnimation],
 })
 export class SingleBlogComponent {
-  blog: BlogModel = {} as BlogModel;
   @Input() id?: string = '';
+
+  isSingleBlogContentActive: boolean = true;
+  blog: BlogModel = {} as BlogModel;
   isLoading: boolean = true;
 
   constructor(
@@ -26,6 +28,10 @@ export class SingleBlogComponent {
 
   ngOnInit(): void {
     this.loadBlog();
+  }
+
+  viewAboutBlog(isViewingAboutBlog: boolean) {
+    this.isSingleBlogContentActive = !isViewingAboutBlog;
   }
 
   loadBlog() {
