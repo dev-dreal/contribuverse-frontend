@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { fadingAnimation } from '../../../../helpers/animations';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { GlobalsService } from '../../../../services/globals/globals.service';
+import { FirebaseService } from '../../../../services/auth/firebase.service';
 // import { bubbleCursor, BubbleCursorOptions } from "cursor-effects";
 
 @Component({
@@ -24,6 +25,7 @@ export class SingleBlogComponent {
   constructor(
     private blogsService: BlogsService,
     private globals: GlobalsService,
+    protected firebaseAuth: FirebaseService,
   ) {}
 
   ngOnInit(): void {
