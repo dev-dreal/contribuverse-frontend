@@ -19,7 +19,6 @@ export interface BlogModel {
   createdAt: string;
   updatedAt: string;
   shortDescription?: string;
-  longDescription?: string;
 }
 
 export interface Comment {

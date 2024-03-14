@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { InitialLoaderComponent } from './shared/components/smart/initial-loader/initial-loader.component';
 import { fadingAnimation } from './helpers/animations';
@@ -7,6 +7,7 @@ import { GlobalsService } from './services/globals/globals.service';
 import { FirebaseService } from './services/auth/firebase.service';
 import { UsersService } from './services/users/users.service';
 import { catchError, first } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-root',
@@ -25,28 +26,54 @@ export class AppComponent {
     private globals: GlobalsService,
     private firebaseService: FirebaseService,
     private usersService: UsersService,
+    private destroyRef: DestroyRef,
   ) {}
 
   ngOnInit() {
     this.globals.loader.start();
-    this.firebaseService.user$.subscribe({
-      next: (user) => {
-        if (user) {
-          this.firebaseService.currentUserSig.set({
-            email: user.email!,
-            username: user.displayName!,
-            profileImgUrl: user.photoURL!,
-          });
-        } else {
-          this.firebaseService.currentUserSig.set(null);
-        }
-        console.log(this.firebaseService.currentUserSig());
-      },
-    });
+    this.firebaseService.user$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (user) => {
+          if (user) {
+            this.firebaseService.currentUserSig.set({
+              id: user.uid,
+              email: user.email!,
+              username: user.displayName!,
+              profileImgUrl: user.photoURL!,
+            });
+            this.setGlobalUser(user.email!);
+          } else {
+            this.firebaseService.currentUserSig.set(null);
+          }
+        },
+      });
 
     setTimeout(() => {
       this.globals.loader.stopAll();
     }, 3000);
+  }
+
+  setGlobalUser(email: string) {
+    this.usersService.getUserByEmail(email).subscribe({
+      next: (user) => {
+        this.globals.currentUser.set({
+          id: user.id,
+          email: user.email,
+          username: user.name,
+          profileImgUrl: this.firebaseService.currentUserSig()?.profileImgUrl!,
+          blogs: user.blogs,
+          followers: user.followers,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+        });
+        // console.log('Firebase', this.firebaseService.currentUserSig());
+        // console.log('Globals', this.globals.currentUser());
+      },
+      error(err) {
+        console.error('Error getting user from DB', err);
+      },
+    });
   }
 
   ngAfterViewInit() {

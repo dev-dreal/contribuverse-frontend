@@ -20,19 +20,36 @@
         class="flex flex-col items-start justify-center space-y-6 text-center md:items-center"
       >
         <p class="font-bold uppercase text-slate-500 text-2xl">POSTED BY:</p>
-        <p class="font-bold uppercase text-2xl">MWERU WAMBUI</p>
+        <p class="font-bold uppercase text-2xl">
+          @if (isLoading()) {
+            Loading...
+          } @else {
+            {{ blogAuthor.name }}
+          }
+        </p>
         <div
           class="flex flex-col justify-center items-start text-white space-y-6 space-x-0 md:flex-row md:space-x-6 md:space-y-0 md:items-center"
         >
           <button
             class="rounded-lg py-2 px-3 bg-tertiaryBlue shadow-2xl md:py-4 md:px-6"
           >
-            BLOGS
+            @if (!isLoading()) {
+              {{ blogAuthor.blogs.length }}
+              {{ blogAuthor.blogs.length > 1 ? "BLOGS" : "BLOG" }}
+            } @else {
+              LOADING
+            }
           </button>
           <button
-            class="rounded-lg py-2 px-3 bg-tertiaryBlue shadow-2xl md:py-4 md:px-6"
+            [disabled]="blogAuthorIsCurrentUser"
+            (click)="followUser(blogAuthor.id)"
+            class="rounded-lg py-2 px-3 bg-tertiaryBlue shadow-2xl md:py-4 md:px-6 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            FOLLOW
+            @if (followingMetaData()) {
+              FOLLOWING
+            } @else {
+              FOLLOW
+            }
           </button>
         </div>
       </div>
@@ -104,3 +121,5 @@
     <!-- End of Social Share -->
   </div>
 </div>
+
+<ngx-ui-loader [fgsType]="SPINNER.ballScaleMultiple"></ngx-ui-loader>

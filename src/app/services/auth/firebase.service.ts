@@ -10,8 +10,9 @@ import {
   user,
 } from '@angular/fire/auth';
 import { Observable, catchError, from } from 'rxjs';
-import { UserInterface } from '../../models/user.model';
+import { UserModel, UserInterface } from '../../models/user.model';
 import { UsersService } from '../users/users.service';
+import { GlobalsService } from '../globals/globals.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,36 +20,38 @@ import { UsersService } from '../users/users.service';
 export class FirebaseService {
   private firebaseAuth = inject(Auth);
   private usersService = inject(UsersService);
+  private globals = inject(GlobalsService);
+
   user$ = user(this.firebaseAuth);
   currentUserSig = signal<UserInterface | null | undefined>(undefined);
 
-  register(
-    email: string,
-    username: string,
-    password: string,
-  ): Observable<void> {
-    const promise = createUserWithEmailAndPassword(
-      this.firebaseAuth,
-      email,
-      password,
-    ).then((response) => {
-      updateProfile(response.user, { displayName: username });
-      this.addUserToDBIfNotExists(username, email);
-    });
+  // register(
+  //   email: string,
+  //   username: string,
+  //   password: string,
+  // ): Observable<void> {
+  //   const promise = createUserWithEmailAndPassword(
+  //     this.firebaseAuth,
+  //     email,
+  //     password,
+  //   ).then((response) => {
+  //     updateProfile(response.user, { displayName: username });
+  //     this.addUserToDBIfNotExists(username, email);
+  //   });
 
-    return from(promise);
-  }
+  //   return from(promise);
+  // }
 
-  login(email: string, password: string): Observable<void> {
-    const promise = signInWithEmailAndPassword(
-      this.firebaseAuth,
-      email,
-      password,
-    ).then((res) => {
-      this.addUserToDBIfNotExists(res.user?.displayName!, email);
-    });
-    return from(promise);
-  }
+  // login(email: string, password: string): Observable<void> {
+  //   const promise = signInWithEmailAndPassword(
+  //     this.firebaseAuth,
+  //     email,
+  //     password,
+  //   ).then((res) => {
+  //     this.addUserToDBIfNotExists(res.user?.displayName!, email);
+  //   });
+  //   return from(promise);
+  // }
 
   loginWithGoogle(): Observable<void> {
     const provider = new GoogleAuthProvider();
@@ -102,8 +105,19 @@ export class FirebaseService {
         }),
       )
       .subscribe({
-        next: (data) => {
+        next: (response: unknown) => {
+          let data = response as UserModel;
           console.log('User created on DB', data);
+          // this.globals.currentUser.set({
+          //   id: data.id,
+          //   email: data.email,
+          //   username: name,
+          //   profileImgUrl: this.currentUserSig()?.profileImgUrl!,
+          //   blogs: data.blogs,
+          //   followers: data.followers,
+          //   createdAt: data.createdAt,
+          //   updatedAt: data.updatedAt,
+          // });
         },
         error: (error) => {
           console.error('Error creating user on DB', error);

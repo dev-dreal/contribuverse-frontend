@@ -2,24 +2,29 @@
   @fade
   class="h-full w-full space-y-6 py-6 flex flex-col items-center md:space-y-0 md:py-0 md:flex-row md:justify-center"
 >
-  <!-- Main Blog -->
-  <main-blog-content
-    [blog]="blog"
-    [isLoading]="isLoading"
-    (click)="viewAboutBlog(false)"
-    [ngClass]="{
-      'z-10': isSingleBlogContentActive
-    }"
-    class="w-10/12 md:h-4/5 md:w-1/2"
-  ></main-blog-content>
-  <!-- End of Main Blog -->
-  <!-- About Blog -->
-  <about-blog
-    (click)="viewAboutBlog(true)"
-    [ngClass]="{
-      'z-10': isSingleBlogContentActive === false
-    }"
-    class="w-10/12 md:h-4/5 md:w-1/2 md:-ml-56"
-  ></about-blog>
-  <!-- End of About Blog -->
+  @if (!isBlogAuthorLoading()) {
+    <!-- Main Blog -->
+    <main-blog-content
+      [blog]="blog"
+      [isLoading]="isBlogLoading"
+      (click)="viewAboutBlog(false)"
+      [ngClass]="{
+        'z-10': isSingleBlogContentActive
+      }"
+      class="w-10/12 md:h-4/5 md:w-1/2"
+    ></main-blog-content>
+    <!-- End of Main Blog -->
+    <!-- About Blog -->
+    <about-blog
+      (click)="viewAboutBlog(true)"
+      [isLoading]="isBlogAuthorLoading"
+      [blogAuthor]="blogAuthor"
+      [ngClass]="{
+        'z-10': isSingleBlogContentActive === false
+      }"
+      class="w-10/12 md:h-4/5 md:w-1/2 md:-ml-56"
+    ></about-blog>
+    <!-- End of About Blog -->
+  }
 </div>
+<ngx-ui-loader [fgsType]="SPINNER.ballScaleMultiple"></ngx-ui-loader>

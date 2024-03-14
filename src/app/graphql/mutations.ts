@@ -38,3 +38,27 @@ export const CREATE_USER = gql`
     }
   }
 `;
+
+export const ADD_FOLLOWER = gql`
+  mutation Mutation($userId: String, $follower: Int) {
+    addFollower(userId: $userId, follower: $follower) {
+      id
+      follower
+      userId
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const DELETE_FOLLOWER = gql`
+  mutation Mutation($deleteFollowerId: ID!) {
+    deleteFollower(id: $deleteFollowerId) {
+      id
+      follower
+      userId
+      createdAt
+      updatedAt
+    }
+  }
+`;
