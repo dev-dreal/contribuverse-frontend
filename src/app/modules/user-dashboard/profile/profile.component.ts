@@ -23,7 +23,7 @@ export class ProfileComponent {
 
   signOut() {
     this.firebaseService.logout();
+    this.globals.router.navigate(['/']);
     this.globals.toast.success('Logged out successfully');
-    this.globals.router.navigate(['/home']);
   }
 }

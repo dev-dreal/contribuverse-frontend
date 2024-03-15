@@ -10,7 +10,7 @@ import { SidebarMenuItemComponent } from '../../../shared/components/ui/sidebar-
 })
 export class LeftSidebarComponent {
   currentBlog = signal({
-    label: 'Machine Learning',
+    label: 'ALL BLOGS',
     icon: 'assets/svgs/ml.svg',
     route: '',
   });
