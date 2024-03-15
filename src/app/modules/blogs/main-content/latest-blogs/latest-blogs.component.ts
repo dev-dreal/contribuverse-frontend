@@ -1,9 +1,10 @@
 import {
   Component,
   DestroyRef,
-  Input,
   WritableSignal,
   signal,
+  HostListener,
+  effect,
 } from '@angular/core';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { BlogModel } from '../../../../models/blog.model';
@@ -29,8 +30,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   animations: [fadingAnimation],
 })
 export class LatestBlogsComponent {
-  WINDOW = window;
   isBlogsLoading = signal(true);
+  isMobileView = signal(false);
   blogItems = [1, 2];
   blogs: WritableSignal<BlogModel[]> = signal([]);
   page: number = 1;
@@ -45,6 +46,28 @@ export class LatestBlogsComponent {
 
   ngOnInit(): void {
     this.loadBlogs();
+  }
+
+  ngAfterViewInit(): void {
+    if (window.innerWidth <= 1200) {
+      this.tableSize = 1;
+    } else {
+      this.tableSize = 2;
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.adjustTableSizeOnResize(event);
+  }
+
+  adjustTableSizeOnResize(event: Event): void {
+    const window = event.target as Window;
+    if (window.innerWidth <= 1200 && this.tableSize > 1) {
+      this.tableSize = 1;
+    } else if (window.innerWidth > 1200 && this.tableSize < 2) {
+      this.tableSize = 2;
+    }
   }
 
   loadBlogs(): void {
@@ -62,13 +85,8 @@ export class LatestBlogsComponent {
       });
   }
 
-  onTableDataChange(event: any) {
-    this.page = event;
-    this.loadBlogs();
-  }
-  onTableSizeChange(event: any): void {
-    this.tableSize = event.target.value;
-    this.page = 1;
+  onTableDataChange(pageChange: number) {
+    this.page = pageChange;
     this.loadBlogs();
   }
 }

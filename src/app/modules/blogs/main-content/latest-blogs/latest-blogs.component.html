@@ -1,6 +1,6 @@
 <div class="flex flex-col items-start justify-between py-8 h-full w-full">
   <h2 class="text-4xl text-white mb-2 pl-4 h-auto">Latest Blogs</h2>
-  <div class="h-4/5 w-full flex gap-4 justify-center items-center">
+  <div class="h-4/5 w-full flex justify-center items-center md:gap-4">
     @if (isBlogsLoading()) {
       @for (item of blogItems; track $index) {
         <div class="h-full w-1/2">
@@ -20,8 +20,7 @@
       @for (
         blog of blogs()
           | paginate
-            : { itemsPerPage: tableSize, currentPage: page, totalItems: count }
-          | slice: 0 : 2;
+            : { itemsPerPage: tableSize, currentPage: page, totalItems: count };
         track $index
       ) {
         @if ($first) {
@@ -29,13 +28,13 @@
             @fade
             [blog]="blog"
             [longDescriptionCutOff]="5"
-            class="w-full h-full md:w-10/12 xl:w-1/2"
+            class="w-full h-full sm:w-10/12 sxl:w-1/2"
           ></latest-blog>
         } @else {
           <latest-blog
             @fade
             [blog]="blog"
-            class="h-full hidden xl:w-1/2 xl:block"
+            class="w-full sm:w-10/12 h-full sxl:w-1/2"
           ></latest-blog>
         }
       } @empty {
