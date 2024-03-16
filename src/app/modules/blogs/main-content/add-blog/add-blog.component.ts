@@ -74,7 +74,9 @@ export class AddBlogComponent {
           console.error(error);
           this.globals.toast.error(error.message);
         },
-        complete: () => {},
+        complete: () => {
+          console.log('Add blog complete');
+        },
       });
   }
 

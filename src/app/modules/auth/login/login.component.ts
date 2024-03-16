@@ -88,6 +88,9 @@ export class LoginComponent {
         console.log(err);
         this.globals.loader.stopAll();
       },
+      complete: () => {
+        console.log('Logged in with Google!');
+      },
     });
   }
 
@@ -107,6 +110,9 @@ export class LoginComponent {
       error: (err) => {
         console.log(err);
         this.globals.loader.stopAll();
+      },
+      complete: () => {
+        console.log('Logged in with Github!');
       },
     });
   }
