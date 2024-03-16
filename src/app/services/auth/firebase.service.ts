@@ -28,23 +28,12 @@ export class FirebaseService {
   loginWithGoogle(): Observable<void> {
     const provider = new GoogleAuthProvider();
     const promise = signInWithPopup(this.firebaseAuth, provider).then((res) => {
-      this.usersService.getUserByEmail(res.user?.email!).subscribe({
-        next: (user) => {
-          if (!user) {
-            this.createUserOnDB(
-              res.user?.displayName!,
-              res.user?.email!,
-              res.user?.photoURL!,
-            );
-          } else {
-            this.globals.currentUser.set(user);
-          }
-        },
-        error: (error) => {
-          console.error('Error getting user from DB', error);
-          this.globals.toast.error('Error getting user from DB');
-        },
-      });
+      console.log('Google login 1', res);
+      this.addUserToDBIfNotExists(
+        res.user.displayName!,
+        res.user.email!,
+        res.user.photoURL!,
+      );
       return;
     });
     return from(promise);
@@ -53,23 +42,12 @@ export class FirebaseService {
   loginWithGitHub(): Observable<void> {
     const provider = new GithubAuthProvider();
     const promise = signInWithPopup(this.firebaseAuth, provider).then((res) => {
-      this.usersService.getUserByEmail(res.user?.email!).subscribe({
-        next: (user) => {
-          if (!user) {
-            this.createUserOnDB(
-              res.user?.displayName!,
-              res.user?.email!,
-              res.user?.photoURL!,
-            );
-          } else {
-            this.globals.currentUser.set(user);
-          }
-        },
-        error: (error) => {
-          console.error('Error getting user from DB', error);
-          this.globals.toast.error('Error getting user from DB');
-        },
-      });
+      console.log('GitHub login 1', res);
+      this.addUserToDBIfNotExists(
+        res.user.displayName!,
+        res.user.email!,
+        res.user.photoURL!,
+      );
       return;
     });
     return from(promise);
@@ -80,56 +58,21 @@ export class FirebaseService {
     return from(promise);
   }
 
-  // addUserToDBIfNotExists(name: string, email: string) {
-  //   console.log('Add user to DB if not exists', name, email);
-  //   // Check if the user exists in the DB, if not, create it
-  //   this.usersService.getUserIdByEmail(email).subscribe({
-  //     next: (userId) => {
-  //       console.log('User check on DB', userId);
-  //     },
-  //     error: (error) => {
-  //       this.createUserOnDB(name, email);
-  //       console.error('Error checking user on DB', error.message);
-  //       // this.globals.toast.error('Error checking user on DB');
-  //     },
-  //     complete: () => {
-  //       console.log('User check on DB completed');
-  //     },
-  //   });
-  // }
-
-  createUserOnDB(name: string, email: string, profileImage: string) {
-    this.usersService
-      .createUser(name, email, profileImage)
-      .pipe(
-        catchError((error) => {
-          console.error('Error creating user on DB', error);
-          this.globals.toast.error('Error creating user on DB');
-          return error;
-        }),
-      )
-      .subscribe({
-        next: (response: unknown) => {
-          let data = response as UserModel;
-          console.log('User created on DB', data);
-          this.globals.currentUser.set({
-            id: data.id,
-            email: data.email,
-            name: data.name,
-            profileImage: data.profileImage,
-            blogs: data.blogs,
-            followers: data.followers,
-            createdAt: data.createdAt,
-            updatedAt: data.updatedAt,
-          });
-        },
-        error: (error) => {
-          console.error('Error creating user on DB', error);
-          // this.globals.toast.error('Error creating user on DB');
-        },
-        complete: () => {
-          console.log('User creation on DB completed');
-        },
-      });
+  addUserToDBIfNotExists(name: string, email: string, profileImage: string) {
+    console.log('Add user to DB if not exists', name, email);
+    // Check if the user exists in the DB, if not, create it
+    this.usersService.getUserIdByEmail(email).subscribe({
+      next: (userId) => {
+        console.log('User check on DB', userId);
+      },
+      error: (error) => {
+        this.usersService.createUser(name, email, profileImage);
+        console.error('Error checking user on DB', error.message);
+        // this.globals.toast.error('Error checking user on DB');
+      },
+      complete: () => {
+        console.log('User check on DB completed');
+      },
+    });
   }
 }
