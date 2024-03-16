@@ -52,13 +52,13 @@ export class AddBlogComponent {
       userId: ['', [Validators.required]],
     });
     this.blogCategories = this.loadBlogCategories();
-    this.getUserByEmail(this.firebaseAuth.currentUserSig()?.email!);
+    this.getUserByEmail(this.globals.currentUser()?.email!);
   }
 
   getUserByEmail(email: string) {
     this.usersService
       .getUserIdByEmail(email)
-      .pipe(first())
+      .pipe()
       .subscribe({
         next: (userId) => {
           console.log('User ID:', userId);
@@ -66,16 +66,15 @@ export class AddBlogComponent {
           this.addBlogForm.patchValue({
             userId: userId,
           });
+          this.isLoading = false;
+          console.log('Add blog complete');
+          this.globals.loader.stopAll();
         },
         error: (error) => {
           console.error(error);
           this.globals.toast.error(error.message);
         },
-        complete: () => {
-          this.isLoading = false;
-          console.log('Add blog complete');
-          this.globals.loader.stopAll();
-        },
+        complete: () => {},
       });
   }
 

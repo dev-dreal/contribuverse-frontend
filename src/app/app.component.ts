@@ -6,7 +6,6 @@ import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from './services/globals/globals.service';
 import { FirebaseService } from './services/auth/firebase.service';
 import { UsersService } from './services/users/users.service';
-import { catchError, first } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -36,12 +35,6 @@ export class AppComponent {
       .subscribe({
         next: (user) => {
           if (user) {
-            this.firebaseService.currentUserSig.set({
-              id: user.uid,
-              email: user.email!,
-              username: user.displayName!,
-              profileImgUrl: user.photoURL!,
-            });
             this.setGlobalUser(user.email!);
           } else {
             this.firebaseService.currentUserSig.set(null);
@@ -60,15 +53,15 @@ export class AppComponent {
         this.globals.currentUser.set({
           id: user.id,
           email: user.email,
-          username: user.name,
-          profileImgUrl: this.firebaseService.currentUserSig()?.profileImgUrl!,
+          name: user.name,
+          profileImage: user.profileImage,
           blogs: user.blogs,
           followers: user.followers,
           createdAt: user.createdAt,
           updatedAt: user.updatedAt,
         });
         // console.log('Firebase', this.firebaseService.currentUserSig());
-        // console.log('Globals', this.globals.currentUser());
+        console.log('Globals', this.globals.currentUser());
       },
       error(err) {
         console.error('Error getting user from DB', err);

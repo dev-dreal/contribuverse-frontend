@@ -15,7 +15,7 @@ export class ProfileComponent {
   loading: boolean = false;
 
   constructor(
-    private globals: GlobalsService,
+    protected readonly globals: GlobalsService,
     protected readonly firebaseService: FirebaseService,
   ) {}
 

@@ -3,6 +3,7 @@ import { BlogModel } from './blog.model';
 export interface UserModel {
   id: string;
   name: string;
+  profileImage: string;
   email: string;
   blogs: BlogModel[];
   followers: Follower[];
@@ -16,15 +17,4 @@ export interface Follower {
   userId: string;
   createdAt: string;
   updatedAt: string;
-}
-
-export interface UserInterface {
-  id: string;
-  email: string;
-  username: string;
-  profileImgUrl: string;
-  blogs?: BlogModel[];
-  followers?: Follower[];
-  createdAt?: string;
-  updatedAt?: string;
 }
