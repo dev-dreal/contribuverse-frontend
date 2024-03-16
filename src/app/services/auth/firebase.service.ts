@@ -28,11 +28,23 @@ export class FirebaseService {
   loginWithGoogle(): Observable<void> {
     const provider = new GoogleAuthProvider();
     const promise = signInWithPopup(this.firebaseAuth, provider).then((res) => {
-      this.createUserOnDB(
-        res.user?.displayName!,
-        res.user?.email!,
-        res.user?.photoURL!,
-      );
+      this.usersService.getUserByEmail(res.user?.email!).subscribe({
+        next: (user) => {
+          if (!user) {
+            this.createUserOnDB(
+              res.user?.displayName!,
+              res.user?.email!,
+              res.user?.photoURL!,
+            );
+          } else {
+            this.globals.currentUser.set(user);
+          }
+        },
+        error: (error) => {
+          console.error('Error getting user from DB', error);
+          this.globals.toast.error('Error getting user from DB');
+        },
+      });
       return;
     });
     return from(promise);
@@ -41,11 +53,23 @@ export class FirebaseService {
   loginWithGitHub(): Observable<void> {
     const provider = new GithubAuthProvider();
     const promise = signInWithPopup(this.firebaseAuth, provider).then((res) => {
-      this.createUserOnDB(
-        res.user?.displayName!,
-        res.user?.email!,
-        res.user?.photoURL!,
-      );
+      this.usersService.getUserByEmail(res.user?.email!).subscribe({
+        next: (user) => {
+          if (!user) {
+            this.createUserOnDB(
+              res.user?.displayName!,
+              res.user?.email!,
+              res.user?.photoURL!,
+            );
+          } else {
+            this.globals.currentUser.set(user);
+          }
+        },
+        error: (error) => {
+          console.error('Error getting user from DB', error);
+          this.globals.toast.error('Error getting user from DB');
+        },
+      });
       return;
     });
     return from(promise);

@@ -66,6 +66,7 @@ export const GET_USER_BY_EMAIL = gql`
       id
       name
       email
+      profileImage
       followers {
         id
         follower

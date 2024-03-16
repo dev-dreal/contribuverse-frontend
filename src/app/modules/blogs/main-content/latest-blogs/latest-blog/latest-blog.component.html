@@ -93,6 +93,15 @@
         stroke-linejoin="round"
       />
     </svg>
-    <img src="assets/svgs/mweru.svg" alt="'Mweru'" class="cursor-pointer" />
+
+    @if (!isBlogAuthorLoaded) {
+      <img src="assets/svgs/mweru.svg" alt="'Mweru'" class="cursor-pointer" />
+    } @else {
+      <img
+        src="{{ blogAuthor.profileImage }}"
+        alt="{{ blogAuthor.name }}"
+        class="w-16 object-cover rounded-full cursor-pointer"
+      />
+    }
   </div>
 </div>

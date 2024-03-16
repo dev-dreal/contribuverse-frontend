@@ -50,6 +50,7 @@ export class AppComponent {
   setGlobalUser(email: string) {
     this.usersService.getUserByEmail(email).subscribe({
       next: (user) => {
+        console.log('User', user);
         this.globals.currentUser.set({
           id: user.id,
           email: user.email,
