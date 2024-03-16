@@ -33,6 +33,7 @@ export const CREATE_USER = gql`
       id
       name
       email
+      profileImage
       updatedAt
       createdAt
     }

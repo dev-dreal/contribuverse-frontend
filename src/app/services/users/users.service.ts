@@ -27,13 +27,18 @@ export class UsersService {
       );
   }
 
-  createUser(name: string, email: string): Observable<UserModel> {
+  createUser(
+    name: string,
+    email: string,
+    profileImage: string,
+  ): Observable<UserModel> {
     return this.apollo
       .mutate<UserModel>({
         mutation: CREATE_USER,
         variables: {
           name,
           email,
+          profileImage,
         },
       })
       .pipe(map((result: any) => result.data.createUser));

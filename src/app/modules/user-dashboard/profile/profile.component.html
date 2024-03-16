@@ -3,13 +3,7 @@
 } @else {
   <h1 class="font-bold text-4xl">
     Welcome back
-    {{
-      firebaseService
-        .currentUserSig()
-        ?.username?.split(" ")
-        ?.slice(0, 1)
-        ?.join(" ")
-    }}
+    {{ globals.currentUser()?.name?.split(" ")?.slice(0, 1)?.join(" ") }}
     !
   </h1>
   <form
@@ -18,10 +12,10 @@
     <!-- <app-avatar [avatarUrl]="this.avatarUrl"> </app-avatar> -->
     <img
       src="{{
-        firebaseService.currentUserSig()?.profileImgUrl ||
+        globals.currentUser()?.profileImage ||
           'https://res.cloudinary.com/dv765kdgq/image/upload/v1710325774/profile_tjptoi.svg'
       }}"
-      alt="{{ firebaseService.currentUserSig()?.username }}"
+      alt="{{ globals.currentUser()?.name }}"
       class="rounded-full h-48 w-48 object-contain"
     />
     <div>
@@ -38,7 +32,7 @@
       <input
         id="username"
         type="text"
-        [value]="firebaseService.currentUserSig()?.username"
+        [value]="globals.currentUser()?.name"
         disabled
       />
     </div>
