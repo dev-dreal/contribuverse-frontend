@@ -14,6 +14,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { fadingAnimation } from '../../../../helpers/animations';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { UsersService } from '../../../../services/users/users.service';
+import { UserModel } from '../../../../models/user.model';
 
 @Component({
   selector: 'latest-blogs',
@@ -30,6 +32,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   animations: [fadingAnimation],
 })
 export class LatestBlogsComponent {
+  blogAuthor!: UserModel;
   isBlogsLoading = signal(true);
   isMobileView = signal(false);
   blogItems = [1, 2];
