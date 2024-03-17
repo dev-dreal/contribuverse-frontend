@@ -95,9 +95,14 @@
     </svg>
 
     @if (!isBlogAuthorLoaded) {
-      <img src="assets/svgs/mweru.svg" alt="'Mweru'" class="cursor-pointer" />
+      <img
+        src="https://res.cloudinary.com/dv765kdgq/image/upload/v1710325774/profile_tjptoi.svg"
+        alt="'Default Profile Image'"
+        class="w-16 object-cover rounded-full cursor-pointer"
+      />
     } @else {
       <img
+        referrerpolicy="no-referrer"
         src="{{ blogAuthor.profileImage }}"
         alt="{{ blogAuthor.name }}"
         class="w-16 object-cover rounded-full cursor-pointer"
