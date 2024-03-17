@@ -27,6 +27,7 @@ export class AboutBlogComponent {
 
   followingMetaData: WritableSignal<Follower | null> = signal(null);
   blogAuthorIsCurrentUser: boolean = false;
+  currentUserId = this.globals.currentUser()?.id;
 
   constructor(
     private usersService: UsersService,
@@ -61,7 +62,7 @@ export class AboutBlogComponent {
       this.unFollowUser(this.followingMetaData()?.id!);
     } else {
       this.usersService
-        .addFollower(blogAuthorId)
+        .addFollower(blogAuthorId, this.currentUserId!)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: (res) => {
@@ -99,9 +100,8 @@ export class AboutBlogComponent {
 
   getFollowingMetaData(): void {
     const blogAuthorFollowers = this.blogAuthor.followers;
-    const currentUserId = this.globals.currentUser()?.id;
     // console.log('Current user ID', currentUserId);
-    // console.log('Blog author followers', blogAuthorFollowers);
+    console.log('Blog author followers', blogAuthorFollowers);
 
     // If the blog author has no followers, set the followingMetaData to null
     // Otherwise, loop through the followers and set the followingMetaData to the follower object if the current user is following the blog author
@@ -109,7 +109,7 @@ export class AboutBlogComponent {
       this.followingMetaData.set(null);
     } else {
       for (let i = 0; i < blogAuthorFollowers.length; i++) {
-        if (blogAuthorFollowers[i].userId === currentUserId) {
+        if (blogAuthorFollowers[i].followingUserId === this.currentUserId) {
           this.followingMetaData.set(blogAuthorFollowers[i]);
           break;
         }

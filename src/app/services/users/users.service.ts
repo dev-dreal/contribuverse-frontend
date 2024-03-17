@@ -69,13 +69,14 @@ export class UsersService {
       );
   }
 
-  addFollower(userId: string): Observable<Follower> {
+  addFollower(userId: string, followingUserId: string): Observable<Follower> {
     return this.apollo
       .mutate<Follower>({
         mutation: ADD_FOLLOWER,
         variables: {
           userId,
           follower: 1,
+          followingUserId,
         },
       })
       .pipe(map((result: any) => result.data.addFollower));

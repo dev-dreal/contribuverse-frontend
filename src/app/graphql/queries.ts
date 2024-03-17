@@ -70,6 +70,7 @@ export const GET_USER_BY_EMAIL = gql`
       followers {
         id
         follower
+        followingUserId
         userId
         createdAt
         updatedAt
@@ -119,6 +120,7 @@ export const GET_USER_BY_ID = gql`
       followers {
         id
         follower
+        followingUserId
         userId
         createdAt
         updatedAt

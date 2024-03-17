@@ -14,6 +14,7 @@ export interface UserModel {
 export interface Follower {
   id: string;
   follower: number;
+  followingUserId: string;
   userId: string;
   createdAt: string;
   updatedAt: string;
