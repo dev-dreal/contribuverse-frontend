@@ -28,14 +28,14 @@ export const CREATE_BLOG = gql`
 `;
 
 export const CREATE_USER = gql`
-  mutation Mutation($name: String, $email: String) {
-    createUser(name: $name, email: $email) {
+  mutation Mutation($name: String, $email: String, $profileImage: String) {
+    createUser(name: $name, email: $email, profileImage: $profileImage) {
       id
       name
       email
       profileImage
-      updatedAt
       createdAt
+      updatedAt
     }
   }
 `;
