@@ -41,11 +41,16 @@ export const CREATE_USER = gql`
 `;
 
 export const ADD_FOLLOWER = gql`
-  mutation Mutation($userId: String, $follower: Int) {
-    addFollower(userId: $userId, follower: $follower) {
+  mutation Mutation($userId: String, $follower: Int, $followingUserId: String) {
+    addFollower(
+      userId: $userId
+      follower: $follower
+      followingUserId: $followingUserId
+    ) {
       id
-      follower
       userId
+      follower
+      followingUserId
       createdAt
       updatedAt
     }
