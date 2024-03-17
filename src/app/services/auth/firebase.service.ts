@@ -74,7 +74,7 @@ export class FirebaseService {
           console.log('User check on DB', userId);
         },
         error: (error) => {
-          console.error('Error checking user on DB', error.message);
+          // console.error('Error checking user on DB', error.message);
           // this.globals.toast.error('Error checking user on DB');
         },
         complete: () => {

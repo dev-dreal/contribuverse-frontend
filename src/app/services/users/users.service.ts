@@ -32,7 +32,6 @@ export class UsersService {
     email: string,
     profileImage: string,
   ): Observable<UserModel> {
-    console.log('Create user', name, email, profileImage);
     return this.apollo
       .mutate<UserModel>({
         mutation: CREATE_USER,
