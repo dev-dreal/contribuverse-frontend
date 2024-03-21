@@ -45,6 +45,7 @@ export const GET_BLOG = gql`
         id
         like
         blogId
+        userId
       }
       tags {
         id

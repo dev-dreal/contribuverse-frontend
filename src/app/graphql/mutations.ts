@@ -68,3 +68,29 @@ export const DELETE_FOLLOWER = gql`
     }
   }
 `;
+
+export const ADD_LIKE = gql`
+  mutation Mutation($like: Int, $blogId: String, $userId: String) {
+    addLike(like: $like, blogId: $blogId, userId: $userId) {
+      id
+      like
+      blogId
+      userId
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const DELETE_LIKE = gql`
+  mutation Mutation($deleteLikeId: ID!) {
+    deleteLike(id: $deleteLikeId) {
+      id
+      like
+      blogId
+      userId
+      createdAt
+      updatedAt
+    }
+  }
+`;

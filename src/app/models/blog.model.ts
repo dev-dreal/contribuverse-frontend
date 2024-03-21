@@ -7,7 +7,7 @@ export interface AddBlogModel {
 }
 
 export interface BlogModel {
-  id: string | number;
+  id: string;
   title: string;
   content: string;
   userId: string;
@@ -31,9 +31,11 @@ export interface Comment {
 
 export interface Like {
   id: string;
-  count: number;
-  userId: string;
+  like: number;
   blogId: string;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Tag {

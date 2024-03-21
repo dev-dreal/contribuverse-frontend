@@ -29,7 +29,7 @@ export class BlogsListComponent {
   blogItems = [1, 2, 3, 4];
 
   addBlogMetaData: BlogModel = {
-    id: 0,
+    id: '',
     title: 'Add a new blog',
     shortDescription: 'Add a new blog to the list of blogs.',
     imageUrl: 'assets/gifs/add-blog.gif',
