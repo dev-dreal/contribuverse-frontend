@@ -44,6 +44,14 @@ export class MainBlogContentComponent {
         this.likesCount.update((value) => value - 1);
       });
     } else {
+      const isAlreadyLiked = this.blog.likes.find(
+        (like) => like.userId === userId,
+      );
+
+      if (isAlreadyLiked) {
+        return;
+      }
+
       this.blogsService.addLike(1, blogId, userId).subscribe((res) => {
         console.log('Like added:', res);
         this.likesCount.update((value) => value + 1);
