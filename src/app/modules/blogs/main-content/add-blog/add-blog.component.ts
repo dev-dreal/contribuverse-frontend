@@ -52,10 +52,10 @@ export class AddBlogComponent {
       userId: ['', [Validators.required]],
     });
     this.blogCategories = this.loadBlogCategories();
-    this.getUserByEmail(this.globals.currentUser()?.email!);
+    this.getUserIdByEmail(this.globals.currentUser()?.email!);
   }
 
-  getUserByEmail(email: string) {
+  getUserIdByEmail(email: string) {
     this.usersService
       .getUserIdByEmail(email)
       .pipe()
@@ -71,6 +71,7 @@ export class AddBlogComponent {
           this.globals.loader.stopAll();
         },
         error: (error) => {
+          this.globals.router.navigate(['/blogs']);
           console.error(error);
           this.globals.toast.error(error.message);
         },
