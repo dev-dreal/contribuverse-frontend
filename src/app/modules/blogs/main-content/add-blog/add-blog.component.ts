@@ -11,7 +11,6 @@ import { RichTextEditorComponent } from '../../../../shared/components/smart/ric
 import { AddBlogModel } from '../../../../models/blog.model';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { GlobalsService } from '../../../../services/globals/globals.service';
-import { SupabaseService } from '../../../../services/auth/supabase.service';
 import { first } from 'rxjs';
 import { FirebaseService } from '../../../../services/auth/firebase.service';
 import { UsersService } from '../../../../services/users/users.service';

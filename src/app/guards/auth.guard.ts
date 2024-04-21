@@ -2,7 +2,6 @@ import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { first, map } from 'rxjs';
-import { SupabaseService } from '../services/auth/supabase.service';
 import { FirebaseService } from '../services/auth/firebase.service';
 
 export const authGuard: CanActivateFn = (route, state) => {

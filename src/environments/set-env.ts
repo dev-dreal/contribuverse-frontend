@@ -13,11 +13,6 @@ const setEnv = () => {
   const envConfigFile = `export const environment = {
     appVersion: "${appVersion}",
     production: true,
-    supabase: {
-        tag: "${process.env['SUPABASE_TAG']}",
-        url: "${process.env['SUPABASE_CALLBACK_URL']}",
-        key: "${process.env['SUPABASE_KEY']}",
-      },
     firebaseConfig: {
       apiKey: "${process.env['FIREBASE_apiKey']}",
       authDomain: "${process.env['FIREBASE_authDomain']}",
