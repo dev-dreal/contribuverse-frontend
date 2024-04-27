@@ -4,7 +4,7 @@ import {
   WritableSignal,
   signal,
   HostListener,
-  effect,
+  inject,
 } from '@angular/core';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { BlogModel } from '../../../../models/blog.model';
@@ -14,7 +14,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { fadingAnimation } from '../../../../helpers/animations';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { UsersService } from '../../../../services/users/users.service';
 import { UserModel } from '../../../../models/user.model';
 
 @Component({
@@ -42,10 +41,10 @@ export class LatestBlogsComponent {
   tableSize: number = 2;
   tableSizes: number[] = [3, 6, 9, 12];
 
-  constructor(
-    private blogsService: BlogsService,
-    private destroyRef: DestroyRef,
-  ) {}
+  // DEPENDENCY INJECTION
+  private blogsService = inject(BlogsService);
+  private destroyRef = inject(DestroyRef);
+  // END OF DEPENDENCY INJECTION
 
   ngOnInit(): void {
     this.loadBlogs();
