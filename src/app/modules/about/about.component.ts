@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { AboutTextComponent } from './about-text/about-text.component';
 import {
   fadingAnimation,
@@ -77,7 +77,9 @@ export class AboutComponent {
     },
   ];
 
-  constructor(private globals: GlobalsService) {}
+  // Dependency Injection
+  private globals = inject(GlobalsService);
+  // End of Dependency Injection
 
   ngOnInit() {
     this.globals.loader.start();

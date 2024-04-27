@@ -1,10 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { SidebarMenuItemComponent } from '../../../shared/components/ui/sidebar-menu-item/sidebar-menu-item.component';
-import {
-  Profile,
-  SupabaseService,
-} from '../../../services/auth/supabase.service';
-import { AuthSession, User } from '@supabase/supabase-js';
 import { GlobalsService } from '../../../services/globals/globals.service';
 
 @Component({
@@ -15,10 +10,7 @@ import { GlobalsService } from '../../../services/globals/globals.service';
   styleUrl: './left-sidebar.component.scss',
 })
 export class LeftSidebarComponent {
-  session: AuthSession | null = null;
   loading: boolean = true;
-  profile: Profile = {} as Profile;
-
   currentBlog = signal({
     label: 'Contribute',
     icon: 'assets/svgs/write.svg',

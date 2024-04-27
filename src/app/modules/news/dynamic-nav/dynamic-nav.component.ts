@@ -9,6 +9,7 @@ import {
   effect,
   QueryList,
   ViewChildren,
+  input,
 } from '@angular/core';
 import { NewsTabButtonComponent } from './news-tab-button/news-tab-button.component';
 
@@ -21,9 +22,8 @@ import { NewsTabButtonComponent } from './news-tab-button/news-tab-button.compon
 })
 export class DynamicNavComponent {
   @Input() slidePosition: number = 0;
-  @Input() isNavLinkClicked = signal(false);
+  isNavLinkClicked = input<boolean>(false);
   @Output() slidePositionBtnEvent: EventEmitter<number> = new EventEmitter();
-  // @ViewChild('myNewsTabButton') myNewsTabButton!: NewsTabButtonComponent;
   @ViewChildren(NewsTabButtonComponent)
   myNewsTabButtons!: QueryList<NewsTabButtonComponent>;
 

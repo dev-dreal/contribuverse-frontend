@@ -9,7 +9,7 @@
     ></news-header>
     <dynamic-nav
       class="hidden md:block"
-      [isNavLinkClicked]="navLinkClicked"
+      [isNavLinkClicked]="navLinkClicked()"
       [slidePosition]="currentSlidePosition()"
       (slidePositionBtnEvent)="getCurrentSlideStatus($event)"
     ></dynamic-nav>
