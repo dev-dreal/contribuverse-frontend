@@ -24,25 +24,25 @@ export const AppRoutes: Routes = [
       {
         path: 'blogs',
         loadChildren: () =>
-          import('./modules/blogs/blogs.module').then((m) => m.BlogsModule),
+          import('./modules/blogs/blogs.routes').then((m) => m.BlogsRoutes),
       },
       {
         path: 'news',
         loadChildren: () =>
-          import('./modules/news/news.module').then((m) => m.NewsModule),
+          import('./modules/news/news.routes').then((m) => m.NewsRoutes),
       },
     ],
   },
   {
     path: 'auth',
     loadChildren: () =>
-      import('./modules/auth/auth.module').then((m) => m.AuthModule),
+      import('./modules/auth/auth.routes').then((m) => m.AuthRoutes),
   },
   {
     path: 'user',
     loadChildren: () =>
-      import('./modules/user-dashboard/user-dashboard.module').then(
-        (m) => m.UserDashBoardModule,
+      import('./modules/user-dashboard/user-dashboard.routes').then(
+        (m) => m.UserDashBoardRoutes,
       ),
   },
   {
