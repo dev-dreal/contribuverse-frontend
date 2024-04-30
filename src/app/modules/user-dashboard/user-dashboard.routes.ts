@@ -1,13 +1,12 @@
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { authGuard } from '../../guards/auth.guard';
 import { UserDashboardComponent } from './user-dashboard.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ContributionsComponent } from './contributions/contributions.component';
-import { NgModule } from '@angular/core';
 
-const blogRoutes: Routes = [
+export const UserDashBoardRoutes: Routes = [
   {
     path: '',
     component: UserDashboardComponent,
@@ -43,8 +42,3 @@ const blogRoutes: Routes = [
     ],
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(blogRoutes)],
-})
-export class UserDashBoardModule {}

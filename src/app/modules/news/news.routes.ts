@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { NewsComponent } from './news.component';
 import { RoboticsComponent } from './tabs/robotics/robotics.component';
 import { MetaverseComponent } from './tabs/metaverse/metaverse.component';
 import { GamingComponent } from './tabs/gaming/gaming.component';
 import { MoviesComponent } from './tabs/movies/movies.component';
 
-const newsRoutes: Routes = [
+export const NewsRoutes: Routes = [
   {
     path: '',
     component: NewsComponent,
@@ -39,8 +38,3 @@ const newsRoutes: Routes = [
     ],
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(newsRoutes), NewsComponent],
-})
-export class NewsModule {}

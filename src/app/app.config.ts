@@ -5,7 +5,13 @@ import {
 } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
+import {
+  PreloadAllModules,
+  provideRouter,
+  withComponentInputBinding,
+  withDebugTracing,
+  withPreloading,
+} from '@angular/router';
 import { AppRoutes } from './app.routing';
 import { graphqlProvider } from './graphql.provider';
 import { provideToastr } from 'ngx-toastr';
@@ -23,7 +29,12 @@ export const appConfig: ApplicationConfig = {
     ]),
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
-    provideRouter(AppRoutes, withComponentInputBinding()),
+    provideRouter(
+      AppRoutes,
+      withComponentInputBinding(),
+      withPreloading(PreloadAllModules),
+      withDebugTracing(),
+    ),
     provideToastr(toastOptions),
     graphqlProvider,
   ],
