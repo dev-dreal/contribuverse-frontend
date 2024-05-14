@@ -2,8 +2,8 @@ import {
   Component,
   EventEmitter,
   Output,
-  WritableSignal,
-  signal,
+  computed,
+  inject,
 } from '@angular/core';
 import { BlogCardComponent } from './blog-card/blog-card.component';
 import { BlogModel } from '../../../../models/blog.model';
@@ -12,20 +12,29 @@ import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { fadingAnimation } from '../../../../helpers/animations';
 import { GlobalsService } from '../../../../services/globals/globals.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'blogs-list',
+  selector: 'blog-categories',
   standalone: true,
   imports: [NgxSkeletonLoaderModule, CommonModule, BlogCardComponent],
-  templateUrl: './blogs-list.component.html',
-  styleUrl: './blogs-list.component.scss',
+  templateUrl: './blog-categories.component.html',
+  styleUrl: './blog-categories.component.scss',
   animations: [fadingAnimation],
 })
-export class BlogsListComponent {
+export class BlogCategoriesComponent {
   @Output() isAddBlogButtonClicked = new EventEmitter<boolean>();
-  blogs: WritableSignal<BlogModel[]> = signal([]);
-  isBlogsLoading = signal(true);
   blogItems = [1, 2, 3, 4];
+
+  // DEPENDENCY INJECTION
+  private blogsService = inject(BlogsService);
+  private globals = inject(GlobalsService);
+  // END OF DEPENDENCY INJECTION
+
+  blogCategories = toSignal(this.blogsService.getBlogCategories(), {
+    initialValue: [],
+  });
+  isBlogsLoading = computed(() => this.blogsService.isBlogCategoriesLoading());
 
   addBlogMetaData: BlogModel = {
     id: '',
@@ -41,24 +50,9 @@ export class BlogsListComponent {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
-  constructor(
-    private blogsService: BlogsService,
-    private globals: GlobalsService,
-  ) {}
-
-  ngOnInit(): void {
-    this.loadBlogs();
-  }
 
   navigateToAddBlogPage() {
     this.isAddBlogButtonClicked.emit(true);
     this.globals.router.navigate(['/blogs/add-blog']);
-  }
-
-  loadBlogs() {
-    this.blogs.set(this.blogsService.getBlogCategories());
-    setTimeout(() => {
-      this.isBlogsLoading.set(false);
-    }, 1000);
   }
 }

@@ -1,10 +1,9 @@
 import {
   Component,
-  DestroyRef,
-  WritableSignal,
   signal,
   HostListener,
   inject,
+  computed,
 } from '@angular/core';
 import { BlogsService } from '../../../../services/blogs/blogs.service';
 import { BlogModel } from '../../../../models/blog.model';
@@ -13,7 +12,7 @@ import { LatestBlogComponent } from './latest-blog/latest-blog.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { fadingAnimation } from '../../../../helpers/animations';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { UserModel } from '../../../../models/user.model';
 
 @Component({
@@ -32,10 +31,8 @@ import { UserModel } from '../../../../models/user.model';
 })
 export class LatestBlogsComponent {
   blogAuthor!: UserModel;
-  isBlogsLoading = signal(true);
   isMobileView = signal(false);
   blogItems = [1, 2];
-  blogs: WritableSignal<BlogModel[]> = signal([]);
   page: number = 1;
   count: number = 0;
   tableSize: number = 2;
@@ -43,12 +40,9 @@ export class LatestBlogsComponent {
 
   // DEPENDENCY INJECTION
   private blogsService = inject(BlogsService);
-  private destroyRef = inject(DestroyRef);
   // END OF DEPENDENCY INJECTION
-
-  ngOnInit(): void {
-    this.loadBlogs();
-  }
+  blogs = toSignal(this.blogsService.getBlogs(), { initialValue: [] });
+  isBlogsLoading = computed(() => this.blogsService.isBlogsLoading());
 
   ngAfterViewInit(): void {
     if (window.innerWidth <= 1200) {
@@ -72,23 +66,7 @@ export class LatestBlogsComponent {
     }
   }
 
-  loadBlogs(): void {
-    this.blogsService
-      .getBlogs()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (blogs: BlogModel[]) => {
-          this.blogs.set(blogs);
-          this.isBlogsLoading.set(false);
-        },
-        error: (error) => {
-          console.error(error);
-        },
-      });
-  }
-
   onTableDataChange(pageChange: number) {
     this.page = pageChange;
-    this.loadBlogs();
   }
 }
