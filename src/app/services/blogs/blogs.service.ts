@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { AddBlogModel, BlogModel, Like } from '../../models/blog.model';
 import { GET_BLOGS, GET_BLOG } from '../../graphql/queries';
 import { Apollo } from 'apollo-angular';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { ADD_LIKE, CREATE_BLOG, DELETE_LIKE } from '../../graphql/mutations';
 
 @Injectable({
@@ -10,6 +10,7 @@ import { ADD_LIKE, CREATE_BLOG, DELETE_LIKE } from '../../graphql/mutations';
 })
 export class BlogsService {
   constructor(private apollo: Apollo) {}
+  isBlogsLoading = signal(true);
 
   getBlogCategoriesStrings(): string[] {
     return [
@@ -94,7 +95,10 @@ export class BlogsService {
       .watchQuery<any>({
         query: GET_BLOGS,
       })
-      .valueChanges.pipe(map((result) => result.data.blogs));
+      .valueChanges.pipe(
+        map((result) => result.data.blogs),
+        tap(() => this.isBlogsLoading.set(false)),
+      );
   }
 
   getSingleBlog(id: string): Observable<BlogModel> {
