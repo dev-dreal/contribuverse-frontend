@@ -11,8 +11,6 @@ import { UsersService } from '../../../../services/users/users.service';
 import { UserModel } from '../../../../models/user.model';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 
-// import { bubbleCursor, BubbleCursorOptions } from "cursor-effects";
-
 @Component({
   selector: 'single-blog',
   standalone: true,
