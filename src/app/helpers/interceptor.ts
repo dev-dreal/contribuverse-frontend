@@ -5,7 +5,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   console.log('request', req.method, req.url);
   console.log('authInterceptor');
 
-  if (req.url.startsWith('http://localhost:4200/home')) {
+  if (req.url.startsWith('http://localhost:4200/about')) {
     // Setting a dummy token
     const headers = req.headers.set('Authorization', 'Bearer-1234');
     req = req.clone({ headers });
