@@ -1,6 +1,6 @@
 import { Component, effect, signal } from '@angular/core';
 import { LatestBlogsComponent } from './latest-blogs/latest-blogs.component';
-import { BlogsListComponent } from './blogs-list/blogs-list.component';
+import { BlogCategoriesComponent } from './blog-categories/blog-categories.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 import { CommonModule } from '@angular/common';
@@ -14,7 +14,7 @@ import { NavigationEnd } from '@angular/router';
   imports: [
     CommonModule,
     NgxUiLoaderModule,
-    BlogsListComponent,
+    BlogCategoriesComponent,
     SearchBarComponent,
     LatestBlogsComponent,
   ],

@@ -1,8 +1,5 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import {
-  withInterceptorsFromDi,
-  provideHttpClient,
-} from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import {
@@ -19,16 +16,17 @@ import { toastOptions } from './services/toaster/toaster.service';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { authInterceptor } from './helpers/interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom([
       BrowserModule,
-      provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
       provideAuth(() => getAuth()),
+      provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     ]),
     provideAnimations(),
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideRouter(
       AppRoutes,
       withComponentInputBinding(),
