@@ -1,5 +1,7 @@
 <div class="p-6 flex flex-col justify-around w-full h-full">
-  <blogs-list (isAddBlogButtonClicked)="initiateLoader($event)"></blogs-list>
+  <blog-categories
+    (isAddBlogButtonClicked)="initiateLoader($event)"
+  ></blog-categories>
   <search-bar></search-bar>
   <latest-blogs class="h-2/3 w-full"></latest-blogs>
 </div>
