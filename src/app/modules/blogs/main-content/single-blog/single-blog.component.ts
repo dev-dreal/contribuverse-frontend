@@ -1,5 +1,6 @@
 import {
   Component,
+  DestroyRef,
   Input,
   WritableSignal,
   inject,
@@ -16,6 +17,7 @@ import { MainBlogContentComponent } from './main-blog-content/main-blog-content.
 import { UsersService } from '../../../../services/users/users.service';
 import { UserModel } from '../../../../models/user.model';
 import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'single-blog',
@@ -39,7 +41,7 @@ export class SingleBlogComponent {
   private blogsService = inject(BlogsService);
   private usersService = inject(UsersService);
   private globals = inject(GlobalsService);
-
+  private destroyRef = inject(DestroyRef);
   // END OF DEPENDENCY INJECTION
 
   isSingleBlogContentActive: boolean = true;
@@ -60,38 +62,41 @@ export class SingleBlogComponent {
 
   loadBlog() {
     if (this.id) {
-      this.blogsService.getSingleBlog(this.id).subscribe({
-        next: (blog) => {
-          this.blog = blog;
-          this.userId = blog.userId;
-          this.isSingleBlogLoading.set(false);
-          this.loadBlogAuthor(this.userId);
-        },
-        error: (error) => {
-          console.error(error);
-          this.globals.toast.error('Blog does not exist');
-          this.globals.router.navigate(['/blogs']);
-        },
-      });
+      this.blogsService
+        .getSingleBlog(this.id)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
+          next: (blog) => {
+            this.blog = blog;
+            this.userId = blog.userId;
+            this.isSingleBlogLoading.set(false);
+            this.loadBlogAuthor(this.userId);
+          },
+          error: (error) => {
+            console.error(error);
+            this.globals.toast.error('Blog does not exist');
+            this.globals.router.navigate(['/blogs']);
+          },
+        });
     } else {
       this.globals.toast.error('No blog id provided');
     }
   }
 
   loadBlogAuthor(userId: string) {
-    this.usersService.getUserById(userId).subscribe({
-      next: (res) => {
-        this.blogAuthor = res;
-        this.isBlogAuthorLoading.set(false);
-        this.globals.loader.stopAll();
-        console.log('BLOG AUTHOR', this.blogAuthor);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        console.log('Complete');
-      },
-    });
+    this.usersService
+      .getUserById(userId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res) => {
+          this.blogAuthor = res;
+          this.isBlogAuthorLoading.set(false);
+          this.globals.loader.stopAll();
+          console.log('BLOG AUTHOR', this.blogAuthor);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
 }

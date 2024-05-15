@@ -3,9 +3,6 @@ import {
   EventEmitter,
   Input,
   Output,
-  ViewChild,
-  ElementRef,
-  signal,
   effect,
   QueryList,
   ViewChildren,
@@ -21,8 +18,9 @@ import { NewsTabButtonComponent } from './news-tab-button/news-tab-button.compon
   styleUrl: './dynamic-nav.component.scss',
 })
 export class DynamicNavComponent {
-  @Input() slidePosition: number = 0;
+  slidePosition = input<number>(0);
   isNavLinkClicked = input<boolean>(false);
+
   @Output() slidePositionBtnEvent: EventEmitter<number> = new EventEmitter();
   @ViewChildren(NewsTabButtonComponent)
   myNewsTabButtons!: QueryList<NewsTabButtonComponent>;

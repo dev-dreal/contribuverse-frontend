@@ -1,7 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, Signal, computed, inject, signal } from '@angular/core';
 import { AboutTextComponent } from './about-text/about-text.component';
 import {
   fadingAnimation,
+  longerFadingAnimation,
   quarterCircleAnimation,
 } from '../../helpers/animations';
 import { CommonModule } from '@angular/common';
@@ -23,7 +24,7 @@ import { MenuMobileComponent } from '../../shared/components/ui/menu-mobile/menu
   providers: [GlobalsService],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
-  animations: [fadingAnimation, quarterCircleAnimation],
+  animations: [fadingAnimation, longerFadingAnimation, quarterCircleAnimation],
 })
 export class AboutComponent {
   SPINNER = SPINNER;
@@ -31,7 +32,7 @@ export class AboutComponent {
   currentNavIndex: number = 0;
   isAnimationDone: boolean = false;
   isLoading: boolean = true;
-  currentMobileImageIndex: number = 0;
+  currentMobileImageIndex: number = 0; // for mobile view
 
   isMenuOpen = signal(false);
 
@@ -77,6 +78,8 @@ export class AboutComponent {
     },
   ];
 
+  result = signal(this.isAdjacent(0, 1));
+
   // Dependency Injection
   private globals = inject(GlobalsService);
   // End of Dependency Injection
@@ -109,7 +112,19 @@ export class AboutComponent {
     }
 
     // Check if the selected index is adjacent to the current index
-    if (!this.isAdjacent(index, this.currentNavIndex)) {
+    this.result.set(this.isAdjacent(index, this.currentNavIndex));
+
+    // Check if the selected index is adjacent to the current index
+    if (!this.result().isAdjacent) {
+      // The code below is to allow the bouncing animation to work repeatedly when the user clicks the invalid images continuously
+      setTimeout(() => {
+        this.result.set({
+          isAdjacent: true,
+          left: this.result().left,
+          right: this.result().right,
+        });
+      }, 1000);
+
       // Do not allow non-adjacent transitions
       return;
     }
@@ -139,14 +154,24 @@ export class AboutComponent {
     this.currentNavIndex = index;
   }
 
-  private isAdjacent(index1: number, index2: number): boolean {
+  private isAdjacent(
+    index1: number,
+    index2: number,
+  ): { isAdjacent: boolean; left: number | null; right: number | null } {
+    // Initialize left and right to null initially
+    let left: number =
+      (this.currentNavIndex - 1 + this.navs.length) % this.navs.length;
+    let right: number = (this.currentNavIndex + 1) % this.navs.length;
+
     // Check if the indices are adjacent, considering wrap-around
     const maxIndex = this.navs.length - 1;
-    return (
+    const isAdjacent =
       Math.abs(index1 - index2) === 1 ||
       (index1 === 0 && index2 === maxIndex) ||
-      (index1 === maxIndex && index2 === 0)
-    );
+      (index1 === maxIndex && index2 === 0);
+
+    // Return both the adjacency status and the determined left and right indexes
+    return { isAdjacent, left, right };
   }
 
   animationDone(isDone: boolean) {
