@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import {
   ADD_FOLLOWER,
   DELETE_FOLLOWER,
@@ -12,7 +12,9 @@ import { GET_USER_BY_EMAIL, GET_USER_BY_ID } from '../../graphql/queries';
   providedIn: 'root',
 })
 export class UsersService {
-  constructor(private apollo: Apollo) {}
+  isSingleUserLoading = signal(true);
+
+  private apollo = inject(Apollo);
 
   getUserIdByEmail(email: string): Observable<string> {
     return this.apollo
@@ -52,7 +54,10 @@ export class UsersService {
           userId,
         },
       })
-      .valueChanges.pipe(map((result) => result.data.user as UserModel));
+      .valueChanges.pipe(
+        map((result) => result.data.user as UserModel),
+        tap(() => this.isSingleUserLoading.set(false)),
+      );
   }
 
   getUserByEmail(email: string): Observable<UserModel> {
