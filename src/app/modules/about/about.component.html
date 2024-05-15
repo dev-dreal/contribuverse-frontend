@@ -60,9 +60,14 @@
                 'background-repeat': 'no-repeat'
               }"
               (click)="selectNav($index)"
+              [ngClass]="{
+                'animate__animated animate__bounce':
+                  result.isAdjacent === false &&
+                  ($index === result.left || $index === result.right)
+              }"
               class="w-52 h-52 rounded-full flex justify-center items-center cursor-pointer relative"
             >
-              <img src="{{ img.imgSrc }}" class="w-52 h-52" alt="" />
+              <img src="{{ img.imgSrc }}" class="w-52 h-52" alt="Round image" />
               @if (currentNavIndex === $index) {
                 <div
                   @fade
@@ -84,7 +89,7 @@
     </div>
     <div
       @fade
-      class="w-2/5 relative justify-center items-center hidden lg:flex"
+      class="w-2/5 relative justify-center items-center arcs hidden lg:flex"
     >
       @switch (currentNavIndex) {
         @case (0) {
