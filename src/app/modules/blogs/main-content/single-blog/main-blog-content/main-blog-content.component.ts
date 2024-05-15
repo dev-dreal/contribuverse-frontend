@@ -1,4 +1,12 @@
-import { Component, Input, WritableSignal, signal } from '@angular/core';
+import {
+  Component,
+  Input,
+  WritableSignal,
+  computed,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { BlogModel } from '../../../../../models/blog.model';
 import { CommonModule } from '@angular/common';
 import { BlogsService } from '../../../../../services/blogs/blogs.service';
@@ -12,39 +20,45 @@ import { GlobalsService } from '../../../../../services/globals/globals.service'
   styleUrl: './main-blog-content.component.scss',
 })
 export class MainBlogContentComponent {
-  @Input({ required: true }) blog!: BlogModel;
-  @Input({ required: true }) isLoading: WritableSignal<boolean> = signal(true);
+  blog = input.required<BlogModel>();
+  isLoading = input.required<boolean>();
 
-  isBlogLiked = signal(false);
-  likesCount = signal(0);
+  // DEPENDENCY INJECTION
+  private blogsService = inject(BlogsService);
+  private globals = inject(GlobalsService);
+  // END OF DEPENDENCY INJECTION
 
-  constructor(
-    private blogsService: BlogsService,
-    private globals: GlobalsService,
-  ) {}
+  likesCount = computed(() => this.blog().likes.length);
+  isBlogLiked = computed(() => {
+    for (let like of this.blog().likes) {
+      if (like.userId === this.globals.currentUser()?.id) {
+        return true;
+      }
+    }
+    return false;
+  });
+
+  // this.blog().likes.forEach((like) => {
+  //   if (like.userId === this.globals.currentUser()?.id) {
+  //     this.isBlogLiked.update(() => true);
+  //   }
+  // });
 
   ngOnInit() {
-    console.log('Blog:', this.blog);
-    this.likesCount.update(() => this.blog.likes.length);
-
-    this.blog.likes.forEach((like) => {
-      if (like.userId === this.globals.currentUser()?.id) {
-        this.isBlogLiked.update(() => true);
-      }
-    });
+    console.log('Blog:', this.blog());
   }
 
   toggleLike(blogId: string, userId: string) {
     if (this.isBlogLiked()) {
-      const likeId = this.blog.likes.find((like) => like.userId === userId)
+      const likeId = this.blog().likes.find((like) => like.userId === userId)
         ?.id as string;
 
       this.blogsService.deleteLike(likeId).subscribe((res) => {
         console.log('Like deleted:', res);
-        this.likesCount.update((value) => value - 1);
+        // this.likesCount.update((value) => value - 1);
       });
     } else {
-      const isAlreadyLiked = this.blog.likes.find(
+      const isAlreadyLiked = this.blog().likes.find(
         (like) => like.userId === userId,
       );
 
@@ -54,9 +68,9 @@ export class MainBlogContentComponent {
 
       this.blogsService.addLike(1, blogId, userId).subscribe((res) => {
         console.log('Like added:', res);
-        this.likesCount.update((value) => value + 1);
+        // this.likesCount.update((value) => value + 1);
       });
     }
-    this.isBlogLiked.update((value) => !value);
+    // this.isBlogLiked.update((value) => !value);
   }
 }

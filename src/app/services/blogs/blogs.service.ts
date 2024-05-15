@@ -10,6 +10,8 @@ import { ADD_LIKE, CREATE_BLOG, DELETE_LIKE } from '../../graphql/mutations';
 })
 export class BlogsService {
   constructor(private apollo: Apollo) {}
+  isBlogAuthorLoading = signal(true);
+  isSingleBlogLoading = signal(true);
   isBlogsLoading = signal(true);
   isBlogCategoriesLoading = signal(true);
 
@@ -114,7 +116,10 @@ export class BlogsService {
           id,
         },
       })
-      .valueChanges.pipe(map((result) => result.data.blog));
+      .valueChanges.pipe(
+        map((result) => result.data.blog),
+        tap(() => this.isSingleBlogLoading.set(false)),
+      );
   }
 
   addBlog(blog: AddBlogModel) {

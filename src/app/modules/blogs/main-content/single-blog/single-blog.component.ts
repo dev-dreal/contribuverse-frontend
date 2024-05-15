@@ -1,4 +1,10 @@
-import { Component, Input, WritableSignal, signal } from '@angular/core';
+import {
+  Component,
+  Input,
+  WritableSignal,
+  inject,
+  signal,
+} from '@angular/core';
 import { BlogModel } from '../../../../models/blog.model';
 import { CommonModule } from '@angular/common';
 import { fadingAnimation } from '../../../../helpers/animations';
@@ -29,19 +35,19 @@ export class SingleBlogComponent {
 
   SPINNER = SPINNER;
 
+  // DEPENDENCY INJECTION
+  private blogsService = inject(BlogsService);
+  private usersService = inject(UsersService);
+  private globals = inject(GlobalsService);
+
+  // END OF DEPENDENCY INJECTION
+
   isSingleBlogContentActive: boolean = true;
   blog: BlogModel = {} as BlogModel;
-  isBlogLoading: WritableSignal<boolean> = signal(true);
+  isSingleBlogLoading: WritableSignal<boolean> = signal(true);
   isBlogAuthorLoading: WritableSignal<boolean> = signal(true);
   blogAuthor: UserModel = {} as UserModel;
   userId: string = '';
-
-  constructor(
-    private blogsService: BlogsService,
-    private usersService: UsersService,
-    private globals: GlobalsService,
-    protected firebaseAuth: FirebaseService,
-  ) {}
 
   ngOnInit(): void {
     this.globals.loader.start();
@@ -58,7 +64,7 @@ export class SingleBlogComponent {
         next: (blog) => {
           this.blog = blog;
           this.userId = blog.userId;
-          this.isBlogLoading.set(false);
+          this.isSingleBlogLoading.set(false);
           this.loadBlogAuthor(this.userId);
         },
         error: (error) => {
