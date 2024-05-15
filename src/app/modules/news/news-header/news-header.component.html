@@ -10,7 +10,7 @@
     />
     <ul class="flex justify-center items-center font-bold gap-14 text-4xl">
       @for (nav of navLinks; track $index) {
-        <li>
+        <li class="relative">
           <nav-link
             (click)="onNavClicked()"
             [route]="''"
@@ -18,6 +18,11 @@
             [textColor]="'white'"
             [isTextShadow]="false"
           ></nav-link>
+          @if ($index === selectedActiveRouteIndex()) {
+            <span
+              class="absolute -bottom-5 left-3 h-2 w-10/12 bg-white rounded-full"
+            ></span>
+          }
         </li>
       }
     </ul>
