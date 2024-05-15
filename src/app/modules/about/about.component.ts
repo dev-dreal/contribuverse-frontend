@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, Signal, computed, inject, signal } from '@angular/core';
 import { AboutTextComponent } from './about-text/about-text.component';
 import {
   fadingAnimation,
@@ -78,7 +78,7 @@ export class AboutComponent {
     },
   ];
 
-  result = this.isAdjacent(0, 1);
+  result = signal(this.isAdjacent(0, 1));
 
   // Dependency Injection
   private globals = inject(GlobalsService);
@@ -112,11 +112,19 @@ export class AboutComponent {
     }
 
     // Check if the selected index is adjacent to the current index
-    this.result = this.isAdjacent(index, this.currentNavIndex);
-    console.log(this.result);
+    this.result.set(this.isAdjacent(index, this.currentNavIndex));
 
     // Check if the selected index is adjacent to the current index
-    if (!this.result.isAdjacent) {
+    if (!this.result().isAdjacent) {
+      // The code below is to allow the bouncing animation to work repeatedly when the user clicks the invalid images continuously
+      setTimeout(() => {
+        this.result.set({
+          isAdjacent: true,
+          left: this.result().left,
+          right: this.result().right,
+        });
+      }, 1000);
+
       // Do not allow non-adjacent transitions
       return;
     }
