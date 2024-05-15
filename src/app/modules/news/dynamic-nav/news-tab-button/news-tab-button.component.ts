@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { longerFadingAnimation } from '../../../../helpers/animations';
 import { CommonModule } from '@angular/common';
 
@@ -11,10 +11,10 @@ import { CommonModule } from '@angular/common';
   animations: [longerFadingAnimation],
 })
 export class NewsTabButtonComponent {
-  @Input() label: string = '';
-  @Input() imageUrl: string = '';
-  @Input() altText: string = '';
-  @Input() isLabelLeft: boolean = true;
+  label = input<string>('');
+  imageUrl = input<string>('');
+  altText = input<string>('');
+  isLabelLeft = input<boolean>(true);
 
   isHeaderNavLinkClicked: boolean = false;
 }

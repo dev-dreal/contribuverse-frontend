@@ -1,7 +1,7 @@
 <div
   class="mb-4 mx-auto flex justify-center items-center transition ease-in-out delay-700"
 >
-  @if (slidePosition === 0) {
+  @if (slidePosition() === 0) {
     <news-tab-button
       #myNewsTabButton
       [label]="'Metaverse'"
@@ -9,7 +9,7 @@
       [altText]="'right arrow'"
       (click)="slide(1)"
     ></news-tab-button>
-  } @else if (slidePosition === 1) {
+  } @else if (slidePosition() === 1) {
     <div class="flex justify-between items-center gap-8">
       <news-tab-button
         #myNewsTabButton
@@ -27,7 +27,7 @@
         (click)="slide(2)"
       ></news-tab-button>
     </div>
-  } @else if (slidePosition === 2) {
+  } @else if (slidePosition() === 2) {
     <div class="flex justify-between items-center gap-8">
       <news-tab-button
         #myNewsTabButton
@@ -45,7 +45,7 @@
         (click)="slide(3)"
       ></news-tab-button>
     </div>
-  } @else if (slidePosition === 3) {
+  } @else if (slidePosition() === 3) {
     <news-tab-button
       #myNewsTabButton
       [isLabelLeft]="false"

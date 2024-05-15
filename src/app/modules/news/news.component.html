@@ -5,6 +5,7 @@
   <div class="w-5/6 h-10/12">
     <news-header
       class="hidden md:block"
+      [selectedActiveRouteIndex]="currentSlidePosition()"
       (isNavLinkClicked)="handleNavLinkClick($event)"
     ></news-header>
     <dynamic-nav
