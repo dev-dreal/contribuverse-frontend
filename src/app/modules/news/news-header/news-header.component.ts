@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, inject, input } from '@angular/core';
 import { NavLinkComponent } from '../../../shared/components/ui/nav-link/nav-link.component';
 import { RouterLink } from '@angular/router';
 import { GlobalsService } from '../../../services/globals/globals.service';
+import { fadingAnimation } from '../../../helpers/animations';
 
 @Component({
   selector: 'news-header',
@@ -9,6 +10,7 @@ import { GlobalsService } from '../../../services/globals/globals.service';
   imports: [NavLinkComponent, RouterLink],
   templateUrl: './news-header.component.html',
   styleUrl: './news-header.component.scss',
+  animations: [fadingAnimation],
 })
 export class NewsHeaderComponent {
   @Output() isNavLinkClicked = new EventEmitter<boolean>();
