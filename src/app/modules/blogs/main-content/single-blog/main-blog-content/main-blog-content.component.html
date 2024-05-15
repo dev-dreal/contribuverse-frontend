@@ -7,7 +7,7 @@
       Loading...
     } @else {
       <img
-        src="{{ blog.imageUrl }}"
+        src="{{ blog().imageUrl }}"
         alt="blog cover"
         class="w-full h-full object-cover shrink-0 rounded-t-[35px]"
       />
@@ -21,7 +21,7 @@
     @if (isLoading()) {
       Loading...
     } @else {
-      {{ blog.title }}
+      {{ blog().title }}
     }
   </h1>
   <!-- End of Blog title -->
@@ -34,7 +34,10 @@
     } @else {
       <p class="flex flex-col justify-between items-center">
         <!-- Likes -->
-        <span class="cursor-pointer" (click)="toggleLike(blog.id, blog.userId)">
+        <span
+          class="cursor-pointer"
+          (click)="toggleLike(blog().id, blog().userId)"
+        >
           @if (isBlogLiked()) {
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +91,7 @@
             />
           </svg>
         </span>
-        <span> {{ blog.comments.length }} Comments </span>
+        <span> {{ blog().comments.length }} Comments </span>
       </p>
       <p class="flex flex-col justify-between items-center">
         <!-- Book mark -->
@@ -111,7 +114,7 @@
           <span> {{ "" }} </span>
         </span>
       </p>
-      <p class="font-bold sm:ml-auto">{{ blog.createdAt | date }}</p>
+      <p class="font-bold sm:ml-auto">{{ blog().createdAt | date }}</p>
     }
   </div>
   <!-- End of Engagements -->
@@ -121,7 +124,7 @@
   } @else {
     <p
       class="text-xl font-bold px-6 py-3 text-left overflow-y-scroll"
-      [innerHTML]="blog.content"
+      [innerHTML]="blog().content"
     ></p>
   }
   <!--End of Content -->

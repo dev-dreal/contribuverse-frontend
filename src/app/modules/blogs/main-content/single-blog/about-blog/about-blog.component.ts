@@ -5,6 +5,7 @@ import {
   Input,
   WritableSignal,
   effect,
+  input,
   signal,
 } from '@angular/core';
 import { UsersService } from '../../../../../services/users/users.service';
@@ -22,8 +23,8 @@ import { NgxUiLoaderModule, SPINNER } from 'ngx-ui-loader';
 })
 export class AboutBlogComponent {
   SPINNER = SPINNER;
-  @Input({ required: true }) blogAuthor!: UserModel;
-  @Input({ required: true }) isLoading: WritableSignal<boolean> = signal(true);
+  blogAuthor = input.required<UserModel>();
+  isLoading = input.required<boolean>();
 
   followingMetaData: WritableSignal<Follower | null> = signal(null);
   blogAuthorIsCurrentUser: boolean = false;
@@ -99,7 +100,7 @@ export class AboutBlogComponent {
   }
 
   getFollowingMetaData(): void {
-    const blogAuthorFollowers = this.blogAuthor.followers;
+    const blogAuthorFollowers = this.blogAuthor().followers;
     // console.log('Current user ID', currentUserId);
     console.log('Blog author followers', blogAuthorFollowers);
 
@@ -118,7 +119,7 @@ export class AboutBlogComponent {
   }
 
   checkIfBlogAuthorIsCurrentUser() {
-    if (this.blogAuthor.id === this.globals.currentUser()?.id) {
+    if (this.blogAuthor().id === this.globals.currentUser()?.id) {
       this.blogAuthorIsCurrentUser = true;
     }
   }
