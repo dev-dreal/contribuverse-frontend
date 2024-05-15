@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { AboutTextComponent } from './about-text/about-text.component';
 import {
   fadingAnimation,
+  longerFadingAnimation,
   quarterCircleAnimation,
 } from '../../helpers/animations';
 import { CommonModule } from '@angular/common';
@@ -23,7 +24,7 @@ import { MenuMobileComponent } from '../../shared/components/ui/menu-mobile/menu
   providers: [GlobalsService],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
-  animations: [fadingAnimation, quarterCircleAnimation],
+  animations: [fadingAnimation, longerFadingAnimation, quarterCircleAnimation],
 })
 export class AboutComponent {
   SPINNER = SPINNER;

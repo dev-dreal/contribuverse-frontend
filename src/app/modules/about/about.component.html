@@ -66,6 +66,7 @@
               @if (currentNavIndex === $index) {
                 <div
                   @fade
+                  @fade
                   class="absolute bottom-0 left-3 h-2 w-10/12 bg-primaryBlue rounded-full"
                 ></div>
               }
@@ -88,7 +89,10 @@
     >
       @switch (currentNavIndex) {
         @case (0) {
-          <span class="absolute bottom-0 right-0 transition ease-in delay-900">
+          <span
+            @longerFade
+            class="absolute -bottom-15 -right-10 transition ease-in delay-900"
+          >
             <svg
               width="581"
               height="897"
@@ -147,7 +151,10 @@
           </span>
         }
         @case (1) {
-          <span class="absolute bottom-0 right-0 transition ease-in delay-900">
+          <span
+            @longerFade
+            class="absolute -bottom-15 -right-10 transition ease-in delay-900"
+          >
             <svg
               width="582"
               height="977"
@@ -206,7 +213,10 @@
           </span>
         }
         @case (2) {
-          <span class="absolute bottom-0 right-0 transition ease-in delay-900">
+          <span
+            @longerFade
+            class="absolute -bottom-15 -right-10 transition ease-in delay-900"
+          >
             <svg
               width="641"
               height="884"
@@ -265,7 +275,10 @@
           </span>
         }
         @case (3) {
-          <span class="absolute bottom-0 right-0 transition ease-in delay-900">
+          <span
+            @longerFade
+            class="absolute -bottom-15 -right-10 transition ease-in delay-900"
+          >
             <svg
               width="609"
               height="964"
