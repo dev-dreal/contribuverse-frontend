@@ -20,11 +20,9 @@ import { authInterceptor } from './helpers/interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    importProvidersFrom([
-      BrowserModule,
-      provideAuth(() => getAuth()),
-      provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    ]),
+    importProvidersFrom([BrowserModule]),
+    provideAuth(() => getAuth()),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAnimations(),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideRouter(
