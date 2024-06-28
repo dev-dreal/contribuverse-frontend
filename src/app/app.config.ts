@@ -1,7 +1,7 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import {
   PreloadAllModules,
   provideRouter,
@@ -32,6 +32,6 @@ export const appConfig: ApplicationConfig = {
       withDebugTracing(),
     ),
     provideToastr(toastOptions),
-    graphqlProvider,
+    graphqlProvider, provideClientHydration(),
   ],
 };
