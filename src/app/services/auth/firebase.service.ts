@@ -1,14 +1,16 @@
 import { Injectable, inject, signal } from '@angular/core';
 import {
   Auth,
+  user,
+} from '@angular/fire/auth';
+import {
   GithubAuthProvider,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
   updateProfile,
-  user,
-} from '@angular/fire/auth';
+} from 'firebase/auth';
 import { Observable, catchError, from, of, switchMap } from 'rxjs';
 import { UserModel } from '../../models/user.model';
 import { UsersService } from '../users/users.service';
