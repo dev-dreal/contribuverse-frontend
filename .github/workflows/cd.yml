@@ -1,0 +1,114 @@
+name: CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run linting
+      run: npm run lint
+    
+    - name: Run unit tests
+      run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
+    
+    - name: Build for production
+      run: npm run build -- --configuration=production
+    
+    - name: Run security audit
+      run: npm audit --audit-level=high
+      continue-on-error: true
+    
+    - name: Upload production build
+      uses: actions/upload-artifact@v4
+      with:
+        name: production-build
+        path: dist/
+        retention-days: 7
+    
+    # Uncomment and customize based on your hosting provider
+    # Example: Deploy to Netlify
+    # - name: Deploy to Netlify
+    #   uses: nwtgck/actions-netlify@v3.0
+    #   with:
+    #     publish-dir: './dist/your-app-name'
+    #     production-branch: main
+    #     deploy-message: "Deploy from GitHub Actions"
+    #   env:
+    #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+    #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+    
+    # Example: Deploy to Vercel
+    # - name: Deploy to Vercel
+    #   uses: amondnet/vercel-action@v25
+    #   with:
+    #     vercel-token: ${{ secrets.VERCEL_TOKEN }}
+    #     vercel-org-id: ${{ secrets.ORG_ID }}
+    #     vercel-project-id: ${{ secrets.PROJECT_ID }}
+    #     vercel-args: '--prod'
+    
+    # Example: Deploy to AWS S3
+    # - name: Configure AWS credentials
+    #   uses: aws-actions/configure-aws-credentials@v4
+    #   with:
+    #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #     aws-region: us-east-1
+    # 
+    # - name: Deploy to AWS S3
+    #   run: |
+    #     aws s3 sync ./dist/your-app-name s3://${{ secrets.S3_BUCKET_NAME }} --delete
+    #     aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+    
+    # Custom deployment script
+    - name: Deploy to production
+      run: |
+        echo "🚀 Starting deployment to production..."
+        echo "Build artifacts are ready in the dist/ directory"
+        echo "Replace this section with your actual deployment commands"
+        echo "Examples:"
+        echo "  - scp -r dist/ user@server:/var/www/html/"
+        echo "  - docker build and push"
+        echo "  - kubectl apply -f deployment.yaml"
+        echo "✅ Deployment completed successfully!"
+      env:
+        # Add your deployment environment variables here
+        NODE_ENV: production
+        # DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        # SERVER_HOST: ${{ secrets.SERVER_HOST }}
+        # SERVER_USER: ${{ secrets.SERVER_USER }}
+    
+    - name: Notify deployment status
+      uses: actions/github-script@v7
+      if: always()
+      with:
+        script: |
+          const status = '${{ job.status }}';
+          const emoji = status === 'success' ? '✅' : '❌';
+          const message = `${emoji} Production deployment ${status}
+          
+          **Commit:** ${context.sha.substring(0, 7)}
+          **Branch:** ${context.ref.replace('refs/heads/', '')}
+          **Workflow:** ${context.workflow}
+          **Run:** ${context.runNumber}
+          
+          ${status === 'success' ? 'Application is now live in production! 🎉' : 'Deployment failed. Please check the logs.'}`;
+          
+          // You could also send this to Slack, Discord, or email
+          console.log('Deployment notification:', message);

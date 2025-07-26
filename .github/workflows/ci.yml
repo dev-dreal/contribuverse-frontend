@@ -1,0 +1,74 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run linting
+      run: npm run lint
+    
+    - name: Run unit tests
+      run: npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage
+    
+    - name: Build application
+      run: npm run build
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results-${{ matrix.node-version }}
+        path: |
+          coverage/
+          dist/
+        retention-days: 1
+    
+    - name: Comment PR with test results
+      uses: actions/github-script@v7
+      if: github.event_name == 'pull_request'
+      with:
+        script: |
+          const { readFileSync } = require('fs');
+          const { join } = require('path');
+          
+          try {
+            // You can customize this to read actual test results
+            const message = `✅ CI Pipeline completed successfully for Node.js ${{ matrix.node-version }}
+            
+            - ✅ Linting passed
+            - ✅ Unit tests passed  
+            - ✅ Build successful
+            
+            Build artifacts are ready for deployment.`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
+          } catch (error) {
+            console.log('Could not post comment:', error);
+          }
